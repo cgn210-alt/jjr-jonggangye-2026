@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>설정 가이드 — 중종로공동체 초청 페이지</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@700&display=swap');
+    body { font-family:'Noto Sans KR',sans-serif; background:#FFFBF0; color:#2C1A08; max-width:640px; margin:0 auto; padding:24px 16px 60px; font-size:14px; line-height:1.7; }
+    h1 { font-family:'Noto Serif KR',serif; font-size:22px; color:#B8780A; margin-bottom:4px; }
+    h2 { font-size:16px; font-weight:700; color:#2C1A08; margin:28px 0 10px; padding-left:10px; border-left:3px solid #D4940E; }
+    h3 { font-size:13px; font-weight:700; color:#6B4020; margin:16px 0 6px; }
+    p  { margin-bottom:10px; color:#4A2E10; }
+    .badge { display:inline-block; background:#FFF5DC; border:1px solid #EDD898; border-radius:50px; padding:3px 12px; font-size:11px; font-weight:700; color:#B8780A; margin-bottom:16px; }
+    .step  { background:white; border:1px solid #F5E8C0; border-radius:14px; padding:18px; margin-bottom:12px; }
+    .step-num { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:linear-gradient(135deg,#B8780A,#E8B030); color:white; font-size:12px; font-weight:700; margin-right:8px; flex-shrink:0; }
+    code  { background:#FFF0D0; border:1px solid #EDD898; border-radius:6px; padding:2px 6px; font-family:monospace; font-size:13px; color:#7A4010; }
+    pre   { background:#2C1A08; color:#FFF5DC; border-radius:12px; padding:16px; overflow-x:auto; font-size:12px; line-height:1.7; margin:10px 0; }
+    pre .c { color:#A0856A; }
+    pre .k { color:#F7DC8A; }
+    pre .s { color:#B8F0A0; }
+    .warn { background:#FFF8E0; border:1px solid #EDD898; border-radius:10px; padding:12px 14px; font-size:12px; color:#7A4010; margin:12px 0; }
+    .tip  { background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:12px 14px; font-size:12px; color:#166534; margin:12px 0; }
+    a     { color:#B8780A; }
+    table { width:100%; border-collapse:collapse; font-size:12px; margin:10px 0; }
+    th    { background:#FFF5DC; padding:8px 12px; text-align:left; border-bottom:1px solid #EDD898; font-weight:700; }
+    td    { padding:8px 12px; border-bottom:1px solid #F5E8C0; }
+    hr    { border:none; border-top:1px solid #F5E8C0; margin:28px 0; }
+  </style>
+</head>
+<body>
+
+<span class="badge">설정 가이드</span>
+<h1>중종로공동체 초청 페이지</h1>
+<p style="color:#A07848;font-size:13px;">RSVP · 관리자 통계 · Netlify 배포 설정 방법</p>
+
+<hr/>
+
+<!-- ───────────────────────────────────
+     PART 1: Google Apps Script
+──────────────────────────────────── -->
+<h2>1단계 — Google 스프레드시트 만들기</h2>
+
+<div class="step">
+  <p><span class="step-num">1</span><strong>구글 드라이브</strong>(<a href="https://drive.google.com" target="_blank">drive.google.com</a>)에서 새 스프레드시트를 만드세요.</p>
+  <p><span class="step-num">2</span>시트 이름이 <code>Sheet1</code>인지 확인하세요 (기본값).</p>
+  <p><span class="step-num">3</span>첫 번째 행에 아래 헤더를 입력하세요:</p>
+  <pre>타임스탬프  이름  직분/다락방  참석여부  메시지  기기ID</pre>
+  <p><span class="step-num">4</span>주소창에서 스프레드시트 ID를 복사하세요:</p>
+  <pre>https://docs.google.com/spreadsheets/d/<span style="color:#F7DC8A;font-weight:700;">여기가_시트_ID</span>/edit</pre>
+</div>
+
+<h2>2단계 — Apps Script 작성 및 배포</h2>
+
+<div class="step">
+  <p><span class="step-num">1</span>스프레드시트 상단 메뉴에서 <strong>확장 프로그램 &gt; Apps Script</strong>를 클릭하세요.</p>
+  <p><span class="step-num">2</span>편집기에 기존 코드를 모두 지우고 아래 코드를 붙여넣으세요:</p>
+
+<pre>
+<span class="c">// ─────────────────────────────────────────</span>
+<span class="c">// 중종로공동체 RSVP Backend</span>
+<span class="c">// 아래 두 값을 반드시 수정하세요</span>
+<span class="c">// ─────────────────────────────────────────</span>
+<span class="k">const</span> SHEET_ID  = <span class="s">'여기에_스프레드시트_ID_붙여넣기'</span>;
+<span class="k">const</span> ADMIN_PW  = <span class="s">'admin1234'</span>;  <span class="c">// 원하는 비밀번호로 변경</span>
+<span class="k">const</span> SHEET_NM  = <span class="s">'Sheet1'</span>;
+
+<span class="k">function</span> doPost(e) {
+  <span class="k">try</span> {
+    <span class="k">const</span> data  = JSON.parse(e.postData.contents);
+    <span class="k">const</span> sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NM);
+
+    <span class="k">if</span> (data.action === <span class="s">'submit_rsvp'</span>) {
+      <span class="c">// 기기 중복 확인</span>
+      <span class="k">const</span> rows = sheet.getDataRange().getValues();
+      <span class="k">for</span> (<span class="k">let</span> i = 1; i &lt; rows.length; i++) {
+        <span class="k">if</span> (rows[i][5] === data.deviceId) {
+          <span class="k">return</span> json({ success: <span class="k">false</span>, error: <span class="s">'already_registered'</span> });
+        }
+      }
+      <span class="c">// 신규 등록</span>
+      sheet.appendRow([
+        <span class="k">new</span> Date().toLocaleString(<span class="s">'ko-KR'</span>),
+        data.name,
+        data.cellGroup  || <span class="s">''</span>,
+        data.attendance,
+        data.message    || <span class="s">''</span>,
+        data.deviceId,
+      ]);
+      <span class="k">return</span> json({ success: <span class="k">true</span> });
+    }
+    <span class="k">return</span> json({ error: <span class="s">'unknown'</span> });
+  } <span class="k">catch</span>(err) {
+    <span class="k">return</span> json({ error: err.message });
+  }
+}
+
+<span class="k">function</span> doGet(e) {
+  <span class="k">try</span> {
+    <span class="k">if</span> (e.parameter.action === <span class="s">'stats'</span> &amp;&amp; e.parameter.pw === ADMIN_PW) {
+      <span class="k">const</span> sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NM);
+      <span class="k">const</span> all   = sheet.getDataRange().getValues().slice(1).filter(r =&gt; r[0]);
+      <span class="k">const</span> rows  = all.map(r =&gt; ({
+        date: r[0], name: r[1], cellGroup: r[2], attendance: r[3], message: r[4]
+      }));
+      <span class="k">const</span> yes = rows.filter(r =&gt; r.attendance === <span class="s">'참석'</span>).length;
+      <span class="k">const</span> no  = rows.filter(r =&gt; r.attendance === <span class="s">'불참'</span>).length;
+      <span class="k">return</span> json({ success: <span class="k">true</span>, total: rows.length, attending: yes, notAttending: no, rows });
+    }
+    <span class="k">return</span> json({ error: <span class="s">'unauthorized'</span> });
+  } <span class="k">catch</span>(err) {
+    <span class="k">return</span> json({ error: err.message });
+  }
+}
+
+<span class="k">function</span> json(data) {
+  <span class="k">return</span> ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+</pre>
+
+  <p><span class="step-num">3</span><code>SHEET_ID</code>에 1단계에서 복사한 ID를, <code>ADMIN_PW</code>에 원하는 비밀번호를 입력하세요.</p>
+  <p><span class="step-num">4</span>저장(Ctrl+S) 후 상단의 <strong>배포 &gt; 새 배포</strong>를 클릭하세요.</p>
+  <p><span class="step-num">5</span>설정:</p>
+  <table>
+    <tr><th>항목</th><th>값</th></tr>
+    <tr><td>유형 선택</td><td>웹 앱</td></tr>
+    <tr><td>다음 사용자로 실행</td><td>나(My Google Account)</td></tr>
+    <tr><td>액세스 권한</td><td><strong>모든 사용자</strong> (Anyone)</td></tr>
+  </table>
+  <p><span class="step-num">6</span>배포 후 나타나는 <strong>웹 앱 URL</strong>을 복사하세요.</p>
+</div>
+
+<h2>3단계 — index.html에 URL 붙여넣기</h2>
+
+<div class="step">
+  <p><code>index.html</code> 파일을 메모장 또는 VSCode 등으로 열고, 상단 CONFIG 영역을 찾아 수정하세요:</p>
+<pre>
+<span class="k">const</span> CONFIG = {
+  APPS_SCRIPT_URL : <span class="s">'<strong>여기에_웹앱_URL_붙여넣기</strong>'</span>,
+  ADMIN_PASSWORD  : <span class="s">'admin1234'</span>,  <span class="c">// Apps Script의 ADMIN_PW와 동일하게</span>
+  ...
+};
+</pre>
+  <div class="warn">APPS_SCRIPT_URL과 ADMIN_PASSWORD 값이 Apps Script 설정과 일치해야 합니다.</div>
+</div>
+
+<hr/>
+
+<!-- ───────────────────────────────────
+     PART 2: Netlify 배포
+──────────────────────────────────── -->
+<h2>4단계 — Netlify로 배포하기</h2>
+
+<div class="step">
+  <p><span class="step-num">1</span><a href="https://netlify.com" target="_blank">netlify.com</a>에 접속해 무료 가입하세요.</p>
+  <p><span class="step-num">2</span>로그인 후 대시보드에서 <strong>"Add new site &gt; Deploy manually"</strong>를 클릭하세요.</p>
+  <p><span class="step-num">3</span>아래 점선 영역에 <code>중종로공동체</code> 폴더를 드래그앤드롭하세요.</p>
+  <p><span class="step-num">4</span>배포가 완료되면 <code>https://random-name.netlify.app</code> 형태의 URL이 생성됩니다.</p>
+  <p><span class="step-num">5</span>원한다면 <strong>Site settings &gt; Change site name</strong>에서 주소를 변경할 수 있습니다.<br>예: <code>jungjongro2026.netlify.app</code></p>
+  <div class="tip">파일을 수정한 후 다시 배포하려면 Netlify 대시보드에서 같은 방법으로 폴더를 다시 드래그하면 됩니다.</div>
+</div>
+
+<hr/>
+
+<!-- ───────────────────────────────────
+     PART 3: 자주 묻는 것
+──────────────────────────────────── -->
+<h2>자주 묻는 것</h2>
+
+<h3>앱스크립트 URL을 넣지 않아도 페이지가 작동하나요?</h3>
+<p>네. URL을 비워두면 RSVP 응답이 해당 기기의 로컬 저장소에만 저장됩니다. 관리자 통계는 해당 기기에서 응답한 데이터만 보입니다.</p>
+
+<h3>RSVP 중복 방지는 어떻게 작동하나요?</h3>
+<p>브라우저의 LocalStorage에 기기 고유 ID를 저장하고, 재방문 시 이미 응답한 것으로 처리합니다. 앱스크립트가 연결된 경우 서버에서도 기기 ID 중복을 확인합니다.</p>
+
+<h3>관리자 버튼은 어디에 있나요?</h3>
+<p>페이지 오른쪽 하단 막대 그래프 아이콘 버튼을 누르면 관리자 패널이 열립니다. 비밀번호 입력 후 RSVP 통계를 확인할 수 있습니다.</p>
+
+<h3>카카오톡 공유가 잘 되나요?</h3>
+<p>모바일에서 "초청장 공유" 버튼을 누르면 카카오톡 포함 모든 앱으로 공유할 수 있는 공유 창이 열립니다. PC에서는 링크가 클립보드에 복사됩니다.</p>
+
+<hr/>
+<p style="font-size:11px;color:#A07848;text-align:center;">© 2026 중종로공동체</p>
+</body>
+</html>

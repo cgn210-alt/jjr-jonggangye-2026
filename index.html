@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="중종로공동체 2026 상반기 종강예배 & 100% 릴레이 기도 초청장" />
+  <meta property="og:title" content="기도로 잇고, 예배로 피어나다" />
+  <meta property="og:description" content="중종로공동체 상반기 종강예배 | 7월 3일(금) 오후 6시 두란노홀" />
+  <meta property="og:type" content="website" />
+  <title>중종로공동체 상반기 종강예배 & 릴레이 기도</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
+
+    :root {
+      --gold: #4A1870;
+      --gold-mid: #6B2D94;
+      --gold-light: #8E4AB8;
+      --gold-pale: #C4A0D8;
+      --gold-glow: rgba(74, 24, 112, 0.12);
+      --cream: #F3EEF8;
+      --cream2: #E6DCF0;
+      --warm-white: #FAF7FD;
+      --text-deep: #150A20;
+      --text-mid: #3D1860;
+      --text-soft: #7A5898;
+      --border: #B898CC;
+      --border-soft: #DDD0EC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      background: linear-gradient(170deg, #F3EEF8 0%, #EAE0F4 40%, #F3EEF8 100%);
+      background-attachment: fixed;
+      color: var(--text-deep);
+      min-height: 100vh;
+      padding-bottom: 120px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--warm-white);
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      box-shadow: 0 2px 20px rgba(74, 24, 112, 0.08), 0 1px 4px rgba(74, 24, 112, 0.05);
+      padding: 20px;
+    }
+
+    .card-hero {
+      background: linear-gradient(160deg, #3B0D6E 0%, #210845 55%, #150333 100%);
+      border: 1.5px solid rgba(180,140,220,0.25);
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: white; border: none; border-radius: 12px;
+      font-family: inherit; font-weight: 700; font-size: 14px;
+      padding: 14px 20px; width: 100%; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(74, 24, 112, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(74, 24, 112, 0.45); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: white; color: var(--gold);
+      border: 1.5px solid var(--border); border-radius: 12px;
+      font-family: inherit; font-weight: 600; font-size: 13px;
+      padding: 10px 16px; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-outline:hover { background: #F3EEF8; border-color: var(--gold-mid); }
+
+    .btn-ghost {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-soft); font-family: inherit;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; padding: 6px 10px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: #E6DCF0; color: var(--gold); }
+
+    /* ── Inputs ── */
+    .warm-input {
+      background: #F5F0FC; border: 1.5px solid var(--border-soft);
+      border-radius: 10px; padding: 10px 14px; width: 100%;
+      font-family: inherit; font-size: 13px; color: var(--text-deep);
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .warm-input:focus { border-color: var(--gold-mid); background: white; }
+    .warm-input::placeholder { color: #9A80B0; }
+    select.warm-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A5898' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
+    select.warm-input:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* ── Counter digits ── */
+    .digit-box {
+      background: linear-gradient(180deg, #F3EEF8 0%, #DCC8F0 100%);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 12px 8px; text-align: center;
+    }
+
+    /* ── Candle ── */
+    .flame { animation: flicker 1.9s ease-in-out infinite alternate; transform-origin: bottom center; }
+    @keyframes flicker {
+      0%   { transform: scaleX(1)    scaleY(1)    rotate(-1.5deg); opacity: 0.92; }
+      40%  { transform: scaleX(0.88) scaleY(1.12) rotate(0.5deg);  opacity: 1;    }
+      100% { transform: scaleX(1.08) scaleY(0.9)  rotate(1.5deg);  opacity: 0.88; }
+    }
+    @keyframes rise { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes slide-out {
+      from { transform: translateY(0); opacity: 1; max-height: 200px; margin-bottom: 0; }
+      to   { transform: translateY(12px); opacity: 0; max-height: 0; margin-bottom: -8px; overflow:hidden; }
+    }
+    .candle-appear { animation: rise 0.4s ease forwards; }
+
+    /* ── Relay accordion ── */
+    .relay-item { transition: all 0.2s ease; }
+    .relay-item:hover { background: #EDE0F8 !important; }
+    .relay-details { overflow: hidden; transition: max-height 0.35s ease, opacity 0.3s ease; max-height: 0; opacity: 0; }
+    .relay-details.open { max-height: 300px; opacity: 1; }
+    .chevron-icon { transition: transform 0.3s ease; }
+    .chevron-icon.rotated { transform: rotate(180deg); }
+
+    /* ── RSVP toggle ── */
+    .rsvp-toggle { display: flex; gap: 8px; }
+    .rsvp-choice {
+      flex: 1; padding: 12px 8px; border-radius: 12px;
+      border: 2px solid var(--border-soft); background: white;
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-align: center;
+      color: var(--text-soft);
+    }
+    .rsvp-choice.selected-yes { border-color: #22C55E; background: #F0FDF4; color: #16A34A; }
+    .rsvp-choice.selected-no  { border-color: #F59E0B; background: #FFFBEB; color: #D97706; }
+
+    /* ── Prayer wall scroll ── */
+    #prayerWall { max-height: 260px; overflow-y: auto; }
+    #prayerWall::-webkit-scrollbar { width: 4px; }
+    #prayerWall::-webkit-scrollbar-track { background: #F3EEF8; }
+    #prayerWall::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* ── Progress bar ── */
+    .progress-track { height: 6px; background: var(--border-soft); border-radius: 10px; overflow: hidden; }
+    .progress-fill {
+      height: 100%; border-radius: 10px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.6s ease;
+    }
+
+    /* ── Music Player ── */
+    #musicPlayer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+      background: white; border-top: 1px solid var(--border-soft);
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px;
+      box-shadow: 0 -2px 14px rgba(74,24,112,0.10);
+    }
+    #musicPlayer.hidden { display: none; }
+    .music-play-btn {
+      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border: none; cursor: pointer; color: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(74,24,112,0.3);
+      transition: transform 0.15s;
+    }
+    .music-play-btn:hover { transform: scale(1.08); }
+    .music-close-btn {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--cream2); border: none; cursor: pointer;
+      color: var(--text-soft); display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .music-close-btn:hover { background: var(--border); color: var(--gold); }
+    .music-volume {
+      width: 60px; accent-color: var(--gold); flex-shrink: 0;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px);
+      background: var(--text-deep); color: #FFF8E8;
+      padding: 10px 20px; border-radius: 50px; font-size: 12px;
+      z-index: 9999; pointer-events: none;
+      opacity: 0; transition: all 0.3s ease;
+      white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Admin FAB ── */
+    #adminFab {
+      position: fixed; bottom: 20px; right: 16px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: white; border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-soft); z-index: 100;
+      transition: all 0.2s;
+    }
+    #adminFab:hover { border-color: var(--gold-mid); color: var(--gold); }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(21, 10, 32, 0.5);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-sheet {
+      background: white; width: 100%; max-width: 480px;
+      border-radius: 24px 24px 0 0; padding: 24px 20px 32px;
+      max-height: 90vh; overflow-y: auto;
+      transform: translateY(30px); transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-sheet { transform: translateY(0); }
+
+    /* ── Section headers ── */
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--gold); background: #EDE0F8;
+      border: 1px solid var(--border-soft); border-radius: 50px;
+      padding: 4px 12px; margin-bottom: 14px;
+    }
+    .section-badge .dot { width: 6px; height: 6px; background: var(--gold-light); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+    @keyframes sparkle {
+      0%,100% { filter:drop-shadow(0 0 8px rgba(212,148,14,0.45)) drop-shadow(0 0 2px rgba(255,220,80,0.3)); }
+      50%      { filter:drop-shadow(0 0 24px rgba(255,210,60,1)) drop-shadow(0 0 10px rgba(255,240,120,0.8)); }
+    }
+    @keyframes ray-blink {
+      0%,100% { opacity:0.2; }
+      50%      { opacity:1; }
+    }
+
+    /* ── Scrollbar global ── */
+    ::-webkit-scrollbar { width: 0; }
+
+    /* ── Notification reminder ── */
+    .reminder-slot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-radius: 12px;
+      background: #FFFDF8; border: 1px solid var(--border-soft);
+      margin-bottom: 8px;
+    }
+    .reminder-slot.active { background: #EDE0F8; border-color: var(--border); }
+
+    /* ── Divider ── */
+    .warm-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-soft), transparent);
+      margin: 16px 0;
+    }
+
+    /* ── Stats grid ── */
+    .stat-box {
+      background: var(--cream); border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 16px; text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     🔧 설정 영역 — 이 부분을 수정하세요
+     아래 APPS_SCRIPT_URL에 Google Apps Script 배포 URL을 붙여넣으세요
+════════════════════════════════════════════════════════════════════ -->
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ── Header ── -->
+<header style="max-width:480px;margin:0 auto;padding:16px 16px 0;display:flex;justify-content:space-between;align-items:center;">
+  <span style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:var(--gold);background:#EDE0F8;border:1px solid var(--border-soft);border-radius:50px;padding:5px 14px;">중종로공동체</span>
+  <div style="display:flex;gap:8px;">
+    <button id="reminderBtn" class="btn-ghost" title="기도 알림 설정">
+      <i data-lucide="bell" style="width:16px;height:16px;"></i>
+    </button>
+    <div style="position:relative;">
+      <button id="shareBtn" class="btn-outline" style="font-size:12px;padding:7px 14px;" onclick="toggleShareMenu(event)">
+        <i data-lucide="share-2" style="width:14px;height:14px;"></i> 초청장 공유
+      </button>
+      <!-- 공유 드롭다운 -->
+      <div id="shareMenu" style="display:none;position:absolute;top:calc(100% + 6px);right:0;
+        background:white;border-radius:14px;box-shadow:0 4px 24px rgba(74,24,112,0.18);
+        border:1px solid var(--border-soft);padding:8px;z-index:500;min-width:170px;">
+        <!-- 카카오톡 -->
+        <button onclick="shareKakao()" style="display:flex;align-items:center;gap:10px;width:100%;
+          padding:10px 12px;border-radius:10px;border:none;background:#FEE500;
+          font-family:inherit;font-size:13px;font-weight:700;color:#191919;cursor:pointer;margin-bottom:6px;
+          transition:opacity 0.15s;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M9 1.5C4.858 1.5 1.5 4.19 1.5 7.5c0 2.07 1.23 3.9 3.09 5.01l-.78 2.91 3.39-2.22c.57.09 1.17.15 1.8.15 4.142 0 7.5-2.69 7.5-6s-3.358-6-7.5-6z" fill="#191919"/>
+          </svg>
+          카카오톡으로 공유
+        </button>
+        <!-- 링크 복사 -->
+        <button onclick="copyLink()" style="display:flex;align-items:center;gap:10px;width:100%;
+          padding:10px 12px;border-radius:10px;border:1px solid var(--border-soft);background:white;
+          font-family:inherit;font-size:13px;font-weight:600;color:var(--text-mid);cursor:pointer;
+          transition:background 0.15s;">
+          <i data-lucide="link" style="width:15px;height:15px;color:var(--gold-light);flex-shrink:0;"></i>
+          링크 복사
+        </button>
+      </div>
+    </div>
+</header>
+
+<!-- ── Main ── -->
+<main style="max-width:480px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:16px;">
+
+  <!-- ①  Hero -->
+  <section class="card card-hero" style="text-align:center;padding:28px 20px 24px;">
+    <!-- Frame -->
+    <div style="position:absolute;inset:0;border-radius:20px;border:1px solid rgba(212,148,14,0.2);pointer-events:none;"></div>
+
+    <!-- Cross SVG — warm sunrise feel -->
+    <div style="position:relative;width:120px;height:120px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;">
+      <!-- Glow rings -->
+      <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(232,176,48,0.25) 0%,transparent 70%);"></div>
+      <div style="position:absolute;inset:10px;border-radius:50%;background:radial-gradient(circle,rgba(255,220,120,0.2) 0%,transparent 70%);animation:pulse 3s ease-in-out infinite;"></div>
+      <!-- Cross -->
+      <svg viewBox="0 0 80 80" width="72" height="72" style="animation:sparkle 2.4s ease-in-out infinite;">
+        <!-- Sunrise rays — ray-blink으로 일정하게 반짝 -->
+        <line x1="40" y1="2"  x2="40" y2="10" stroke="#F7DC8A" stroke-width="2.5" stroke-linecap="round" style="animation:ray-blink 2.4s ease-in-out infinite 0s;"/>
+        <line x1="60" y1="8"  x2="56" y2="14" stroke="#F7DC8A" stroke-width="2.5" stroke-linecap="round" style="animation:ray-blink 2.4s ease-in-out infinite 0.2s;"/>
+        <line x1="72" y1="24" x2="66" y2="27" stroke="#F7DC8A" stroke-width="2.5" stroke-linecap="round" style="animation:ray-blink 2.4s ease-in-out infinite 0.4s;"/>
+        <line x1="20" y1="8"  x2="24" y2="14" stroke="#F7DC8A" stroke-width="2.5" stroke-linecap="round" style="animation:ray-blink 2.4s ease-in-out infinite 0.2s;"/>
+        <line x1="8"  y1="24" x2="14" y2="27" stroke="#F7DC8A" stroke-width="2.5" stroke-linecap="round" style="animation:ray-blink 2.4s ease-in-out infinite 0.4s;"/>
+        <!-- Cross body -->
+        <rect x="36" y="16" width="8" height="48" rx="2" fill="#D4940E"/>
+        <rect x="20" y="28" width="40" height="8" rx="2" fill="#D4940E"/>
+        <!-- Highlight -->
+        <rect x="37.5" y="16" width="3" height="20" rx="1" fill="rgba(255,240,180,0.5)"/>
+        <!-- Center gem -->
+        <circle cx="40" cy="32" r="3.5" fill="#FFF5C0" stroke="#D4940E" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- Titles -->
+    <p style="font-size:10px;letter-spacing:0.25em;color:#E8C86A;font-weight:700;margin-bottom:10px;text-transform:uppercase;">2026 First-Half Closing Worship</p>
+    <h1 style="font-size:26px;font-weight:900;line-height:1.3;color:#F5EEFF;margin-bottom:8px;">
+      기도로 <span style="color:#D4A8FF;">잇고</span>,<br>
+      예배로 <span style="color:#E8C86A;">피어나다</span>
+    </h1>
+    <p style="font-size:12px;color:rgba(220,200,255,0.8);line-height:1.7;margin-bottom:20px;">
+      중종로공동체의 모든 성도가 하나 되어 드리는<br>
+      상반기 종강예배 및 100% 릴레이 기도
+    </p>
+
+    <!-- Event info -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;">
+      <div style="background:rgba(255,255,255,0.07);padding:14px;text-align:center;">
+        <p style="font-size:10px;color:#E8C86A;font-weight:700;letter-spacing:0.1em;margin-bottom:4px;">예배 일시</p>
+        <p style="font-size:14px;font-weight:700;color:#F5EEFF;">7월 3일 금요일</p>
+        <p style="font-size:12px;color:rgba(220,200,255,0.75);font-weight:600;">오후 6:00</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);padding:14px;text-align:center;">
+        <p style="font-size:10px;color:#E8C86A;font-weight:700;letter-spacing:0.1em;margin-bottom:4px;">예배 장소</p>
+        <p style="font-size:14px;font-weight:700;color:#F5EEFF;">선교관 지하 1층</p>
+        <p style="font-size:12px;color:rgba(220,200,255,0.75);font-weight:600;">두란노홀</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② Countdown -->
+  <section class="card">
+    <div class="section-badge"><span class="dot"></span>종강예배까지</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
+      <div class="digit-box">
+        <span id="cntDays" style="display:block;font-size:26px;font-weight:900;color:var(--gold);">00</span>
+        <span style="font-size:10px;color:var(--text-soft);letter-spacing:0.08em;">DAYS</span>
+      </div>
+      <div class="digit-box">
+        <span id="cntHours" style="display:block;font-size:26px;font-weight:900;color:var(--text-deep);">00</span>
+        <span style="font-size:10px;color:var(--text-soft);letter-spacing:0.08em;">HOURS</span>
+      </div>
+      <div class="digit-box">
+        <span id="cntMins" style="display:block;font-size:26px;font-weight:900;color:var(--text-deep);">00</span>
+        <span style="font-size:10px;color:var(--text-soft);letter-spacing:0.08em;">MINS</span>
+      </div>
+      <div class="digit-box">
+        <span id="cntSecs" style="display:block;font-size:26px;font-weight:900;color:var(--gold-mid);">00</span>
+        <span style="font-size:10px;color:var(--text-soft);letter-spacing:0.08em;">SECS</span>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-soft);text-align:center;line-height:1.6;">
+      "우리가 다 한 성령으로 세례를 받아 한 몸이 되었고..." (고전 12:13)
+    </p>
+  </section>
+
+  <!-- ③ Relay Prayer Schedule -->
+  <section class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+      <div>
+        <p style="font-size:15px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">릴레이 기도자</p>
+        <p style="font-size:11px;color:var(--text-soft);">각 직분이 연대하여 기도의 단을 쌓아갑니다</p>
+      </div>
+      <span style="font-size:11px;font-weight:700;color:var(--gold);background:#EDE0F8;border:1px solid var(--border-soft);border-radius:50px;padding:4px 10px;white-space:nowrap;">100% 동참</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <!-- Step 1 -->
+      <div class="relay-item" style="border:1.5px solid var(--border);border-radius:14px;background:#F0EBFA;overflow:hidden;" onclick="toggleRelay(1)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:white;flex-shrink:0;">1</div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:var(--text-deep);">목사 & 장로</p>
+            </div>
+          </div>
+          <i data-lucide="chevron-down" class="chevron-icon" id="ch1" style="width:16px;height:16px;color:var(--gold-mid);flex-shrink:0;"></i>
+        </div>
+        <div class="relay-details" id="rd1">
+          <div style="padding:0 14px 14px;border-top:1px solid var(--border-soft);padding-top:12px;">
+            <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;">영적 기틀을 마련하는 마중물 기도의 시작</p>
+            <p style="font-size:12px;color:var(--text-soft);line-height:1.7;">공동체의 영적 리더십들이 먼저 무릎을 꿇고, 종강예배에 강력한 기름부으심과 성령의 임재를 위해 기도합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="relay-item" style="border:1px solid var(--border-soft);border-radius:14px;background:white;overflow:hidden;" onclick="toggleRelay(2)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:#F5E8C0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--gold);flex-shrink:0;">2</div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:var(--text-deep);">권사 & 안수집사</p>
+            </div>
+          </div>
+          <i data-lucide="chevron-down" class="chevron-icon" id="ch2" style="width:16px;height:16px;color:var(--text-soft);flex-shrink:0;"></i>
+        </div>
+        <div class="relay-details" id="rd2">
+          <div style="padding:0 14px 14px;border-top:1px solid var(--border-soft);padding-top:12px;">
+            <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;">공동체를 품는 어머니와 아버지의 기도</p>
+            <p style="font-size:12px;color:var(--text-soft);line-height:1.7;">각 다락방의 연약한 지체들을 이름으로 불러가며 아픔의 치유와 회복의 은혜를 위해 중보합니다.<br><em style="font-size:11px;color:var(--text-soft);">"눈물로 씨를 뿌리는 자는 기쁨으로 거두리로다." (시 126:5)</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="relay-item" style="border:1px solid var(--border-soft);border-radius:14px;background:white;overflow:hidden;" onclick="toggleRelay(3)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:#F5E8C0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--gold);flex-shrink:0;">3</div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:var(--text-deep);">다락방장 & 순장</p>
+            </div>
+          </div>
+          <i data-lucide="chevron-down" class="chevron-icon" id="ch3" style="width:16px;height:16px;color:var(--text-soft);flex-shrink:0;"></i>
+        </div>
+        <div class="relay-details" id="rd3">
+          <div style="padding:0 14px 14px;border-top:1px solid var(--border-soft);padding-top:12px;">
+            <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;">순원 한 영혼도 낙오되지 않는 기적을 향해</p>
+            <p style="font-size:12px;color:var(--text-soft);line-height:1.7;">각 순의 발걸음이 무거워지지 않도록, 기도로 순의 담장을 넘는 축복을 흘려보냅니다. 100% 모일 수 있는 상황과 사모하는 마음을 위해 기도합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="relay-item" style="border:1.5px solid var(--border);border-radius:14px;background:#F0EBFA;overflow:hidden;" onclick="toggleRelay(4)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:white;flex-shrink:0;">★</div>
+            <div>
+              <p style="font-size:13px;font-weight:700;color:var(--text-deep);">모든 순원</p>
+            </div>
+          </div>
+          <i data-lucide="chevron-down" class="chevron-icon" id="ch4" style="width:16px;height:16px;color:var(--gold-mid);flex-shrink:0;"></i>
+        </div>
+        <div class="relay-details" id="rd4">
+          <div style="padding:0 14px 14px;border-top:1px solid var(--border-soft);padding-top:12px;">
+            <p style="font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:6px;">기도의 물결이 예배의 기쁨으로 흘러드는 날</p>
+            <p style="font-size:12px;color:var(--text-soft);line-height:1.7;">7월 3일 금요일 오후 6시, 두란노홀에서 100% 감격의 예배를 드립니다.<br><em style="font-size:11px;">"두 세 사람이 내 이름으로 모인 곳에 나도 그들 중에 있느니라."</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ RSVP -->
+  <section class="card" id="rsvpSection">
+    <div class="section-badge"><span class="dot"></span>참석 응답</div>
+
+    <!-- 미응답 상태 -->
+    <div id="rsvpForm">
+      <p style="font-size:14px;font-weight:700;color:var(--text-deep);margin-bottom:12px;">참석 여부를 알려주세요</p>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <select id="rsvpDarakbang" class="warm-input" onchange="onDarakbangChange()" style="font-size:12px;padding:8px 10px;">
+            <option value="">— 다락방 —</option>
+            <option value="믿음1">믿음1다락방</option>
+            <option value="믿음2">믿음2다락방</option>
+            <option value="소망1">소망1다락방</option>
+            <option value="소망2">소망2다락방</option>
+            <option value="사랑1">사랑1다락방</option>
+            <option value="사랑2">사랑2다락방</option>
+          </select>
+          <select id="rsvpSun" class="warm-input" onchange="onSunChange()" disabled style="font-size:12px;padding:8px 10px;">
+            <option value="">— 순 —</option>
+          </select>
+        </div>
+        <select id="rsvpName" class="warm-input" onchange="checkRSVPReady()" disabled style="font-size:12px;padding:8px 10px;">
+          <option value="">— 이름 선택 —</option>
+        </select>
+
+        <div class="rsvp-toggle" style="gap:8px;">
+          <button class="rsvp-choice" id="btnYes" onclick="selectAttendance('참석')" style="padding:10px 8px;font-size:13px;">
+            참석할게요
+          </button>
+          <button class="rsvp-choice" id="btnNo" onclick="selectAttendance('불참')" style="padding:10px 8px;font-size:13px;">
+            참석이 어려워요
+          </button>
+        </div>
+
+        <button class="btn-primary" id="rsvpSubmitBtn" onclick="submitRSVP()" disabled style="padding:12px 20px;">
+          <i data-lucide="send" style="width:14px;height:14px;"></i>
+          응답 제출하기
+        </button>
+      </div>
+    </div>
+
+    <!-- 응답 완료 상태 (기본 hidden) -->
+    <div id="rsvpDone" style="display:none;text-align:center;padding:6px 0;">
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+        <i data-lucide="check" style="width:20px;height:20px;color:white;"></i>
+      </div>
+      <p style="font-size:14px;font-weight:700;color:var(--text-deep);margin-bottom:4px;" id="rsvpDoneTitle">응답이 등록되었습니다</p>
+      <p style="font-size:12px;color:var(--text-soft);line-height:1.7;" id="rsvpDoneMsg"></p>
+    </div>
+  </section>
+
+  <!-- ⑤ Prayer Candle -->
+  <section class="card" style="text-align:center;">
+    <div class="section-badge" style="justify-content:center;"><span class="dot"></span>릴레이 기도 촛불</div>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:16px;line-height:1.6;">참석 응답을 제출하면 기도 촛불이 켜집니다</p>
+
+    <!-- 동참 인원 숫자 크게 표시 -->
+    <div style="margin-bottom:16px;">
+      <div style="display:flex;align-items:flex-end;justify-content:center;gap:10px;">
+        <p style="font-size:52px;font-weight:900;color:var(--gold);line-height:1;letter-spacing:-2px;" id="candleCount">0</p>
+        <div style="padding-bottom:6px;text-align:left;">
+          <p style="font-size:22px;font-weight:900;color:var(--gold-mid);line-height:1;" id="candlePercent">0%</p>
+          <p style="font-size:11px;color:var(--text-soft);">참석 응답률</p>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-soft);margin-top:4px;">명이 함께 기도로 동참하고 있습니다</p>
+    </div>
+
+    <!-- Candle display area -->
+    <div style="position:relative;height:80px;display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-bottom:14px;border-bottom:1px solid var(--border-soft);padding-bottom:8px;" id="candleArea">
+      <!-- Initial candles via JS -->
+    </div>
+
+    <div class="progress-track">
+      <div class="progress-fill" id="candleProgress" style="width:0%;"></div>
+    </div>
+    <p style="font-size:10px;color:var(--text-soft);margin-top:6px;" id="totalMemberNote">전체 기준</p>
+
+    <!-- 다락방별 참석률 -->
+    <div id="darakbangStats" style="display:none;margin-top:16px;width:100%;text-align:left;">
+      <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border-soft),transparent);margin-bottom:14px;"></div>
+      <p style="font-size:11px;font-weight:700;color:var(--text-soft);letter-spacing:0.08em;margin-bottom:10px;text-align:center;">다락방별 참석 응답률</p>
+      <div id="darakbangList" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </section>
+
+  <!-- ⑥ Prayer Wall -->
+  <section class="card">
+    <div class="section-badge"><span class="dot"></span>격려의 벽</div>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">함께 모이기를 기대하며 서로를 향한 따뜻한 한 마디를 남겨주세요</p>
+
+    <!-- Input -->
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+      <textarea id="wallContent" class="warm-input" rows="2" placeholder="격려의 한 마디를 남겨주세요 (최대 100자)" style="resize:none;" maxlength="100"></textarea>
+      <button class="btn-outline" onclick="addPrayer()" style="font-size:13px;">
+        <i data-lucide="heart" style="width:14px;height:14px;"></i> 격려 남기기
+      </button>
+    </div>
+
+    <div class="warm-divider"></div>
+
+    <!-- Prayers -->
+    <div id="prayerWall" style="display:flex;flex-direction:column;gap:8px;">
+      <!-- Preset entries injected by JS -->
+    </div>
+  </section>
+
+  <!-- ⑦ Directions -->
+  <section class="card">
+    <div class="section-badge"><span class="dot"></span>안내 및 오시는 길</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:34px;height:34px;border-radius:10px;background:#EDE0F8;border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i data-lucide="map-pin" style="width:16px;height:16px;color:var(--gold);"></i>
+        </div>
+        <div style="flex:1;">
+          <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">선교관 지하 1층 두란노홀</p>
+          <p style="font-size:12px;color:var(--text-soft);line-height:1.6;margin-bottom:10px;">본관 로비 우측 통로를 통해 지하 전용 계단 또는 엘리베이터를 이용해 주세요.</p>
+          <div style="display:flex;gap:8px;">
+            <a href="https://map.kakao.com/?q=두란노홀" target="_blank" rel="noopener"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+                     padding:9px 12px;border-radius:10px;background:#FEE500;
+                     font-size:12px;font-weight:700;color:#191919;text-decoration:none;
+                     transition:opacity 0.15s;">
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                <path d="M9 1.5C4.858 1.5 1.5 4.19 1.5 7.5c0 2.07 1.23 3.9 3.09 5.01l-.78 2.91 3.39-2.22c.57.09 1.17.15 1.8.15 4.142 0 7.5-2.69 7.5-6s-3.358-6-7.5-6z" fill="#191919"/>
+              </svg>
+              카카오맵
+            </a>
+            <a href="https://map.naver.com/v5/search/두란노홀" target="_blank" rel="noopener"
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+                     padding:9px 12px;border-radius:10px;background:#03C75A;
+                     font-size:12px;font-weight:700;color:white;text-decoration:none;
+                     transition:opacity 0.15s;">
+              <i data-lucide="navigation" style="width:13px;height:13px;"></i>
+              네이버지도
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="warm-divider" style="margin:4px 0;"></div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:34px;height:34px;border-radius:10px;background:#EDE0F8;border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i data-lucide="clock" style="width:16px;height:16px;color:var(--gold);"></i>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">입장 안내</p>
+          <p style="font-size:12px;color:var(--text-soft);line-height:1.6;">오후 6시까지 오셔서 식사를 먼저 하시고, 7시 20분부터 예배가 시작됩니다.</p>
+        </div>
+      </div>
+      <div class="warm-divider" style="margin:4px 0;"></div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:34px;height:34px;border-radius:10px;background:#EDE0F8;border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i data-lucide="gift" style="width:16px;height:16px;color:var(--gold);"></i>
+        </div>
+        <div>
+          <p id="specialTitle" style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">특별 순서</p>
+          <p id="specialBody" style="font-size:12px;color:var(--text-soft);line-height:1.6;">릴레이 기도 완수 기념으로 입장하시는 모든 성도님께 따뜻한 웰컴 선물과 하이파이브 격려가 준비됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer style="text-align:center;padding:20px 16px;font-size:10px;color:var(--text-soft);line-height:1.8;">
+  <p>© 2026 중종로공동체</p>
+  <p>기도로 잇고, 예배로 피어나다</p>
+</footer>
+
+<!-- ── Admin FAB ── -->
+<button id="adminFab" title="관리자" onclick="openAdmin()">
+  <i data-lucide="bar-chart-2" style="width:16px;height:16px;"></i>
+</button>
+
+<!-- ══════════════════════════════════════════════
+     기도 알림 Modal
+════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="reminderModal" onclick="closeModal('reminderModal')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <p style="font-size:16px;font-weight:700;color:var(--text-deep);">기도 알림 설정</p>
+      <button class="btn-ghost" onclick="closeModal('reminderModal')"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+    </div>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:14px;line-height:1.6;">
+      릴레이 기도 기간 동안 매일 아침 기도 알림을 받아보세요.<br>
+      <em>(브라우저 알림 권한이 필요합니다)</em>
+    </p>
+
+    <div id="reminderSlots"></div>
+
+    <button class="btn-primary" onclick="requestNotification()" style="margin-top:16px;" id="notifBtn">
+      <i data-lucide="bell" style="width:15px;height:15px;"></i>
+      기도 알림 받기
+    </button>
+    <p style="font-size:11px;color:var(--text-soft);text-align:center;margin-top:10px;" id="notifStatus"></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     관리자 Modal
+════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="adminModal" onclick="closeModal('adminModal')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <p style="font-size:16px;font-weight:700;color:var(--text-deep);">관리자 통계</p>
+      <button class="btn-ghost" onclick="closeModal('adminModal')"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+    </div>
+
+    <!-- 로그인 전 -->
+    <div id="adminLogin">
+      <p style="font-size:12px;color:var(--text-soft);margin-bottom:12px;">관리자 비밀번호를 입력하세요</p>
+      <input type="password" id="adminPwInput" class="warm-input" placeholder="비밀번호" style="margin-bottom:10px;" onkeydown="if(event.key==='Enter')verifyAdmin()" />
+      <button class="btn-primary" onclick="verifyAdmin()">
+        <i data-lucide="lock" style="width:14px;height:14px;"></i> 확인
+      </button>
+    </div>
+
+    <!-- 로그인 후 통계 -->
+    <div id="adminStats" style="display:none;">
+      <!-- 상단 탭: 통계 | 설정 -->
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px;">
+        <button id="adminTabStats"    onclick="switchAdminMainTab('stats')"    style="flex:1;min-width:calc(33% - 4px);padding:6px 2px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;">통계</button>
+        <button id="adminTabManage"   onclick="switchAdminMainTab('manage')"   style="flex:1;min-width:calc(33% - 4px);padding:6px 2px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;">응답 관리</button>
+        <button id="adminTabMembers"  onclick="switchAdminMainTab('members')"  style="flex:1;min-width:calc(33% - 4px);padding:6px 2px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;">명단 관리</button>
+        <button id="adminTabPrayers"  onclick="switchAdminMainTab('prayers')"  style="flex:1;min-width:calc(50% - 4px);padding:6px 2px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;">소망 관리</button>
+        <button id="adminTabSettings" onclick="switchAdminMainTab('settings')" style="flex:1;min-width:calc(50% - 4px);padding:6px 2px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;">콘텐츠 설정</button>
+      </div>
+
+      <!-- 통계 섹션 -->
+      <div id="adminSectionStats">
+      <!-- 요약 카드 -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;">
+        <div class="stat-box">
+          <p style="font-size:22px;font-weight:900;color:var(--gold);" id="statTotal">0</p>
+          <p style="font-size:10px;color:var(--text-soft);">총 응답</p>
+        </div>
+        <div class="stat-box">
+          <p style="font-size:22px;font-weight:900;color:#22C55E;" id="statYes">0</p>
+          <p style="font-size:10px;color:var(--text-soft);">참석</p>
+        </div>
+        <div class="stat-box">
+          <p style="font-size:22px;font-weight:900;color:#F59E0B;" id="statNo">0</p>
+          <p style="font-size:10px;color:var(--text-soft);">불참</p>
+        </div>
+      </div>
+
+      <!-- 참석률 바 -->
+      <p style="font-size:11px;color:var(--text-soft);margin-bottom:6px;">참석률</p>
+      <div class="progress-track" style="margin-bottom:16px;">
+        <div class="progress-fill" id="attendanceBar" style="width:0%;"></div>
+      </div>
+
+      <!-- 탭 -->
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <button id="tabResponded" onclick="switchAdminTab('responded')" style="flex:1;padding:7px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">응답자</button>
+        <button id="tabPending"   onclick="switchAdminTab('pending')"   style="flex:1;padding:7px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">미응답자</button>
+      </div>
+
+      <div id="adminList"    style="max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="adminPending" style="max-height:240px;overflow-y:auto;display:none;flex-direction:column;gap:6px;"></div>
+
+      <button class="btn-outline" onclick="refreshStats()" style="margin-top:14px;width:100%;justify-content:center;">
+        <i data-lucide="refresh-cw" style="width:13px;height:13px;"></i> 새로고침
+      </button>
+      </div><!-- /adminSectionStats -->
+
+      <!-- 응답 관리 섹션 -->
+      <div id="adminSectionManage" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <p style="font-size:13px;font-weight:700;color:var(--text-deep);">참석 응답 목록</p>
+          <div style="display:flex;gap:6px;">
+            <button onclick="adminTestConnection()" style="padding:5px 10px;border-radius:8px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;">연결 테스트</button>
+            <button onclick="adminClearAll()" style="padding:5px 10px;border-radius:8px;border:1.5px solid #EF4444;background:white;color:#EF4444;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;">전체 초기화</button>
+          </div>
+        </div>
+        <div id="adminDiag" style="display:none;margin-bottom:8px;padding:8px 10px;border-radius:8px;background:#F5F0FC;border:1px solid var(--border-soft);font-size:11px;color:var(--text-mid);word-break:break-all;"></div>
+        <div id="adminManageList" style="max-height:360px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+        <button class="btn-outline" onclick="refreshManageList()" style="margin-top:12px;width:100%;justify-content:center;">
+          <i data-lucide="refresh-cw" style="width:13px;height:13px;"></i> 새로고침
+        </button>
+      </div><!-- /adminSectionManage -->
+
+      <!-- 명단 관리 섹션 -->
+      <div id="adminSectionMembers" style="display:none;">
+        <div style="display:flex;gap:6px;margin-bottom:8px;align-items:center;">
+          <input type="text" id="memberSearchInput" class="warm-input" placeholder="이름 검색..."
+                 oninput="renderMemberGroups(this.value)"
+                 style="flex:1;padding:6px 10px;font-size:12px;"/>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:10px;">
+          <button onclick="saveMembersToLocal()" style="flex:1;padding:6px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;">저장 (로컬)</button>
+          <button onclick="resetMembersData()" style="flex:1;padding:6px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;">원본으로 초기화</button>
+        </div>
+        <p style="font-size:10px;color:var(--text-soft);margin-bottom:8px;">
+          초록 = 참석응답 완료 &nbsp;|&nbsp; 보라 = 미응답<br>
+          변경 후 반드시 <b>저장</b>을 눌러야 유지됩니다
+        </p>
+        <div id="memberGroupList" style="max-height:600px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+      </div><!-- /adminSectionMembers -->
+
+      <!-- 소망의 벽 관리 섹션 -->
+      <div id="adminSectionPrayers" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin:0;">소망의 벽 관리</p>
+          <button onclick="loadAdminPrayers()" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:10px;cursor:pointer;">새로 고침</button>
+        </div>
+        <p id="adminPrayerStatus" style="font-size:11px;color:var(--text-soft);text-align:center;padding:20px 0;display:none;"></p>
+        <div id="adminPrayerList" style="display:flex;flex-direction:column;gap:8px;max-height:460px;overflow-y:auto;"></div>
+      </div><!-- /adminSectionPrayers -->
+
+      <!-- 설정 섹션 -->
+      <div id="adminSectionSettings" style="display:none;">
+        <!-- 음원 설정 -->
+        <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:8px;">CCM 음원</p>
+        <p style="font-size:11px;color:var(--text-soft);margin-bottom:8px;">MP3 파일을 Netlify 폴더에 넣고 파일명을 입력하세요<br>(예: <code style="background:#F0EBFA;padding:1px 4px;border-radius:4px;">worship.mp3</code>). 외부 URL도 가능합니다.</p>
+        <input type="url" id="adminMusicUrl" class="warm-input" placeholder="music.mp3 또는 https://..." style="margin-bottom:6px;" />
+        <input type="text" id="adminMusicTitle" class="warm-input" placeholder="곡 제목 (예: 주의 인자하심이 — 오케이)" style="margin-bottom:12px;" />
+
+        <!-- 기도제목 설정 -->
+        <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:4px;">릴레이 기도제목</p>
+        <p style="font-size:11px;color:var(--text-soft);margin-bottom:10px;">각 순서별 제목과 내용을 수정합니다</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#F5F0FC;border-radius:10px;padding:10px;">
+            <p style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px;">1. 목사 & 장로</p>
+            <input type="text" id="pt1title" class="warm-input" placeholder="기도 제목" style="margin-bottom:6px;" />
+            <textarea id="pt1body"  class="warm-input" rows="3" placeholder="기도 내용" style="resize:vertical;"></textarea>
+          </div>
+          <div style="background:#F5F0FC;border-radius:10px;padding:10px;">
+            <p style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px;">2. 권사 & 안수집사</p>
+            <input type="text" id="pt2title" class="warm-input" placeholder="기도 제목" style="margin-bottom:6px;" />
+            <textarea id="pt2body"  class="warm-input" rows="3" placeholder="기도 내용" style="resize:vertical;"></textarea>
+          </div>
+          <div style="background:#F5F0FC;border-radius:10px;padding:10px;">
+            <p style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px;">3. 다락방장 & 순장</p>
+            <input type="text" id="pt3title" class="warm-input" placeholder="기도 제목" style="margin-bottom:6px;" />
+            <textarea id="pt3body"  class="warm-input" rows="3" placeholder="기도 내용" style="resize:vertical;"></textarea>
+          </div>
+          <div style="background:#F5F0FC;border-radius:10px;padding:10px;">
+            <p style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px;">4. 모든 순원</p>
+            <input type="text" id="pt4title" class="warm-input" placeholder="기도 제목" style="margin-bottom:6px;" />
+            <textarea id="pt4body"  class="warm-input" rows="3" placeholder="기도 내용" style="resize:vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- 특별 순서 설정 -->
+        <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-top:16px;margin-bottom:4px;">특별 순서</p>
+        <p style="font-size:11px;color:var(--text-soft);margin-bottom:10px;">오시는 길 안내에 표시되는 특별 순서 제목과 내용을 수정합니다</p>
+        <div style="background:#F5F0FC;border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:8px;">
+          <input type="text" id="specialTitleInput" class="warm-input" placeholder="제목 (예: 특별 순서)" maxlength="40" />
+          <textarea id="specialBodyInput" class="warm-input" rows="3" placeholder="내용을 입력하세요..." style="resize:vertical;" maxlength="200"></textarea>
+        </div>
+
+        <button class="btn-primary" onclick="saveAdminSettings()" style="margin-top:14px;">
+          <i data-lucide="save" style="width:14px;height:14px;"></i> 저장 및 적용
+        </button>
+        <p style="font-size:10px;color:var(--text-soft);text-align:center;margin-top:8px;">음원 URL은 서버에 저장되어 모든 방문자에게 즉시 반영됩니다</p>
+      </div><!-- /adminSectionSettings -->
+
+    </div><!-- /adminStats -->
+  </div>
+</div>
+
+<!-- ── CCM 음원 플레이어 ── -->
+<audio id="bgAudio" loop preload="auto" muted></audio>
+<div id="musicPlayer" class="hidden">
+  <!-- 소리 켜기 버튼 (무음 자동재생 중일 때 표시) -->
+  <button id="musicUnmuteBtn" onclick="unmuteMusic()" title="소리 켜기"
+    style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;
+           border:1.5px solid var(--gold);background:var(--cream);color:var(--gold);
+           font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;
+           flex-shrink:0;white-space:nowrap;transition:all 0.2s;animation:flicker 2s ease-in-out infinite alternate;">
+    <i data-lucide="volume-x" style="width:13px;height:13px;"></i> 소리 켜기
+  </button>
+  <!-- 재생 중 컨트롤 (소리 켜진 후) -->
+  <div id="musicControls" style="display:none;flex:1;align-items:center;gap:10px;">
+    <button class="music-play-btn" id="musicPlayBtn" onclick="toggleMusic()" title="재생/일시정지">
+      <i data-lucide="pause" style="width:15px;height:15px;" id="musicPlayIcon"></i>
+    </button>
+    <div style="flex:1;min-width:0;">
+      <p id="musicTitle" style="font-size:11px;font-weight:700;color:var(--text-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">CCM</p>
+      <p style="font-size:10px;color:var(--text-soft);">중종로공동체 종강예배</p>
+    </div>
+    <input type="range" class="music-volume" id="musicVolume" min="0" max="1" step="0.05" value="0.6"
+      oninput="document.getElementById('bgAudio').volume=this.value" title="음량" />
+  </div>
+  <button class="music-close-btn" onclick="closeMusicPlayer()" title="닫기">
+    <i data-lucide="x" style="width:13px;height:13px;"></i>
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
+<script>
+/* ─────────────────────────────────────────────────────────────────────
+   🔧 CONFIG — 여기를 수정하세요
+   APPS_SCRIPT_URL : Google Apps Script 배포 URL (setup-guide.html 참고)
+   ADMIN_PASSWORD  : 관리자 비밀번호 (Apps Script 내 ADMIN_PW와 동일하게)
+─────────────────────────────────────────────────────────────────────── */
+const CONFIG = {
+  APPS_SCRIPT_URL : 'https://script.google.com/macros/s/AKfycbyA1mk_jXXp9di6dew3D6Up3u1FjS39P7mWPntnorDl0Mgr_1psxfZ0ZdPx-pn2iOO25g/exec',
+  ADMIN_PASSWORD  : 'admin1234', // Apps Script 내 ADMIN_PW와 동일하게 설정
+  EVENT_DATE      : new Date('2026-07-03T18:00:00'),
+  MUSIC_URL       : 'worship.mp3', // MP3 파일 URL (비어있으면 플레이어 숨김, 관리자 패널에서 변경 가능)
+  PRAYER_TOPICS   : [
+    { title: '영적 기틀을 마련하는 마중물 기도의 시작',     body: '공동체의 영적 리더십들이 먼저 무릎을 꿇고, 종강예배에 강력한 기름부으심과 성령의 임재를 위해 기도합니다.' },
+    { title: '공동체를 품는 어머니와 아버지의 기도',        body: '각 다락방의 연약한 지체들을 이름으로 불러가며 아픔의 치유와 회복의 은혜를 위해 중보합니다.\n"눈물로 씨를 뿌리는 자는 기쁨으로 거두리로다." (시 126:5)' },
+    { title: '순원 한 영혼도 낙오되지 않는 기적을 향해',    body: '각 순의 발걸음이 무거워지지 않도록, 기도로 순의 담장을 넘는 축복을 흘려보냅니다. 100% 모일 수 있는 상황과 사모하는 마음을 위해 기도합니다.' },
+    { title: '기도의 물결이 예배의 기쁨으로 흘러드는 날',   body: '7월 3일 금요일 오후 6시, 두란노홀에서 100% 감격의 예배를 드립니다.\n"두 세 사람이 내 이름으로 모인 곳에 나도 그들 중에 있느니라."' },
+  ],
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   MEMBERS DATA — 전체 명단 (다락방 > 순 > 이름)
+─────────────────────────────────────────────────────────────────────── */
+const MEMBERS_DATA = {
+  '믿음1': { label: '믿음1다락방', 순: {
+    '1순': ['김의래','김성희','김기수','이정숙','이우형','김세경','정문규','이희영','황광석','박혜선','박병익','전정희'],
+    '2순': ['주웅현','서정숙','김재범','이수정','박흥서','송경옥','윤민학','강성희','전해정','홍장기','안희정','이혜진','박정훈','신경재','김영옥','이승현','차현아'],
+    '3순': ['김현식','복유선','김미선','문동곤','전명주','박돈규','주수경','오명','황명호','윤영철','임애규','함공식','김태선','하송우','김성옥','홍종선'],
+    '4순': ['정순영','윤숙미','정경희'],
+    '5순': ['정두식','이영미','윤용헌','유서진','박지희','조현래','최정인'],
+    '6순': ['황한나','김미향','장선미','박선주','정유진','이언옥','김정'],
+  }},
+  '믿음2': { label: '믿음2다락방', 순: {
+    '8순': ['조재관','김문경','김요섭','이한나','박승관','박경은','엄재준','고봉옥'],
+    '9순': ['이금자','김연숙','김한순','정문희','윤강선','추옥선'],
+    '10순': ['송영이','이소연','이정은','채연','조차연'],
+    '11순': ['이성진','김혜진','고석봉','최희정','김진규','박현지','박경준','예소라','정진만','김진유','최재섭','홍지은'],
+    '12순': ['이창권','이임순','박선영','심춘보','김영희','이상도','이재호','이성혜','장은자','전정노','조명자','홍정표','홍숙경','송동억'],
+    '13순': ['김영미','김주성','신은혜','이선정','이승은','최지원'],
+  }},
+  '소망1': { label: '소망1다락방', 순: {
+    '1순': ['박제한','김윤미','김진철','강화영','이현성','김선영','이현철','김윤영','정태옥','홍진섭','허효창','최인경','지형근','이지연','이준혁','고민화','정주형','고형민','허미호'],
+    '2순': ['강행자','장청자','한정순'],
+    '3순': ['이명선','김태희','조경애','김경희','이은경'],
+    '4순': ['이강남','강유미','김영현','백남숙','정선희','최춘자'],
+  }},
+  '소망2': { label: '소망2다락방', 순: {
+    '8순': ['남관우','구자영','김희정','이세종','이창배','정찬의','장해영','이홍언','서인호','이순희'],
+    '9순': ['최인경','정세정','지은실','허은'],
+    '10순': ['허은진','강미란','김양선','김지은','박주연','신주현','이소영','진선희'],
+  }},
+  '사랑1': { label: '사랑1다락방', 순: {
+    '1순': ['김성현','전성심','정영철','변효진','조득용','조영선','최수호','강금순','최재권','박은규','구준회','조소연','김학식','이아영'],
+    '2순': ['고주식','윤수란','이성우','이은경','한규진','임동욱','권혁준','박민예','전은미','박윤성','김주희'],
+    '3순': ['유덕영','정현지','김효진','김선경','윤태석','김복희','이창복','이상문','이정숙','이재원','권혜영'],
+    '4순': ['이숙인','오기화','이금순','이명희','이복동','이영숙','황재임','김복희'],
+    '5순': ['강정수','안진아','김홍란','김효정','정현옥'],
+    '6순': ['강은주','문은영','강진일','김송희','김향아','박윤희','이기택','손혜정','최미란','이경미','임명숙','최다예','김의정','오보환','권은경','김희준'],
+    '7순': ['송정미','오경숙','김수옥','김지연','장윤지','배은하','박성예','임소이','변지숙'],
+  }},
+  '사랑2': { label: '사랑2다락방', 순: {
+    '8순': ['이성한','이선화','강병철','홍지윤','김진국','김정현','배석원','강혜진','이보윤','안은주','이중희','우사라','정주호','이효진','심승보','김현진'],
+    '9순': ['안승립','구혜정','이요섭','변은미','박성호','이희자','이용구','김남정'],
+    '10순': ['이영욱','김길자','김영희','방통일','서정애','정광자','홍규숙','김민경'],
+    '11순': ['최황','오영미','류성민','문요환','고은하','우인숙','유정희','이성희','이창환','김경희'],
+    '12순': ['박지수','이지영','허만','김미옥','이재형','유재연','호종일','정은주','박영아','김용'],
+    '13순': ['김종중','정영혜','권오성','최혜연','박정현','이정림','이인용','장경희','남궁호연','김성주','정재은'],
+    '14순': ['정충균','이종선','권순동','박민주','은재승','이보라','이영규','박소연','홍성철','황유정','황성현','진혜영'],
+    '15순': ['이연주','고혜순','권보민','이진주','정기순','김순임','전명숙','박애우'],
+  }},
+};
+
+/* ── Device ID (중복 방지용) ── */
+function getDeviceId() {
+  let id = localStorage.getItem('jjr_device_id');
+  if (!id) {
+    id = 'dev_' + Math.random().toString(36).substr(2,10) + Date.now().toString(36);
+    localStorage.setItem('jjr_device_id', id);
+  }
+  return id;
+}
+
+/* ── Toast ── */
+function showToast(msg, dur=2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+/* ── Modal ── */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openAdmin() { openModal('adminModal'); }
+
+/* ─────────────────────────────────────────────
+   COUNTDOWN
+───────────────────────────────────────────── */
+function updateCountdown() {
+  const dist = CONFIG.EVENT_DATE - Date.now();
+  if (dist <= 0) {
+    ['cntDays','cntHours','cntMins','cntSecs'].forEach(id => document.getElementById(id).textContent = '00');
+    return;
+  }
+  const d = Math.floor(dist / 86400000);
+  const h = Math.floor((dist % 86400000) / 3600000);
+  const m = Math.floor((dist % 3600000) / 60000);
+  const s = Math.floor((dist % 60000) / 1000);
+  document.getElementById('cntDays').textContent  = String(d).padStart(2,'0');
+  document.getElementById('cntHours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cntMins').textContent  = String(m).padStart(2,'0');
+  document.getElementById('cntSecs').textContent  = String(s).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ─────────────────────────────────────────────
+   RELAY ACCORDION
+───────────────────────────────────────────── */
+function toggleRelay(n) {
+  for (let i=1;i<=4;i++) {
+    const det = document.getElementById('rd'+i);
+    const ch  = document.getElementById('ch'+i);
+    if (i===n) {
+      const open = det.classList.contains('open');
+      det.classList.toggle('open', !open);
+      ch.classList.toggle('rotated', !open);
+    } else {
+      det.classList.remove('open');
+      ch.classList.remove('rotated');
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
+   RSVP — 드롭다운 연동
+───────────────────────────────────────────── */
+function onDarakbangChange() {
+  const db     = document.getElementById('rsvpDarakbang').value;
+  const sunSel = document.getElementById('rsvpSun');
+  const nameSel = document.getElementById('rsvpName');
+  sunSel.innerHTML  = '<option value="">— 순 선택 —</option>';
+  nameSel.innerHTML = '<option value="">— 이름 선택 —</option>';
+  nameSel.disabled  = true;
+  if (!db) { sunSel.disabled = true; checkRSVPReady(); return; }
+  Object.keys(MEMBERS_DATA[db].순).forEach(s => {
+    const o = document.createElement('option'); o.value = s; o.textContent = s;
+    sunSel.appendChild(o);
+  });
+  sunSel.disabled = false;
+  checkRSVPReady();
+}
+
+function onSunChange() {
+  const db  = document.getElementById('rsvpDarakbang').value;
+  const sun = document.getElementById('rsvpSun').value;
+  const nameSel = document.getElementById('rsvpName');
+  nameSel.innerHTML = '<option value="">— 이름 선택 —</option>';
+  if (!db || !sun) { nameSel.disabled = true; checkRSVPReady(); return; }
+  MEMBERS_DATA[db].순[sun].forEach(n => {
+    const o = document.createElement('option'); o.value = n; o.textContent = n;
+    nameSel.appendChild(o);
+  });
+  nameSel.disabled = false;
+  checkRSVPReady();
+}
+
+let selectedAttendance = null;
+
+function selectAttendance(val) {
+  selectedAttendance = val;
+  document.getElementById('btnYes').className = 'rsvp-choice' + (val==='참석' ? ' selected-yes' : '');
+  document.getElementById('btnNo').className  = 'rsvp-choice' + (val==='불참' ? ' selected-no'  : '');
+  checkRSVPReady();
+}
+
+function checkRSVPReady() {
+  const name = document.getElementById('rsvpName').value;
+  document.getElementById('rsvpSubmitBtn').disabled = !(name && selectedAttendance);
+}
+
+async function submitRSVP() {
+  const name       = document.getElementById('rsvpName').value;
+  const db         = document.getElementById('rsvpDarakbang').value;
+  const sun        = document.getElementById('rsvpSun').value;
+  const cellGroup  = (db && sun) ? `${MEMBERS_DATA[db].label} ${sun}` : '';
+  const message    = '';
+  const attendance = selectedAttendance;
+
+  if (!name || !attendance) { showToast('이름과 참석 여부를 선택해 주세요'); return; }
+
+  const btn = document.getElementById('rsvpSubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i data-lucide="loader" style="width:14px;height:14px;"></i> 확인 중...';
+  lucide.createIcons();
+
+  // ① 서버에서 중복 확인 (이름 + 다락방/순 기준)
+  if (CONFIG.APPS_SCRIPT_URL) {
+    try {
+      const checkUrl = CONFIG.APPS_SCRIPT_URL
+        + '?action=checkRsvp'
+        + '&name='      + encodeURIComponent(name)
+        + '&cellGroup=' + encodeURIComponent(cellGroup);
+      const res  = await fetch(checkUrl, { cache: 'no-store' });
+      const data = await res.json();
+      if (data.exists) {
+        btn.disabled = false;
+        btn.innerHTML = '참석 여부 제출';
+        showToast(name + '님은 이미 응답이 등록되어 있습니다');
+        // 기존 등록 정보로 완료 화면 표시
+        showRSVPDone({ name, attendance: data.attendance, message: '' });
+        return;
+      }
+    } catch(e) { /* 네트워크 오류 시 중복 체크 생략하고 계속 진행 */ }
+  }
+
+  btn.innerHTML = '<i data-lucide="loader" style="width:14px;height:14px;"></i> 제출 중...';
+  lucide.createIcons();
+
+  // ② 로컬 저장
+  localStorage.setItem('jjr_rsvp', JSON.stringify({ name, cellGroup, attendance, message }));
+
+  // ③ Google Sheets 전송 — no-cors GET (query params)
+  if (CONFIG.APPS_SCRIPT_URL) {
+    try {
+      const rsvpUrl = CONFIG.APPS_SCRIPT_URL
+        + '?action=submit_rsvp'
+        + '&name='       + encodeURIComponent(name)
+        + '&cellGroup='  + encodeURIComponent(cellGroup)
+        + '&attendance=' + encodeURIComponent(attendance)
+        + '&message='    + encodeURIComponent(message)
+        + '&deviceId='   + encodeURIComponent(getDeviceId());
+      fetch(rsvpUrl, { mode: 'no-cors' });
+    } catch(e) { console.warn('전송 실패:', e); }
+  }
+
+  showRSVPDone({ name, attendance, message });
+  if (attendance === '참석') lightCandle();
+}
+
+function showRSVPDone(data) {
+  document.getElementById('rsvpForm').style.display = 'none';
+  document.getElementById('rsvpDone').style.display = 'block';
+  lucide.createIcons({ nodes: [document.getElementById('rsvpDone')] });
+
+  const titleEl = document.getElementById('rsvpDoneTitle');
+  const msgEl   = document.getElementById('rsvpDoneMsg');
+
+  if (data.attendance === '참석') {
+    titleEl.textContent = `${data.name}님, 감사합니다!`;
+    msgEl.innerHTML = '참석 응답이 등록되었습니다.<br>7월 3일 금요일 오후 6시, 두란노홀에서 함께해요!';
+  } else {
+    titleEl.textContent = `${data.name}님, 응답해 주셔서 감사합니다`;
+    msgEl.innerHTML = '불참 응답이 등록되었습니다.<br>마음만큼은 함께 기도로 응원해 주세요.';
+  }
+}
+
+// 페이지 로드 시 기존 응답 확인
+function checkExistingRSVP() {
+  const saved = localStorage.getItem('jjr_rsvp');
+  if (saved) {
+    try { showRSVPDone(JSON.parse(saved)); } catch(e) {}
+  }
+}
+
+/* ─────────────────────────────────────────────
+   CANDLE
+───────────────────────────────────────────── */
+let candleCount = 0;
+
+function renderCandle(height, flameH, delay=0) {
+  const wrap = document.createElement('div');
+  wrap.className = 'candle-appear';
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.alignItems = 'center';
+  wrap.style.animationDelay = delay + 'ms';
+
+  const flameColor = `rgba(${220+Math.random()*30|0},${130+Math.random()*40|0},10,0.9)`;
+  wrap.innerHTML = `
+    <div class="flame" style="width:8px;height:${flameH}px;background:radial-gradient(ellipse at bottom,#FFDF60,${flameColor});border-radius:50% 50% 20% 20%;box-shadow:0 0 8px 2px rgba(255,190,40,0.5);"></div>
+    <div style="width:12px;height:${height}px;background:linear-gradient(to bottom,#EDE0F8,#F0D898);border-radius:3px 3px 1px 1px;"></div>
+  `;
+  return wrap;
+}
+
+function initCandles() {
+  // candleArea는 initCandleCount()에서 서버 attending 수에 맞춰 채워짐
+}
+
+/* 다락방별 총원 계산 (MEMBERS_DATA 기준) */
+function getDarakbangTotals() {
+  const result = {};
+  Object.keys(MEMBERS_DATA).forEach(function(key) {
+    var db = MEMBERS_DATA[key];
+    var count = 0;
+    Object.values(db.순).forEach(function(names) { count += names.length; });
+    result[key] = { label: db.label, total: count, attending: 0 };
+  });
+  return result;
+}
+
+/* 다락방별 참석률 렌더링 */
+function renderDarakbangStats(dbTotals) {
+  var container = document.getElementById('darakbangStats');
+  var list      = document.getElementById('darakbangList');
+  if (!container || !list) return;
+
+  var ORDER  = ['믿음1','믿음2','소망1','소망2','사랑1','사랑2'];
+  var COLORS = {
+    '믿음1':'#6B2D94','믿음2':'#8E4AB8',
+    '소망1':'#1A6FA8','소망2':'#2E90D0',
+    '사랑1':'#B83060','사랑2':'#D45080',
+  };
+
+  list.innerHTML = '';
+  var grandTotal = 0, grandAttend = 0;
+
+  ORDER.forEach(function(key) {
+    var db  = dbTotals[key];
+    if (!db) return;
+    grandTotal  += db.total;
+    grandAttend += db.attending;
+    var pct  = db.total > 0 ? Math.min(Math.round(db.attending / db.total * 100), 100) : 0;
+    var color = COLORS[key] || 'var(--gold)';
+
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;';
+    row.innerHTML =
+      '<span style="font-size:11px;font-weight:700;color:' + color + ';width:62px;flex-shrink:0;">' + db.label.replace('다락방','') + '</span>' +
+      '<div style="flex:1;height:8px;background:var(--border-soft);border-radius:10px;overflow:hidden;">' +
+        '<div style="height:100%;width:' + pct + '%;background:' + color + ';border-radius:10px;transition:width 0.8s ease;"></div>' +
+      '</div>' +
+      '<span style="font-size:11px;font-weight:700;color:' + color + ';width:36px;text-align:right;flex-shrink:0;">' + pct + '%</span>' +
+      '<span style="font-size:10px;color:var(--text-soft);width:44px;text-align:right;flex-shrink:0;">' + db.attending + '/' + db.total + '</span>';
+    list.appendChild(row);
+  });
+
+  document.getElementById('totalMemberNote').textContent = '전체 ' + grandTotal + '명 기준';
+  container.style.display = 'block';
+}
+
+function updateCandleDisplay() {
+  const pct = Math.min(Math.round(candleCount / 321 * 100), 100);
+  document.getElementById('candleCount').textContent = candleCount;
+  document.getElementById('candlePercent').textContent = pct + '%';
+  document.getElementById('candleProgress').style.width = pct + '%';
+}
+
+function lightCandle() {
+  const area = document.getElementById('candleArea');
+  while (area.children.length >= 20) area.removeChild(area.firstChild);
+  const h = 20 + Math.random()*28 | 0;
+  const f = 8  + Math.random()*10 | 0;
+  area.appendChild(renderCandle(h, f));
+  candleCount++;
+  updateCandleDisplay();
+  localStorage.setItem('jjr_candles', candleCount);
+}
+
+async function initCandleCount() {
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+  try {
+    const url = `${CONFIG.APPS_SCRIPT_URL}?action=stats&pw=${encodeURIComponent(CONFIG.ADMIN_PASSWORD)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.success && typeof data.attending !== 'undefined') {
+      candleCount = data.attending;
+      updateCandleDisplay();
+      // 실제 인원만큼 촛불 추가 렌더링
+      const area = document.getElementById('candleArea');
+      const current = area.children.length;
+      const target  = Math.min(candleCount, 20);
+      for (let i = current; i < target; i++) {
+        const h = 20 + Math.random()*28 | 0;
+        const f = 8  + Math.random()*10 | 0;
+        area.appendChild(renderCandle(h, f, i * 60));
+      }
+      // 다락방별 참석률 집계
+      if (data.rows && data.rows.length > 0) {
+        var dbTotals = getDarakbangTotals();
+        data.rows.forEach(function(r) {
+          if (r.attendance !== '참석' || !r.cellGroup) return;
+          Object.keys(dbTotals).forEach(function(key) {
+            if (r.cellGroup.startsWith(dbTotals[key].label)) {
+              dbTotals[key].attending++;
+            }
+          });
+        });
+        renderDarakbangStats(dbTotals);
+      }
+    }
+  } catch(e) {}
+}
+
+/* ─────────────────────────────────────────────
+   PRAYER WALL — 서버(Google Apps Script) 영구 저장
+───────────────────────────────────────────── */
+const PRAYER_PAGE = 3;
+let prayerPosts   = [];
+
+function makePrayerCard(name, time, text, highlight, animName) {
+  highlight = highlight || false;
+  animName  = animName  || 'rise';
+  const card = document.createElement('div');
+  card.style.cssText = 'padding:12px 14px;border-radius:12px;background:' +
+    (highlight ? '#F5EFFE' : '#FAFAF8') + ';border:1px solid ' +
+    (highlight ? 'var(--border)' : 'var(--border-soft)') + ';animation:' + animName + ' 0.35s ease forwards;';
+  card.innerHTML =
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">' +
+    '<span style="font-size:11px;color:' + (highlight ? 'var(--gold-light)' : 'var(--border)') + ';">♥</span>' +
+    '<span style="font-size:10px;color:var(--text-soft);">' + escapeHTML(time) + '</span></div>' +
+    '<p style="font-size:13px;color:var(--text-deep);line-height:1.7;">' + escapeHTML(text) + '</p>';
+  return card;
+}
+
+function renderPrayerWall(highlightFirst) {
+  highlightFirst = highlightFirst !== false;
+  const wall = document.getElementById('prayerWall');
+  wall.innerHTML = '';
+
+  if (prayerPosts.length === 0) {
+    wall.innerHTML =
+      '<p style="text-align:center;color:var(--text-soft);font-size:12px;padding:24px 0;line-height:1.8;">' +
+      '아직 등록된 소망이 없습니다<br>' +
+      '<span style="color:var(--gold-light);">첫 번째로 소망을 나눠주세요</span></p>';
+    return;
+  }
+
+  const count = Math.min(prayerPosts.length, PRAYER_PAGE);
+  prayerPosts.slice(0, count).forEach(function(p, i) {
+    wall.appendChild(makePrayerCard(p.name, p.time, p.text, highlightFirst && i === 0));
+  });
+
+  if (prayerPosts.length > PRAYER_PAGE) {
+    const more = document.createElement('button');
+    more.textContent = '이전 소망 보기 (' + (prayerPosts.length - PRAYER_PAGE) + '개)';
+    more.onclick = showOlderPrayers;
+    more.style.cssText =
+      'width:100%;padding:9px;border-radius:10px;border:1.5px solid var(--border-soft);' +
+      'background:white;color:var(--text-soft);font-family:inherit;font-size:12px;' +
+      'font-weight:600;cursor:pointer;margin-top:4px;transition:all 0.2s;';
+    more.onmouseenter = function() { this.style.borderColor='var(--gold-mid)'; this.style.color='var(--gold)'; };
+    more.onmouseleave = function() { this.style.borderColor='var(--border-soft)'; this.style.color='var(--text-soft)'; };
+    wall.appendChild(more);
+  }
+}
+
+function showOlderPrayers() {
+  const wall = document.getElementById('prayerWall');
+  wall.innerHTML = '';
+  prayerPosts.forEach(function(p, i) {
+    wall.appendChild(makePrayerCard(p.name, p.time, p.text, i === 0, 'rise'));
+  });
+}
+
+/* 서버에서 소망 불러오기 — CORS 허용 GET */
+async function initPrayerWall() {
+  const wall = document.getElementById('prayerWall');
+  wall.innerHTML = '<p style="text-align:center;color:var(--text-soft);font-size:12px;padding:20px 0;">소망을 불러오는 중...</p>';
+
+  if (!CONFIG.APPS_SCRIPT_URL) { prayerPosts = []; renderPrayerWall(false); return; }
+  try {
+    const res  = await fetch(CONFIG.APPS_SCRIPT_URL + '?action=getPrayers', { cache: 'no-store' });
+    const data = await res.json();
+    prayerPosts = (data.success && Array.isArray(data.prayers)) ? data.prayers : [];
+  } catch(e) {
+    prayerPosts = [];
+  }
+  renderPrayerWall(false);
+}
+
+/* 소망 등록 — no-cors POST (RSVP와 동일 방식, 항상 낙관적 업데이트) */
+async function addPrayer() {
+  const text = document.getElementById('wallContent').value.trim();
+  if (!text) { showToast('격려의 한 마디를 입력해 주세요'); return; }
+  const name = '익명';
+
+  const now     = new Date();
+  const timeStr = String(now.getFullYear()).slice(2) + '.' + (now.getMonth()+1) + '.' + now.getDate()
+                + ' ' + now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+
+  const btn = document.querySelector('button[onclick="addPrayer()"]');
+  if (btn) { btn.disabled = true; btn.textContent = '등록 중...'; }
+
+  // no-cors GET — query params 방식 (Apps Script doGet 호출, 응답 안 읽음)
+  if (CONFIG.APPS_SCRIPT_URL) {
+    try {
+      const saveUrl = CONFIG.APPS_SCRIPT_URL
+        + '?action=addPrayer'
+        + '&name=' + encodeURIComponent(name)
+        + '&time=' + encodeURIComponent(timeStr)
+        + '&text=' + encodeURIComponent(text);
+      fetch(saveUrl, { mode: 'no-cors' }); // 응답 안 읽고 fire-and-forget
+    } catch(e) { /* 계속 진행 */ }
+  }
+
+  document.getElementById('wallContent').value = '';
+  if (btn) {
+    btn.disabled = false;
+    btn.innerHTML = '<i data-lucide="heart" style="width:14px;height:14px;"></i> 격려 남기기';
+    lucide.createIcons({ nodes: [btn] });
+  }
+
+  // 로컬 배열 즉시 반영 + 슬라이드 애니메이션
+  const needsSlide = prayerPosts.length >= PRAYER_PAGE;
+  prayerPosts.unshift({ name: name, time: timeStr, text: text });
+
+  if (needsSlide) {
+    const wall   = document.getElementById('prayerWall');
+    const cards  = Array.from(wall.children).filter(function(el) { return el.tagName !== 'BUTTON'; });
+    const oldest = cards[cards.length - 1];
+    if (oldest) {
+      oldest.style.animation = 'slide-out 0.3s ease forwards';
+      setTimeout(function() { renderPrayerWall(true); }, 300);
+    } else {
+      renderPrayerWall(true);
+    }
+  } else {
+    renderPrayerWall(true);
+  }
+  showToast('격려 한 마디가 등록되었습니다. 감사합니다!');
+}
+
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ─────────────────────────────────────────────
+   SHARE — 공유 드롭다운 + 카카오톡
+───────────────────────────────────────────── */
+const SHARE_URL  = 'https://jungjongro2026.netlify.app/';
+const SHARE_TEXT = '기도로 잇고, 예배로 피어나다\n7월 3일(금) 오후 6시 | 선교관 두란노홀\n중종로공동체 종강예배에 초대합니다.';
+
+function toggleShareMenu(e) {
+  e.stopPropagation();
+  var menu = document.getElementById('shareMenu');
+  var isOpen = menu.style.display !== 'none';
+  menu.style.display = isOpen ? 'none' : 'block';
+  lucide.createIcons();
+}
+
+// 외부 클릭 시 드롭다운 닫기
+document.addEventListener('click', function() {
+  var menu = document.getElementById('shareMenu');
+  if (menu) menu.style.display = 'none';
+});
+document.getElementById('shareMenu').addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+
+async function shareKakao() {
+  document.getElementById('shareMenu').style.display = 'none';
+  const shareData = {
+    title : '중종로공동체 상반기 종강예배 & 릴레이 기도',
+    text  : SHARE_TEXT,
+    url   : SHARE_URL,
+  };
+
+  // 1. 모바일 Web Share API (카카오톡 앱 선택 가능)
+  if (navigator.share) {
+    try { await navigator.share(shareData); return; } catch(e) {}
+  }
+
+  // 2. 카카오톡 PC 앱 URL 스킴 시도
+  var kakaoUrl = 'kakaotalk://sendurl?url=' + encodeURIComponent(SHARE_URL)
+               + '&text=' + encodeURIComponent(SHARE_TEXT);
+  var frame = document.createElement('iframe');
+  frame.style.display = 'none';
+  frame.src = kakaoUrl;
+  document.body.appendChild(frame);
+  setTimeout(function() { document.body.removeChild(frame); }, 1000);
+
+  // 3. 클립보드 복사 + 안내
+  try {
+    await navigator.clipboard.writeText(SHARE_URL);
+    showToast('링크를 복사했습니다. 카카오톡에 붙여넣기 해주세요!', 3500);
+  } catch(e) {
+    showToast('링크: ' + SHARE_URL, 4000);
+  }
+}
+
+async function copyLink() {
+  document.getElementById('shareMenu').style.display = 'none';
+  try {
+    await navigator.clipboard.writeText(SHARE_URL);
+    showToast('링크가 복사되었습니다!');
+  } catch(e) {
+    showToast('링크: ' + SHARE_URL, 4000);
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   PRAYER REMINDER (Web Notifications API)
+───────────────────────────────────────────── */
+const reminderSlotData = [
+  { label: '매일 아침 7시 기도 알림', key: 'r_morning' },
+  { label: '매일 밤 10시 기도 알림',  key: 'r_evening' },
+];
+
+document.getElementById('reminderBtn').addEventListener('click', () => {
+  renderReminderSlots();
+  openModal('reminderModal');
+});
+
+function renderReminderSlots() {
+  const cont = document.getElementById('reminderSlots');
+  cont.innerHTML = '';
+  reminderSlotData.forEach(slot => {
+    const active = localStorage.getItem(slot.key) === 'on';
+    const div = document.createElement('div');
+    div.className = 'reminder-slot' + (active ? ' active' : '');
+    div.innerHTML = `
+      <span style="font-size:12px;color:var(--text-deep);">${slot.label}</span>
+      <button onclick="toggleReminder('${slot.key}', this)" style="width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;background:${active?'var(--gold-mid)':'#E0D0B0'};transition:background 0.2s;position:relative;">
+        <span style="position:absolute;top:2px;${active?'right:2px':'left:2px'};width:18px;height:18px;background:white;border-radius:50%;transition:all 0.2s;"></span>
+      </button>
+    `;
+    cont.appendChild(div);
+  });
+}
+
+function toggleReminder(key, btn) {
+  const current = localStorage.getItem(key) === 'on';
+  localStorage.setItem(key, current ? 'off' : 'on');
+  renderReminderSlots();
+  showToast(current ? '알림이 해제되었습니다' : '알림이 설정되었습니다');
+}
+
+async function requestNotification() {
+  if (!('Notification' in window)) { showToast('이 브라우저는 알림을 지원하지 않습니다'); return; }
+  const perm = await Notification.requestPermission();
+  const el = document.getElementById('notifStatus');
+  if (perm === 'granted') {
+    new Notification('중종로공동체 릴레이 기도', { body: '기도로 잇고, 예배로 피어나다 — 오늘의 기도 시간입니다.' });
+    if (el) el.textContent = '알림 권한이 허용되었습니다.';
+    showToast('브라우저 알림이 허용되었습니다!');
+  } else {
+    if (el) el.textContent = '알림 권한이 거부되었습니다. 브라우저 설정에서 변경해 주세요.';
+  }
+}
+
+/* ─────────────────────────────────────────────
+   CCM MUSIC PLAYER
+───────────────────────────────────────────── */
+let musicPlaying = false;
+let musicMuted   = true;  // 자동재생은 무음으로 시작
+
+function initMusicPlayer() {
+  // 서버 config에서 음원 URL 가져오기 (모든 방문자 공통 적용)
+  // — 비동기 로딩: _onServerConfig 콜백이 오면 즉시 오디오 src 교체
+  if (CONFIG.APPS_SCRIPT_URL) {
+    const tag = document.createElement('script');
+    tag.src = CONFIG.APPS_SCRIPT_URL + '?action=getConfig&callback=_onServerConfig';
+    document.head.appendChild(tag);
+  }
+
+  // 초기값은 localStorage 또는 CONFIG 기본값 (서버 응답 오면 _onServerConfig가 교체)
+  const savedUrl   = localStorage.getItem('jjr_music_url')   || CONFIG.MUSIC_URL;
+  const savedTitle = localStorage.getItem('jjr_music_title') || 'CCM';
+  if (!savedUrl) return;
+
+  const audio  = document.getElementById('bgAudio');
+  audio.src    = savedUrl;
+  audio.volume = 0.6;
+  audio.loop   = true;
+  audio.muted  = true;   // 무음으로 시작 → 브라우저 정책 우회
+  document.getElementById('musicTitle').textContent = savedTitle;
+  document.getElementById('musicPlayer').classList.remove('hidden');
+  lucide.createIcons();
+
+  // 무음 자동재생 시작 (거의 모든 브라우저 허용)
+  audio.play().then(function() {
+    musicPlaying = true;
+    musicMuted   = true;
+    // 소리켜기 버튼 표시, 컨트롤 숨김
+    document.getElementById('musicUnmuteBtn').style.display  = 'flex';
+    document.getElementById('musicControls').style.display   = 'none';
+  }).catch(function() {
+    // 무음 재생도 차단된 경우 (드문 환경) — 소리켜기 버튼 클릭 시 시작
+    musicPlaying = false;
+    document.getElementById('musicUnmuteBtn').style.display  = 'flex';
+    document.getElementById('musicControls').style.display   = 'none';
+  });
+}
+
+function unmuteMusic() {
+  const audio = document.getElementById('bgAudio');
+  audio.muted  = false;
+  musicMuted   = false;
+  if (!musicPlaying) {
+    audio.play().catch(function() {});
+    musicPlaying = true;
+  }
+  document.getElementById('musicUnmuteBtn').style.display = 'none';
+  document.getElementById('musicControls').style.display  = 'flex';
+  document.getElementById('musicPlayIcon').setAttribute('data-lucide', 'pause');
+  lucide.createIcons();
+}
+
+function toggleMusic() {
+  const audio = document.getElementById('bgAudio');
+  if (!audio.src || audio.src === window.location.href) {
+    showToast('관리자 패널에서 음원을 먼저 설정해 주세요');
+    return;
+  }
+  if (musicPlaying) {
+    audio.pause();
+    musicPlaying = false;
+    document.getElementById('musicPlayIcon').setAttribute('data-lucide', 'play');
+    lucide.createIcons();
+  } else {
+    audio.play().catch(function() { showToast('음원을 불러오지 못했습니다'); });
+    musicPlaying = true;
+    document.getElementById('musicPlayIcon').setAttribute('data-lucide', 'pause');
+    lucide.createIcons();
+  }
+}
+
+function closeMusicPlayer() {
+  const audio = document.getElementById('bgAudio');
+  audio.pause();
+  musicPlaying = false;
+  musicMuted   = true;
+  document.getElementById('musicPlayer').classList.add('hidden');
+}
+
+
+
+/* ─────────────────────────────────────────────
+   PRAYER TOPICS — 동적 렌더링
+───────────────────────────────────────────── */
+function loadPrayerTopics() {
+  const saved = localStorage.getItem('jjr_prayer_topics');
+  return saved ? JSON.parse(saved) : CONFIG.PRAYER_TOPICS;
+}
+
+function applyPrayerTopics() {
+  const topics = loadPrayerTopics();
+  topics.forEach((t, i) => {
+    const inner = document.querySelector('#rd' + (i+1) + ' > div');
+    if (!inner) return;
+    const ps = inner.querySelectorAll('p');
+    if (ps[0]) ps[0].textContent = t.title;
+    if (ps[1]) ps[1].innerHTML  = escapeHTML(t.body).replace(/\n/g, '<br>');
+  });
+}
+
+/* ─────────────────────────────────────────────
+   ADMIN MAIN TAB SWITCH (통계 | 설정)
+───────────────────────────────────────────── */
+function switchAdminMainTab(tab) {
+  const tabs = {
+    stats:    { btn:'adminTabStats',    sec:'adminSectionStats'    },
+    manage:   { btn:'adminTabManage',   sec:'adminSectionManage'   },
+    members:  { btn:'adminTabMembers',  sec:'adminSectionMembers'  },
+    prayers:  { btn:'adminTabPrayers',  sec:'adminSectionPrayers'  },
+    settings: { btn:'adminTabSettings', sec:'adminSectionSettings' }
+  };
+  Object.entries(tabs).forEach(function([key, cfg]) {
+    const active = key === tab;
+    const btn = document.getElementById(cfg.btn);
+    const sec = document.getElementById(cfg.sec);
+    if (btn) {
+      btn.style.background  = active ? 'var(--gold)' : 'white';
+      btn.style.color       = active ? 'white' : 'var(--text-soft)';
+      btn.style.borderColor = active ? 'var(--gold)' : 'var(--border)';
+    }
+    if (sec) sec.style.display = active ? 'block' : 'none';
+  });
+  if (tab === 'manage')  refreshManageList();
+  if (tab === 'settings') loadAdminSettings();
+  if (tab === 'members') { initMembersData(); renderMemberGroups(''); }
+  if (tab === 'prayers') loadAdminPrayers();
+}
+
+function populateSettingsForm() {
+  // 서버 설정 우선, 없으면 localStorage, 없으면 CONFIG 기본값
+  const serverUrl = window._serverMusicUrl || '';
+  document.getElementById('adminMusicUrl').value   = serverUrl || localStorage.getItem('jjr_music_url')   || CONFIG.MUSIC_URL;
+  document.getElementById('adminMusicTitle').value = window._serverMusicTitle || localStorage.getItem('jjr_music_title') || '';
+  document.getElementById('specialTitleInput').value = localStorage.getItem('jjr_special_title') || '특별 순서';
+  document.getElementById('specialBodyInput').value  = localStorage.getItem('jjr_special_body')  || '릴레이 기도 완수 기념으로 입장하시는 모든 성도님께 따뜻한 웰컴 선물과 하이파이브 격려가 준비됩니다.';
+  const topics = loadPrayerTopics();
+  topics.forEach((t, i) => {
+    const n = i + 1;
+    const te = document.getElementById('pt' + n + 'title');
+    const be = document.getElementById('pt' + n + 'body');
+    if (te) te.value = t.title;
+    if (be) be.value = t.body;
+  });
+}
+
+function saveAdminSettings() {
+  const url   = document.getElementById('adminMusicUrl').value.trim();
+  const title = document.getElementById('adminMusicTitle').value.trim() || 'CCM';
+
+  // localStorage에 즉시 적용 (이 기기 현재 세션)
+  localStorage.setItem('jjr_music_url',   url);
+  localStorage.setItem('jjr_music_title', title);
+  window._serverMusicUrl   = url;
+  window._serverMusicTitle = title;
+
+  // 음원 교체 (현재 재생 중인 오디오에 바로 적용)
+  const audio = document.getElementById('bgAudio');
+  if (url) {
+    const wasPlaying = !audio.paused;
+    audio.src = url;
+    document.getElementById('musicTitle').textContent = title;
+    document.getElementById('musicPlayer').classList.remove('hidden');
+    lucide.createIcons();
+    if (wasPlaying) audio.play().catch(function(){});
+  } else {
+    audio.src = '';
+    document.getElementById('musicPlayer').classList.add('hidden');
+  }
+
+  // 특별 순서 저장 및 즉시 반영
+  const spTitle = document.getElementById('specialTitleInput').value.trim() || '특별 순서';
+  const spBody  = document.getElementById('specialBodyInput').value.trim()  || '';
+  localStorage.setItem('jjr_special_title', spTitle);
+  localStorage.setItem('jjr_special_body',  spBody);
+  document.getElementById('specialTitle').textContent = spTitle;
+  document.getElementById('specialBody').textContent  = spBody;
+
+  // 기도제목 저장
+  const topics = CONFIG.PRAYER_TOPICS.map((def, i) => {
+    const n = i + 1;
+    return {
+      title: (document.getElementById('pt' + n + 'title').value.trim()) || def.title,
+      body:  (document.getElementById('pt' + n + 'body').value.trim())  || def.body,
+    };
+  });
+  localStorage.setItem('jjr_prayer_topics', JSON.stringify(topics));
+  applyPrayerTopics();
+
+  // 서버에 음원 URL 저장 (Apps Script setConfig)
+  if (CONFIG.APPS_SCRIPT_URL && _adminPw) {
+    const base = CONFIG.APPS_SCRIPT_URL;
+    const encUrl   = encodeURIComponent(url);
+    const encTitle = encodeURIComponent(title);
+    const encPw    = encodeURIComponent(_adminPw);
+    const s = document.createElement('script');
+    s.src = `${base}?action=setConfig&key=music_url&value=${encUrl}&pw=${encPw}&callback=_noop`;
+    document.head.appendChild(s);
+    const s2 = document.createElement('script');
+    s2.src = `${base}?action=setConfig&key=music_title&value=${encTitle}&pw=${encPw}&callback=_noop`;
+    document.head.appendChild(s2);
+  }
+
+  showToast('설정이 저장되었습니다');
+}
+
+/* ─────────────────────────────────────────────
+   SERVER CONFIG (음원 URL 서버 저장/불러오기)
+───────────────────────────────────────────── */
+// JSONP 콜백: 서버에서 config 로드 완료 시 호출
+function _onServerConfig(data) {
+  if (!data || !data.success || !data.config) return;
+  const cfg = data.config;
+  const url   = cfg.music_url   || '';
+  const title = cfg.music_title || 'CCM';
+  if (!url) return;
+  // 글로벌 캐시에 저장
+  window._serverMusicUrl   = url;
+  window._serverMusicTitle = title;
+  // localStorage도 동기화
+  localStorage.setItem('jjr_music_url',   url);
+  localStorage.setItem('jjr_music_title', title);
+  // 이미 플레이어가 초기화된 경우 즉시 교체
+  const audio = document.getElementById('bgAudio');
+  if (audio && audio.src !== url) {
+    const wasPlaying = !audio.paused;
+    audio.src = url;
+    const titleEl = document.getElementById('musicTitle');
+    if (titleEl) titleEl.textContent = title;
+    document.getElementById('musicPlayer').classList.remove('hidden');
+    lucide.createIcons();
+    if (wasPlaying) audio.play().catch(function(){});
+  }
+}
+// no-op — setConfig 응답 무시용
+function _noop() {}
+
+/* ─────────────────────────────────────────────
+   소망의 벽 관리 (관리자)
+───────────────────────────────────────────── */
+let _adminPrayers = [];  // 서버에서 받은 소망 목록 캐시
+
+function loadAdminPrayers() {
+  if (!CONFIG.APPS_SCRIPT_URL) {
+    document.getElementById('adminPrayerStatus').style.display = 'block';
+    document.getElementById('adminPrayerStatus').textContent = 'Apps Script URL이 설정되지 않았습니다';
+    return;
+  }
+  const statusEl = document.getElementById('adminPrayerStatus');
+  const listEl   = document.getElementById('adminPrayerList');
+  statusEl.style.display = 'block';
+  statusEl.textContent   = '불러오는 중...';
+  listEl.innerHTML = '';
+
+  const s = document.createElement('script');
+  s.src = CONFIG.APPS_SCRIPT_URL + '?action=getPrayersAdmin&pw=' + encodeURIComponent(_adminPw) + '&callback=_onAdminPrayers';
+  s.onerror = function() {
+    statusEl.textContent = '불러오기 실패. 네트워크를 확인하세요';
+  };
+  document.head.appendChild(s);
+}
+
+function _onAdminPrayers(data) {
+  const statusEl = document.getElementById('adminPrayerStatus');
+  const listEl   = document.getElementById('adminPrayerList');
+  if (!data || !data.success) {
+    statusEl.style.display = 'block';
+    statusEl.textContent   = data && data.error ? data.error : '불러오기 실패';
+    return;
+  }
+  _adminPrayers = data.prayers || [];
+  statusEl.style.display = 'none';
+  if (_adminPrayers.length === 0) {
+    statusEl.style.display = 'block';
+    statusEl.textContent   = '등록된 소망이 없습니다';
+    return;
+  }
+  renderAdminPrayers();
+}
+
+function renderAdminPrayers() {
+  const listEl = document.getElementById('adminPrayerList');
+  listEl.innerHTML = '';
+  _adminPrayers.forEach(function(p, idx) {
+    const card = document.createElement('div');
+    card.id = 'prayerCard_' + idx;
+    card.style.cssText = 'background:#F5F0FC;border-radius:10px;padding:10px;font-size:12px;';
+    card.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">' +
+        '<div style="flex:1;min-width:0;">' +
+          '<span style="font-weight:700;color:var(--text-deep);">' + escHtml(p.name) + '</span>' +
+          '<span style="color:var(--text-soft);font-size:10px;margin-left:6px;">' + escHtml(p.time || '') + '</span>' +
+          '<p id="prayerText_' + idx + '" style="margin:4px 0 0;color:var(--text-deep);word-break:break-all;">' + escHtml(p.text) + '</p>' +
+          '<textarea id="prayerEdit_' + idx + '" style="display:none;width:100%;margin-top:6px;border:1.5px solid var(--border);border-radius:8px;padding:6px;font-family:inherit;font-size:12px;resize:vertical;" rows="3">' + escHtml(p.text) + '</textarea>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;">' +
+          '<button onclick="adminStartEditPrayer(' + idx + ')" id="prayerEditBtn_' + idx + '" style="padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:white;font-family:inherit;font-size:10px;cursor:pointer;">수정</button>' +
+          '<button onclick="adminSavePrayer(' + idx + ')" id="prayerSaveBtn_' + idx + '" style="display:none;padding:3px 8px;border-radius:6px;border:1px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:10px;cursor:pointer;">저장</button>' +
+          '<button onclick="adminDeletePrayer(' + idx + ')" style="padding:3px 8px;border-radius:6px;border:1px solid #E57373;background:white;color:#E57373;font-family:inherit;font-size:10px;cursor:pointer;">삭제</button>' +
+        '</div>' +
+      '</div>';
+    listEl.appendChild(card);
+  });
+}
+
+function adminStartEditPrayer(idx) {
+  document.getElementById('prayerText_' + idx).style.display  = 'none';
+  document.getElementById('prayerEdit_' + idx).style.display  = 'block';
+  document.getElementById('prayerEditBtn_' + idx).style.display = 'none';
+  document.getElementById('prayerSaveBtn_' + idx).style.display = 'inline-block';
+  document.getElementById('prayerEdit_' + idx).focus();
+}
+
+function adminSavePrayer(idx) {
+  const p      = _adminPrayers[idx];
+  const newText = document.getElementById('prayerEdit_' + idx).value.trim();
+  if (!newText) { showToast('내용을 입력하세요'); return; }
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+
+  // 서버 저장 (script 태그 no-cors — 쓰기만, 응답 무시)
+  const s = document.createElement('script');
+  s.src = CONFIG.APPS_SCRIPT_URL +
+    '?action=updatePrayer' +
+    '&row=' + encodeURIComponent(p.row) +
+    '&text=' + encodeURIComponent(newText) +
+    '&pw=' + encodeURIComponent(_adminPw) +
+    '&callback=_noop';
+  document.head.appendChild(s);
+
+  // UI 즉시 반영
+  _adminPrayers[idx].text = newText;
+  document.getElementById('prayerText_' + idx).textContent    = newText;
+  document.getElementById('prayerText_' + idx).style.display  = 'block';
+  document.getElementById('prayerEdit_' + idx).style.display  = 'none';
+  document.getElementById('prayerEditBtn_' + idx).style.display = 'inline-block';
+  document.getElementById('prayerSaveBtn_' + idx).style.display = 'none';
+  showToast('수정되었습니다');
+}
+
+function adminDeletePrayer(idx) {
+  const p = _adminPrayers[idx];
+  if (!confirm('"' + p.name + '"님의 소망을 삭제하시겠습니까?')) return;
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+
+  const s = document.createElement('script');
+  s.src = CONFIG.APPS_SCRIPT_URL +
+    '?action=deletePrayer' +
+    '&row=' + encodeURIComponent(p.row) +
+    '&pw=' + encodeURIComponent(_adminPw) +
+    '&callback=_noop';
+  document.head.appendChild(s);
+
+  // UI에서 즉시 제거 후 행 번호 재조정
+  _adminPrayers.splice(idx, 1);
+  // 삭제된 항목 이후의 row 번호도 1씩 감소 (시트 deleteRow 효과)
+  for (var i = idx; i < _adminPrayers.length; i++) {
+    if (_adminPrayers[i].row > p.row) _adminPrayers[i].row--;
+  }
+  renderAdminPrayers();
+  if (_adminPrayers.length === 0) {
+    const statusEl = document.getElementById('adminPrayerStatus');
+    statusEl.style.display = 'block';
+    statusEl.textContent   = '등록된 소망이 없습니다';
+  }
+  showToast('삭제되었습니다');
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+/* ─────────────────────────────────────────────
+   ADMIN PANEL
+───────────────────────────────────────────── */
+let adminAuthed = false;
+let _adminPw = '';   // 로그인 성공 시 저장
+
+function verifyAdmin() {
+  const pw = document.getElementById('adminPwInput').value;
+  if (!pw) return;
+  if (!CONFIG.APPS_SCRIPT_URL) {
+    if (pw === CONFIG.ADMIN_PASSWORD) {
+      adminAuthed = true; _adminPw = pw;
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminStats').style.display = 'block';
+      loadLocalStats();
+    } else { showToast('비밀번호가 올바르지 않습니다'); }
+    return;
+  }
+  fetchStats(pw);
+}
+
+function loadLocalStats() {
+  const saved = localStorage.getItem('jjr_rsvp');
+  if (saved) {
+    const d = JSON.parse(saved);
+    updateStatUI(1, d.attendance==='참석'?1:0, d.attendance==='불참'?1:0, [d]);
+  } else {
+    updateStatUI(0, 0, 0, []);
+    showToast('아직 이 기기에서 응답한 데이터가 없습니다');
+  }
+}
+
+async function fetchStats(pw) {
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+  try {
+    const url = CONFIG.APPS_SCRIPT_URL + '?action=stats&pw=' + encodeURIComponent(pw);
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.error === 'unauthorized') { showToast('비밀번호가 올바르지 않습니다'); return; }
+    if (!data.success) { showToast('데이터를 불러오지 못했습니다'); return; }
+    adminAuthed = true; _adminPw = pw;
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminStats').style.display = 'block';
+    updateStatUI(data.total, data.attending, data.notAttending, data.rows);
+  } catch(e) { showToast('서버 연결에 실패했습니다'); }
+}
+
+let _lastRows = [];
+
+function switchAdminTab(tab) {
+  const isRes = tab === 'responded';
+  document.getElementById('adminList').style.display    = isRes ? 'flex' : 'none';
+  document.getElementById('adminPending').style.display = isRes ? 'none' : 'flex';
+  document.getElementById('tabResponded').style.background  = isRes ? 'var(--gold)' : 'white';
+  document.getElementById('tabResponded').style.color       = isRes ? 'white' : 'var(--text-soft)';
+  document.getElementById('tabResponded').style.borderColor = isRes ? 'var(--gold)' : 'var(--border)';
+  document.getElementById('tabPending').style.background    = isRes ? 'white' : 'var(--gold)';
+  document.getElementById('tabPending').style.color         = isRes ? 'var(--text-soft)' : 'white';
+  document.getElementById('tabPending').style.borderColor   = isRes ? 'var(--border)' : 'var(--gold)';
+}
+
+function updateStatUI(total, yes, no, rows) {
+  _lastRows = rows || [];
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statYes').textContent   = yes;
+  document.getElementById('statNo').textContent    = no;
+  const pct = total > 0 ? Math.round(yes/total*100) : 0;
+  document.getElementById('attendanceBar').style.width = pct + '%';
+
+  const list = document.getElementById('adminList');
+  list.innerHTML = '';
+  if (!rows || rows.length === 0) {
+    list.innerHTML = '<p style="font-size:12px;color:var(--text-soft);text-align:center;padding:16px;">응답 데이터가 없습니다</p>';
+  } else {
+    rows.forEach(r => {
+      const el = document.createElement('div');
+      el.style.cssText = 'padding:10px 12px;border-radius:10px;background:' +
+        (r.attendance==='참석'?'#F0FDF4':'#FFFBEB') + ';border:1px solid ' +
+        (r.attendance==='참석'?'#BBF7D0':'#FDE68A') + ';display:flex;justify-content:space-between;align-items:center;';
+      el.innerHTML = '<div><p style="font-size:12px;font-weight:700;color:var(--text-deep);">' +
+        escapeHTML(r.name||'') + '</p><p style="font-size:11px;color:var(--text-soft);">' +
+        escapeHTML(r.cellGroup||'') + ' · ' + escapeHTML(r.position||'') + '</p></div>' +
+        '<span style="font-size:12px;font-weight:700;color:' + (r.attendance==='참석'?'#16A34A':'#D97706') + ';">' +
+        escapeHTML(r.attendance||'') + '</span>';
+      list.appendChild(el);
+    });
+  }
+
+  const respondedSet = new Set((rows||[]).map(r => (r.cellGroup||'') + '__' + (r.name||'')));
+  const pendingDiv = document.getElementById('adminPending');
+  pendingDiv.innerHTML = '';
+  let pendingCount = 0;
+  Object.entries(MEMBERS_DATA).forEach(([key, dbData]) => {
+    const label = dbData.label;
+    Object.entries(dbData['순']).forEach(([순이름, names]) => {
+      const pending = names.filter(n => !respondedSet.has(label + '__' + n));
+      if (pending.length === 0) return;
+      pendingCount += pending.length;
+      const group = document.createElement('div');
+      group.style.cssText = 'padding:8px 12px;border-radius:10px;background:#F0EBFA;border:1px solid var(--border-soft);';
+      group.innerHTML = '<p style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:5px;">' +
+        escapeHTML(label) + ' ' + escapeHTML(순이름) + '</p>' +
+        pending.map(n => '<span style="display:inline-block;font-size:12px;color:var(--text-mid);margin:2px 6px 2px 0;">' + escapeHTML(n) + '</span>').join('');
+      pendingDiv.appendChild(group);
+    });
+  });
+  if (pendingCount === 0) {
+    pendingDiv.innerHTML = '<p style="font-size:12px;color:#16A34A;text-align:center;padding:16px;font-weight:700;">전원 응답 완료!</p>';
+  }
+  document.getElementById('tabPending').textContent = '미응답자 (' + pendingCount + '명)';
+}
+
+function refreshStats() {
+  const pw = document.getElementById('adminPwInput').value;
+  if (CONFIG.APPS_SCRIPT_URL && pw) fetchStats(pw);
+  else loadLocalStats();
+  showToast('새로고침 완료');
+}
+
+/* ─────────────────────────────────────────────
+   관리자 — 응답 수정 / 삭제 / 초기화
+───────────────────────────────────────────── */
+function getAdminPw() { return _adminPw || document.getElementById('adminPwInput').value; }
+
+async function refreshManageList() {
+  const pw = getAdminPw();
+  if (!CONFIG.APPS_SCRIPT_URL || !pw) return;
+  const list = document.getElementById('adminManageList');
+  list.innerHTML = '<p style="font-size:12px;color:var(--text-soft);text-align:center;padding:12px;">불러오는 중...</p>';
+  try {
+    const res  = await fetch(CONFIG.APPS_SCRIPT_URL + '?action=stats&pw=' + encodeURIComponent(pw), { cache:'no-store' });
+    const data = await res.json();
+    if (!data.success) { list.innerHTML = '<p style="font-size:12px;color:#EF4444;text-align:center;padding:12px;">불러오기 실패</p>'; return; }
+    renderManageList(data.rows || []);
+  } catch(e) {
+    list.innerHTML = '<p style="font-size:12px;color:#EF4444;text-align:center;padding:12px;">서버 연결 실패</p>';
+  }
+}
+
+function renderManageList(rows) {
+  const list = document.getElementById('adminManageList');
+  list.innerHTML = '';
+  if (!rows.length) {
+    list.innerHTML = '<p style="font-size:12px;color:var(--text-soft);text-align:center;padding:16px;">등록된 응답이 없습니다</p>';
+    return;
+  }
+  rows.forEach(function(r) {
+    const card = document.createElement('div');
+    card.id = 'manageCard_' + r.row;
+    card.style.cssText = 'border-radius:10px;border:1px solid ' +
+      (r.attendance==='참석' ? '#BBF7D0' : '#FDE68A') + ';overflow:hidden;';
+
+    const badge = r.attendance === '참석'
+      ? '<span style="font-size:11px;font-weight:700;color:#16A34A;background:#F0FDF4;padding:2px 7px;border-radius:20px;">참석</span>'
+      : '<span style="font-size:11px;font-weight:700;color:#D97706;background:#FFFBEB;padding:2px 7px;border-radius:20px;">불참</span>';
+
+    // 헤더 행
+    const header = document.createElement('div');
+    header.style.cssText = 'padding:9px 12px;background:' + (r.attendance==='참석'?'#F0FDF4':'#FFFBEB') + ';display:flex;justify-content:space-between;align-items:center;';
+    header.innerHTML =
+      '<div>' +
+        '<p style="font-size:12px;font-weight:700;color:var(--text-deep);">' + escapeHTML(r.name) + '</p>' +
+        '<p style="font-size:10px;color:var(--text-soft);">' + escapeHTML(r.cellGroup||'') + (r.message ? ' · "' + escapeHTML(r.message) + '"' : '') + '</p>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;">' + badge + '</div>';
+
+    // 수정 버튼
+    const editBtn = document.createElement('button');
+    editBtn.textContent = '수정';
+    editBtn.style.cssText = 'padding:3px 7px;border-radius:6px;border:1px solid var(--border);background:white;color:var(--text-mid);font-size:11px;cursor:pointer;font-family:inherit;';
+    editBtn.onclick = function() { adminToggleEdit(r.row); };
+
+    // 삭제 버튼
+    const delBtn = document.createElement('button');
+    delBtn.textContent = '삭제';
+    delBtn.style.cssText = 'padding:3px 7px;border-radius:6px;border:1px solid #FCA5A5;background:white;color:#EF4444;font-size:11px;cursor:pointer;font-family:inherit;';
+    delBtn.onclick = function() { adminDeleteRow(r.row, r.name); };
+
+    header.querySelector('div:last-child').appendChild(editBtn);
+    header.querySelector('div:last-child').appendChild(delBtn);
+
+    // 수정 폼
+    const form = document.createElement('div');
+    form.id = 'editForm_' + r.row;
+    form.style.cssText = 'display:none;padding:10px 12px;background:white;border-top:1px solid var(--border-soft);';
+    form.innerHTML =
+      '<div style="display:flex;flex-direction:column;gap:6px;">' +
+        '<input id="ef_name_' + r.row + '" class="warm-input" value="' + escapeHTML(r.name) + '" placeholder="이름" style="font-size:12px;padding:6px 10px;" />' +
+        '<input id="ef_cg_' + r.row + '" class="warm-input" value="' + escapeHTML(r.cellGroup||'') + '" placeholder="다락방/순" style="font-size:12px;padding:6px 10px;" />' +
+        '<select id="ef_att_' + r.row + '" class="warm-input" style="font-size:12px;padding:6px 10px;">' +
+          '<option value="참석"' + (r.attendance==='참석'?' selected':'') + '>참석</option>' +
+          '<option value="불참"' + (r.attendance==='불참'?' selected':'') + '>불참</option>' +
+        '</select>' +
+        '<input id="ef_msg_' + r.row + '" class="warm-input" value="' + escapeHTML(r.message||'') + '" placeholder="메시지" style="font-size:12px;padding:6px 10px;" />' +
+        '<div style="display:flex;gap:6px;">' +
+          '<button onclick="adminSaveEdit(' + r.row + ')" style="flex:1;padding:6px;border-radius:8px;background:var(--gold);border:none;color:white;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">저장</button>' +
+          '<button onclick="adminToggleEdit(' + r.row + ')" style="flex:1;padding:6px;border-radius:8px;background:white;border:1px solid var(--border);color:var(--text-soft);font-size:12px;cursor:pointer;font-family:inherit;">취소</button>' +
+        '</div>' +
+      '</div>';
+
+    card.appendChild(header);
+    card.appendChild(form);
+    list.appendChild(card);
+  });
+}
+
+function adminToggleEdit(row) {
+  const form = document.getElementById('editForm_' + row);
+  if (!form) return;
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+
+/* ─────────────────────────────────────────────
+   명단 관리 (MEMBERS_DATA CRUD)
+───────────────────────────────────────────── */
+let _membersEdit = null;
+
+function initMembersData() {
+  if (_membersEdit) return; // 이미 초기화됨
+  const saved = localStorage.getItem('jjr_members_edit');
+  if (saved) {
+    try { _membersEdit = JSON.parse(saved); return; } catch(e) {}
+  }
+  _membersEdit = JSON.parse(JSON.stringify(MEMBERS_DATA));
+}
+
+function renderMemberGroups(filter) {
+  initMembersData();
+  filter = (filter || '').trim();
+  const container = document.getElementById('memberGroupList');
+  if (!container) return;
+  container.innerHTML = '';
+
+  // 현재 응답한 사람 목록
+  const respondedNames = new Set((_lastRows || []).map(function(r){ return r.name; }));
+
+  Object.keys(_membersEdit).forEach(function(dbKey) {
+    const dbData = _membersEdit[dbKey];
+
+    const groupWrap = document.createElement('div');
+    groupWrap.style.cssText = 'border-radius:10px;border:1.5px solid var(--border);background:white;';
+
+    // 다락방 헤더
+    const header = document.createElement('div');
+    header.style.cssText = 'background:var(--gold);color:white;padding:5px 10px;font-size:11px;font-weight:700;border-radius:8px 8px 0 0;';
+    header.textContent = dbData.label;
+    groupWrap.appendChild(header);
+
+    const sunsWrap = document.createElement('div');
+    sunsWrap.style.cssText = 'display:block;';
+
+    Object.keys(dbData.순).forEach(function(sunKey, sunIdx) {
+      const members = dbData.순[sunKey];
+
+      const sunRow = document.createElement('div');
+      sunRow.style.cssText = 'padding:6px 10px;border-top:1px solid var(--border-soft);';
+
+      // 순 헤더 + 추가 버튼
+      const sunHead = document.createElement('div');
+      sunHead.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;';
+      const sunLabel = document.createElement('span');
+      sunLabel.style.cssText = 'font-size:11px;font-weight:700;color:var(--text-mid);';
+      sunLabel.textContent = sunKey + ' (' + members.length + '명)';
+      const addBtn = document.createElement('button');
+      addBtn.textContent = '+ 추가';
+      addBtn.style.cssText = 'font-size:10px;padding:2px 7px;border-radius:6px;border:1px solid var(--gold);background:white;color:var(--gold);cursor:pointer;font-family:inherit;';
+      (function(dk, sk){
+        addBtn.onclick = function() {
+          const name = prompt(dbData.label + ' ' + sk + '\n추가할 이름을 입력하세요:');
+          if (!name || !name.trim()) return;
+          _membersEdit[dk].순[sk].push(name.trim());
+          renderMemberGroups(document.getElementById('memberSearchInput').value);
+          showToast(name.trim() + ' 추가됨 — 저장 버튼을 눌러주세요');
+        };
+      })(dbKey, sunKey);
+      sunHead.appendChild(sunLabel);
+      sunHead.appendChild(addBtn);
+      sunRow.appendChild(sunHead);
+
+      // 순원 태그 목록
+      const tagsWrap = document.createElement('div');
+      tagsWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px;padding-top:4px;min-height:4px;';
+
+      let shown = 0;
+      members.forEach(function(name, idx) {
+        if (filter && !name.includes(filter)) return;
+        shown++;
+        const tag = document.createElement('span');
+        const responded = respondedNames.has(name);
+        tag.style.cssText = 'display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:12px;font-size:11px;' +
+          'background:' + (responded ? '#D1FAE5' : '#F5F0FC') + ';' +
+          'color:' + (responded ? '#065F46' : 'var(--text-mid)') + ';' +
+          'border:1px solid ' + (responded ? '#6EE7B7' : 'var(--border-soft)') + ';';
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = name;
+        const delBtn = document.createElement('button');
+        delBtn.textContent = '×';
+        delBtn.title = '삭제';
+        delBtn.style.cssText = 'margin-left:2px;background:none;border:none;cursor:pointer;' +
+          'color:' + (responded ? '#065F46' : '#9CA3AF') + ';font-size:12px;line-height:1;padding:0;font-family:inherit;';
+        (function(dk, sk, i, n){
+          delBtn.onclick = function() {
+            if (!confirm(n + ' 님을 명단에서 삭제하시겠습니까?')) return;
+            _membersEdit[dk].순[sk].splice(i, 1);
+            renderMemberGroups(document.getElementById('memberSearchInput').value);
+            showToast(n + ' 삭제됨 — 저장 버튼을 눌러주세요');
+          };
+        })(dbKey, sunKey, idx, name);
+        tag.appendChild(nameSpan);
+        tag.appendChild(delBtn);
+        tagsWrap.appendChild(tag);
+      });
+
+      if (filter && shown === 0) return; // 필터 결과 없으면 순 숨김
+      sunRow.appendChild(tagsWrap);
+      sunsWrap.appendChild(sunRow);
+    });
+
+    groupWrap.appendChild(sunsWrap);
+    container.appendChild(groupWrap);
+  });
+}
+
+function saveMembersToLocal() {
+  if (!_membersEdit) return;
+  localStorage.setItem('jjr_members_edit', JSON.stringify(_membersEdit));
+  showToast('명단이 저장되었습니다');
+}
+
+function resetMembersData() {
+  if (!confirm('명단을 원본으로 초기화하시겠습니까?\n저장된 모든 편집 내용이 사라집니다.')) return;
+  localStorage.removeItem('jjr_members_edit');
+  _membersEdit = JSON.parse(JSON.stringify(MEMBERS_DATA));
+  renderMemberGroups('');
+  showToast('원본 명단으로 초기화되었습니다');
+}
+
+/* 서버 응답을 진단 영역에 표시 */
+function showDiag(msg) {
+  const el = document.getElementById('adminDiag');
+  if (el) { el.style.display = 'block'; el.textContent = msg; }
+  // 오류일 때는 alert로도 표시
+  if (msg.startsWith('✗') || msg.includes('오류') || msg.includes('실패')) {
+    alert('[관리자 오류]\n' + msg);
+  }
+}
+
+/* Apps Script 연결 + 새 기능 지원 여부 테스트 */
+async function adminTestConnection() {
+  const pw = getAdminPw();
+  showDiag('테스트 중...');
+  try {
+    // deleteRsvp 를 row=0 으로 호출 — 새 Apps Script는 "잘못된 행 번호" 반환
+    const url = CONFIG.APPS_SCRIPT_URL + '?action=deleteRsvp&pw=' + encodeURIComponent(pw) + '&row=0';
+    const res  = await fetch(url);
+    const raw  = await res.text();
+    let msg;
+    try {
+      const data = JSON.parse(raw);
+      if (data.error === '잘못된 행 번호') {
+        msg = '✓ Apps Script 연결 정상 (새 버전 확인됨)\n삭제·초기화 기능을 사용할 수 있습니다.';
+        alert('[연결 테스트]\n' + msg);
+      } else if (data.error === '비밀번호 오류') {
+        msg = '✗ 비밀번호 오류\nApps Script의 ADMIN_PW 값이 admin1234와 다릅니다.';
+      } else {
+        msg = '✗ Apps Script 구버전\napps_script_완전교체.gs 를 Apps Script에 붙여넣고 새 버전으로 재배포해야 합니다.\n\n서버 응답: ' + raw;
+      }
+    } catch(je) {
+      msg = '✗ JSON 파싱 실패. 응답: ' + raw.slice(0, 200);
+    }
+    showDiag(msg);
+  } catch(e) {
+    showDiag('✗ 네트워크 오류: ' + e.message);
+  }
+}
+
+async function adminDeleteRow(row, name) {
+  if (!confirm(name + '님의 응답을 삭제하시겠습니까?')) return;
+  const pw = getAdminPw();
+  try {
+    const url = CONFIG.APPS_SCRIPT_URL + '?action=deleteRsvp&pw=' + encodeURIComponent(pw) + '&row=' + row;
+    const res  = await fetch(url);
+    const raw  = await res.text();
+    let data;
+    try { data = JSON.parse(raw); } catch(e) { showDiag('응답: ' + raw.slice(0,200)); showToast('삭제 실패 — 연결 테스트로 확인하세요'); return; }
+    if (data.success) { showToast('삭제되었습니다'); refreshManageList(); refreshStats(); }
+    else { showDiag('삭제 오류: ' + JSON.stringify(data)); showToast('삭제 실패: ' + (data.error || JSON.stringify(data))); }
+  } catch(e) { showDiag('네트워크 오류: ' + e.message); showToast('서버 연결 실패'); }
+}
+
+async function adminSaveEdit(row) {
+  const pw         = getAdminPw();
+  const name       = document.getElementById('ef_name_' + row).value.trim();
+  const cellGroup  = document.getElementById('ef_cg_' + row).value.trim();
+  const attendance = document.getElementById('ef_att_' + row).value;
+  const message    = document.getElementById('ef_msg_' + row).value.trim();
+  if (!name) { showToast('이름을 입력해 주세요'); return; }
+  try {
+    const url = CONFIG.APPS_SCRIPT_URL
+      + '?action=updateRsvp&pw=' + encodeURIComponent(pw)
+      + '&row='        + row
+      + '&name='       + encodeURIComponent(name)
+      + '&cellGroup='  + encodeURIComponent(cellGroup)
+      + '&attendance=' + encodeURIComponent(attendance)
+      + '&message='    + encodeURIComponent(message);
+    const res  = await fetch(url);
+    const raw  = await res.text();
+    let data;
+    try { data = JSON.parse(raw); } catch(e) { showDiag('응답: ' + raw.slice(0,200)); showToast('수정 실패 — 연결 테스트로 확인'); return; }
+    if (data.success) { showToast('수정되었습니다'); refreshManageList(); refreshStats(); }
+    else { showDiag('수정 오류: ' + JSON.stringify(data)); showToast('수정 실패: ' + (data.error || JSON.stringify(data))); }
+  } catch(e) { showDiag('네트워크 오류: ' + e.message); showToast('서버 연결 실패'); }
+}
+
+async function adminClearAll() {
+  if (!confirm('참석 응답 데이터를 전체 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.')) return;
+  const pw = getAdminPw();
+  try {
+    const url = CONFIG.APPS_SCRIPT_URL + '?action=clearAllRsvp&pw=' + encodeURIComponent(pw);
+    const res  = await fetch(url);
+    const raw  = await res.text();
+    let data;
+    try { data = JSON.parse(raw); } catch(e) { showDiag('응답: ' + raw.slice(0,200)); showToast('초기화 실패 — 연결 테스트로 확인'); return; }
+    if (data.success) {
+      showToast('전체 초기화 완료');
+      refreshManageList();
+      refreshStats();
+      updateStatUI(0, 0, 0, []);
+    } else { showDiag('초기화 오류: ' + JSON.stringify(data)); showToast('초기화 실패: ' + (data.error || JSON.stringify(data))); }
+  } catch(e) { showDiag('네트워크 오류: ' + e.message); showToast('서버 연결 실패'); }
+}
+
+/* ─────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  lucide.createIcons();
+  initCandles();
+  initPrayerWall();
+  checkExistingRSVP();
+  initCandleCount();
+  initMusicPlayer();
+  // 특별 순서 저장값 반영
+  const spTitle = localStorage.getItem('jjr_special_title');
+  const spBody  = localStorage.getItem('jjr_special_body');
+  if (spTitle) document.getElementById('specialTitle').textContent = spTitle;
+  if (spBody)  document.getElementById('specialBody').textContent  = spBody;
+});
+</script>
+</body>
+</html>
