@@ -543,6 +543,7 @@
       </div>
       <p style="font-size:14px;font-weight:700;color:var(--text-deep);margin-bottom:4px;" id="rsvpDoneTitle">응답이 등록되었습니다</p>
       <p style="font-size:12px;color:var(--text-soft);line-height:1.7;" id="rsvpDoneMsg"></p>
+      <button onclick="resetRSVP()" style="margin-top:14px;background:none;border:none;color:var(--text-soft);font-size:12px;text-decoration:underline;cursor:pointer;font-family:inherit;">응답 다시 하기</button>
     </div>
   </section>
 
@@ -1163,6 +1164,17 @@ function showRSVPDone(data) {
     titleEl.textContent = `${data.name}님, 응답해 주셔서 감사합니다`;
     msgEl.innerHTML = '불참 응답이 등록되었습니다.<br>마음만큼은 함께 기도로 응원해 주세요.';
   }
+}
+
+// 응답 다시 하기 — 이 기기의 로컬 기록을 지우고 입력 폼을 다시 보여준다
+function resetRSVP() {
+  localStorage.removeItem('jjr_rsvp');
+  selectedAttendance = null;
+  var by = document.getElementById('btnYes'); if (by) by.className = 'rsvp-choice';
+  var bn = document.getElementById('btnNo');  if (bn) bn.className = 'rsvp-choice';
+  document.getElementById('rsvpDone').style.display = 'none';
+  document.getElementById('rsvpForm').style.display = 'block';
+  checkRSVPReady();
 }
 
 // 페이지 로드 시 기존 응답 확인
