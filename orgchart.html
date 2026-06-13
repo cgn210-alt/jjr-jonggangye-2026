@@ -225,22 +225,112 @@
 
     footer { text-align: center; padding: 20px; font-size: 11px; color: #bbb; }
 
-    @media (max-width: 640px) {
-      /* 다락방 구조: 3열 가로 유지, 폰트 축소 */
-      .darakbang-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-      .darakbang-head { font-size: 10px; padding: 7px 4px; }
-      .darakbang-sub-head { font-size: 9px; padding: 5px 6px; line-height: 1.3; }
-      .darakbang-sub td { padding: 3px 4px; font-size: 10px; }
-      .darakbang-sub td:first-child { width: 16px; font-size: 9px; }
-      .title-tag { display: none; }
+    /* ── 다락방 구조 새 레이아웃 ── */
+    .db-block {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .db-title {
+      padding: 12px 18px;
+      font-size: 17px;
+      font-weight: 900;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .db-count {
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.22);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+    .db-body { padding: 14px 16px; }
+    .db-sub-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      padding: 7px 14px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .faith-sub-bg { background: #7c3aed; }
+    .hope-sub-bg  { background: #1d4ed8; }
+    .love-sub-bg  { background: #be185d; }
+    .db-leader {
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.2);
+      padding: 1px 8px;
+      border-radius: 10px;
+    }
+    .db-mem {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-left: auto;
+    }
 
-      /* 그 외 섹션 */
+    /* 순 카드 그리드 */
+    .sun-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .sun-card {
+      background: #f8f9fb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .sun-card.sun-empty { opacity: 0.4; }
+    .sun-no {
+      font-size: 10px;
+      font-weight: 700;
+      color: #aaa;
+      letter-spacing: 0.05em;
+    }
+    .sun-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: #1a1a1a;
+    }
+    .sun-name em {
+      font-style: normal;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+      background: #6b7280;
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .sun-role {
+      font-size: 11px;
+      color: #888;
+    }
+
+    @media (max-width: 640px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .mission-grid { grid-template-columns: 1fr; }
       .ministry-grid { grid-template-columns: repeat(2, 1fr); }
       .leader-name { font-size: 15px; }
       .leader-card { flex-direction: column; gap: 4px; text-align: center; }
       .leader-card > div:last-child { border-left: none !important; border-top: 1px solid #eee; margin-left: 0 !important; padding-left: 0 !important; margin-top: 6px; padding-top: 6px; }
+      .sun-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .sun-name { font-size: 14px; }
+      .db-mem { display: none; }
     }
   </style>
 </head>
@@ -294,93 +384,111 @@
 
   <!-- 다락방 구조 -->
   <div class="section-title">다락방 구조</div>
-  <div class="darakbang-grid" style="margin-bottom:20px;">
 
-    <!-- 믿음 -->
-    <div class="darakbang-col">
-      <div class="darakbang-head faith-head">믿음 다락방 (109명)</div>
+  <!-- 믿음 다락방 -->
+  <div class="db-block" style="margin-bottom:16px;">
+    <div class="db-title faith-bg">믿음 다락방 <span class="db-count">109명 · 12개 순</span></div>
+    <div class="db-body">
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head faith-sub-head">믿음1다락방 · 다락방장 김현식 집사 (61명)</div>
-        <table>
-          <tr><td>01</td><td>김의래 <span class="title-tag">장로</span></td></tr>
-          <tr><td>02</td><td>주웅현 <span class="title-tag">집사</span></td></tr>
-          <tr><td>03</td><td>김현식 <span class="title-tag">집사</span></td></tr>
-          <tr><td>04</td><td>정순영 <span class="title-tag">권사</span></td></tr>
-          <tr><td>05</td><td>정두식 <span class="title-tag">순장</span></td></tr>
-          <tr><td>06</td><td>황한나 <span class="title-tag">권사</span></td></tr>
-        </table>
+      <div class="db-sub-title faith-sub-bg">
+        믿음1다락방
+        <span class="db-leader">다락방장 김현식 집사</span>
+        <span class="db-mem">61명 · 6개 순</span>
+      </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순01</span><span class="sun-name">김의래 <em>순장</em></span><span class="sun-role">장로</span></div>
+        <div class="sun-card"><span class="sun-no">순02</span><span class="sun-name">주웅현 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순03</span><span class="sun-name">김현식 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순04</span><span class="sun-name">정순영 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순05</span><span class="sun-name">정두식 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순06</span><span class="sun-name">황한나 <em>순장</em></span><span class="sun-role">권사</span></div>
       </div>
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head faith-sub-head">믿음2다락방 · 다락방장 엄재준 집사 (48명)</div>
-        <table>
-          <tr><td>08</td><td>조재관 <span class="title-tag">집사</span></td></tr>
-          <tr><td>09</td><td>이금자 <span class="title-tag">권사</span></td></tr>
-          <tr><td>10</td><td>송영이 <span class="title-tag">권사</span></td></tr>
-          <tr><td>11</td><td>이성진 <span class="title-tag">순장</span></td></tr>
-          <tr><td>12</td><td>이창권 <span class="title-tag">순장</span></td></tr>
-          <tr><td>13</td><td>김영미 <span class="title-tag">순장</span></td></tr>
-        </table>
+      <div class="db-sub-title faith-sub-bg" style="margin-top:10px;">
+        믿음2다락방
+        <span class="db-leader">다락방장 엄재준 집사</span>
+        <span class="db-mem">48명 · 6개 순</span>
       </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순08</span><span class="sun-name">조재관 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순09</span><span class="sun-name">이금자 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순10</span><span class="sun-name">송영이 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순11</span><span class="sun-name">이성진 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순12</span><span class="sun-name">이창권 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순13</span><span class="sun-name">김영미 <em>순장</em></span><span class="sun-role">순장</span></div>
+      </div>
+
     </div>
+  </div>
 
-    <!-- 소망 -->
-    <div class="darakbang-col">
-      <div class="darakbang-head hope-head">소망 다락방 (54명)</div>
+  <!-- 소망 다락방 -->
+  <div class="db-block" style="margin-bottom:16px;">
+    <div class="db-title hope-bg">소망 다락방 <span class="db-count">54명 · 7개 순</span></div>
+    <div class="db-body">
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head hope-sub-head">소망1다락방 · 다락방장 홍진섭 집사 (32명)</div>
-        <table>
-          <tr><td>01</td><td>박제한 <span class="title-tag">집사</span></td></tr>
-          <tr><td>02</td><td>강행자 <span class="title-tag">권사</span></td></tr>
-          <tr><td>03</td><td>이명선 <span class="title-tag">권사</span></td></tr>
-          <tr><td>04</td><td>이강남 <span class="title-tag">순장</span></td></tr>
-        </table>
+      <div class="db-sub-title hope-sub-bg">
+        소망1다락방
+        <span class="db-leader">다락방장 홍진섭 집사</span>
+        <span class="db-mem">32명 · 4개 순</span>
+      </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순01</span><span class="sun-name">박제한 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순02</span><span class="sun-name">강행자 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순03</span><span class="sun-name">이명선 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순04</span><span class="sun-name">이강남 <em>순장</em></span><span class="sun-role">순장</span></div>
       </div>
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head hope-sub-head">소망2다락방 · 다락방장 남관우 집사 (22명)</div>
-        <table>
-          <tr><td>08</td><td>남관우 <span class="title-tag">집사</span></td></tr>
-          <tr><td>09</td><td>최인경 <span class="title-tag">집사</span></td></tr>
-          <tr><td>10</td><td>허은진 <span class="title-tag">권사</span></td></tr>
-        </table>
+      <div class="db-sub-title hope-sub-bg" style="margin-top:10px;">
+        소망2다락방
+        <span class="db-leader">다락방장 남관우 집사</span>
+        <span class="db-mem">22명 · 3개 순</span>
       </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순08</span><span class="sun-name">남관우 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순09</span><span class="sun-name">최인경 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순10</span><span class="sun-name">허은진 <em>순장</em></span><span class="sun-role">권사</span></div>
+      </div>
+
     </div>
+  </div>
 
-    <!-- 사랑 -->
-    <div class="darakbang-col">
-      <div class="darakbang-head love-head">사랑 다락방 (155명)</div>
+  <!-- 사랑 다락방 -->
+  <div class="db-block" style="margin-bottom:20px;">
+    <div class="db-title love-bg">사랑 다락방 <span class="db-count">155명 · 14개 순</span></div>
+    <div class="db-body">
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head love-sub-head">사랑1다락방 · 다락방장 김성현 집사 (73명)</div>
-        <table>
-          <tr><td>01</td><td>김성현 <span class="title-tag">집사</span></td></tr>
-          <tr><td>02</td><td>고주식 <span class="title-tag">순장</span></td></tr>
-          <tr><td>03</td><td>유덕영 <span class="title-tag">순장</span></td></tr>
-          <tr><td>04</td><td>이숙인 <span class="title-tag">권사</span></td></tr>
-          <tr><td>05</td><td>—</td></tr>
-          <tr><td>06</td><td>강은주 <span class="title-tag">권사</span></td></tr>
-          <tr><td>07</td><td>송정미 <span class="title-tag">순장</span></td></tr>
-        </table>
+      <div class="db-sub-title love-sub-bg">
+        사랑1다락방
+        <span class="db-leader">다락방장 김성현 집사</span>
+        <span class="db-mem">73명 · 7개 순</span>
+      </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순01</span><span class="sun-name">김성현 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순02</span><span class="sun-name">고주식 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순03</span><span class="sun-name">유덕영 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순04</span><span class="sun-name">이숙인 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card sun-empty"><span class="sun-no">순05</span><span class="sun-name">—</span></div>
+        <div class="sun-card"><span class="sun-no">순06</span><span class="sun-name">강은주 <em>순장</em></span><span class="sun-role">권사</span></div>
+        <div class="sun-card"><span class="sun-no">순07</span><span class="sun-name">송정미 <em>순장</em></span><span class="sun-role">순장</span></div>
       </div>
 
-      <div class="darakbang-sub">
-        <div class="darakbang-sub-head love-sub-head">사랑2다락방 · 다락방장 김진국 집사 (82명)</div>
-        <table>
-          <tr><td>08</td><td>이성한 <span class="title-tag">순장</span></td></tr>
-          <tr><td>09</td><td>안승립 <span class="title-tag">집사</span></td></tr>
-          <tr><td>10</td><td>이영욱 <span class="title-tag">순장</span></td></tr>
-          <tr><td>11</td><td>최 황 <span class="title-tag">순장</span></td></tr>
-          <tr><td>12</td><td>박지수 <span class="title-tag">순장</span></td></tr>
-          <tr><td>13</td><td>김종중 <span class="title-tag">순장</span></td></tr>
-          <tr><td>14</td><td>정충균 <span class="title-tag">순장</span></td></tr>
-          <tr><td>15</td><td>이연주 <span class="title-tag">집사</span></td></tr>
-        </table>
+      <div class="db-sub-title love-sub-bg" style="margin-top:10px;">
+        사랑2다락방
+        <span class="db-leader">다락방장 김진국 집사</span>
+        <span class="db-mem">82명 · 8개 순</span>
       </div>
+      <div class="sun-grid">
+        <div class="sun-card"><span class="sun-no">순08</span><span class="sun-name">이성한 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순09</span><span class="sun-name">안승립 <em>순장</em></span><span class="sun-role">집사</span></div>
+        <div class="sun-card"><span class="sun-no">순10</span><span class="sun-name">이영욱 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순11</span><span class="sun-name">최 황 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순12</span><span class="sun-name">박지수 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순13</span><span class="sun-name">김종중 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순14</span><span class="sun-name">정충균 <em>순장</em></span><span class="sun-role">순장</span></div>
+        <div class="sun-card"><span class="sun-no">순15</span><span class="sun-name">이연주 <em>순장</em></span><span class="sun-role">집사</span></div>
+      </div>
+
     </div>
-
   </div>
 
   <!-- 장로 -->
