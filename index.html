@@ -1673,7 +1673,7 @@ function populateSettingsForm() {
   document.getElementById('adminMusicUrl').value   = serverUrl || localStorage.getItem('jjr_music_url')   || CONFIG.MUSIC_URL;
   document.getElementById('adminMusicTitle').value = window._serverMusicTitle || localStorage.getItem('jjr_music_title') || '';
   document.getElementById('specialTitleInput').value = localStorage.getItem('jjr_special_title') || '특별 순서';
-  document.getElementById('specialBodyInput').value  = localStorage.getItem('jjr_special_body')  || '릴레이 기도 완수 기념으로 입장하시는 모든 성도님께 따뜻한 웰컴 선물과 하이파이브 격려가 준비됩니다.';
+  document.getElementById('specialBodyInput').value  = localStorage.getItem('jjr_special_body')  || '감사한 일로 후원하시는 분들이 준비한 맛있는 간식과 순예배 활성화를 위한 모바일 특별 교육이 있습니다.';
   const topics = loadPrayerTopics();
   topics.forEach((t, i) => {
     const n = i + 1;
