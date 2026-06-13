@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026년 중종로공동체 조직도</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f0f4f8;
+      color: #1a1a1a;
+      font-size: 13px;
+    }
+
+    /* ── 헤더 ── */
+    header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
+      color: white;
+      padding: 18px 24px 16px;
+    }
+    .header-inner { max-width: 960px; margin: 0 auto; }
+    header a { color: #93c5fd; text-decoration: none; font-size: 12px; }
+    header a:hover { text-decoration: underline; }
+    header h1 { font-size: 22px; font-weight: 900; margin-top: 4px; }
+    header .subtitle { font-size: 12px; color: #bfdbfe; margin-top: 2px; }
+
+    .container { max-width: 960px; margin: 24px auto 40px; padding: 0 16px; }
+
+    /* ── 공통 박스 ── */
+    .box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .box-header {
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      color: white;
+    }
+
+    /* ── 리더십 라인 ── */
+    .leadership { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .leader-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .leader-card.pastor  { border-left: 5px solid #1e3a5f; }
+    .leader-card.elder   { border-left: 5px solid #2d6a4f; }
+    .leader-card.admin   { border-left: 5px solid #9b2226; }
+
+    .leader-role {
+      font-size: 11px;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.05em;
+      min-width: 80px;
+    }
+    .leader-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: #1a1a1a;
+    }
+    .leader-title {
+      font-size: 12px;
+      color: #666;
+    }
+    .connector {
+      text-align: center;
+      color: #ccc;
+      font-size: 20px;
+      line-height: 1;
+      margin: -4px 0;
+    }
+
+    /* ── 다락방 구조 ── */
+    .darakbang-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .darakbang-col { display: flex; flex-direction: column; gap: 8px; }
+    .darakbang-head {
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 14px;
+      color: white;
+    }
+    .faith-head { background: linear-gradient(135deg, #6d28d9, #7c3aed); }
+    .hope-head  { background: linear-gradient(135deg, #1e40af, #1d4ed8); }
+    .love-head  { background: linear-gradient(135deg, #9d174d, #be185d); }
+
+    .darakbang-sub {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .darakbang-sub-head {
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+    }
+    .faith-sub-head { background: #7c3aed; }
+    .hope-sub-head  { background: #1d4ed8; }
+    .love-sub-head  { background: #be185d; }
+
+    .darakbang-sub table { width: 100%; border-collapse: collapse; }
+    .darakbang-sub td {
+      padding: 5px 10px;
+      font-size: 12px;
+      border-bottom: 1px solid #f3f4f6;
+      color: #333;
+    }
+    .darakbang-sub tr:last-child td { border-bottom: none; }
+    .darakbang-sub td:first-child {
+      width: 20px;
+      color: #aaa;
+      font-size: 11px;
+      text-align: center;
+    }
+    .title-tag {
+      font-size: 10px;
+      color: #888;
+      margin-left: 4px;
+    }
+
+    /* ── 사역 그리드 ── */
+    .ministry-section { margin-bottom: 20px; }
+    .section-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #1e3a5f;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-left: 4px solid #1e3a5f;
+    }
+    .ministry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .ministry-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 12px 14px;
+      border-top: 3px solid #1e3a5f;
+    }
+    .ministry-card .m-title { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 4px; }
+    .ministry-card .m-name  { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+    .ministry-card .m-sub   { font-size: 11px; color: #888; margin-top: 2px; }
+
+    /* 사역장로 */
+    .elder-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .elder-card {
+      background: white;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      border-top: 3px solid #2d6a4f;
+      text-align: center;
+    }
+    .elder-card .e-role { font-size: 10px; color: #888; font-weight: 700; }
+    .elder-card .e-name { font-size: 14px; font-weight: 900; color: #1a1a1a; margin-top: 2px; }
+
+    /* 선교사 */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .mission-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 12px 14px;
+      border-top: 3px solid #f59e0b;
+    }
+    .mission-card .mc-region { font-size: 11px; font-weight: 700; color: #d97706; margin-bottom: 4px; }
+    .mission-card .mc-name   { font-size: 14px; font-weight: 900; color: #1a1a1a; }
+    .mission-card .mc-support{ font-size: 11px; color: #888; margin-top: 4px; }
+
+    /* 통계 요약 */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-card .s-num { font-size: 24px; font-weight: 900; }
+    .stat-card .s-label { font-size: 11px; color: #888; margin-top: 2px; }
+    .stat-card.total .s-num { color: #1e3a5f; }
+    .stat-card.faith .s-num { color: #7c3aed; }
+    .stat-card.hope  .s-num { color: #1d4ed8; }
+    .stat-card.love  .s-num { color: #be185d; }
+
+    footer { text-align: center; padding: 20px; font-size: 11px; color: #bbb; }
+
+    @media (max-width: 640px) {
+      .darakbang-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .mission-grid { grid-template-columns: 1fr; }
+      .leader-name { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="./index.html">← 여름 수련회 페이지로 돌아가기</a>
+    <h1>2026년 중종로공동체 조직도</h1>
+    <div class="subtitle">개정 250314 · 총무 주웅현 · 20260613</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 통계 -->
+  <div class="stats-grid">
+    <div class="stat-card total"><div class="s-num">318명</div><div class="s-label">총 인원 · 33개 순</div></div>
+    <div class="stat-card faith"><div class="s-num">109명</div><div class="s-label">믿음 다락방 · 12개 순</div></div>
+    <div class="stat-card hope"><div class="s-num">54명</div><div class="s-label">소망 다락방 · 7개 순</div></div>
+    <div class="stat-card love"><div class="s-num">155명</div><div class="s-label">사랑 다락방 · 14개 순</div></div>
+  </div>
+
+  <!-- 리더십 -->
+  <div class="leadership" style="margin-bottom:20px;">
+    <div class="leader-card pastor">
+      <div class="leader-role">담당목사</div>
+      <div>
+        <div class="leader-name">노치형</div>
+      </div>
+    </div>
+    <div class="connector">↓</div>
+    <div class="leader-card elder">
+      <div class="leader-role">대표장로</div>
+      <div>
+        <div class="leader-name">오명</div>
+      </div>
+    </div>
+    <div class="connector">↓</div>
+    <div class="leader-card admin">
+      <div class="leader-role">총무</div>
+      <div>
+        <div class="leader-name">주웅현 집사</div>
+      </div>
+      <div style="margin-left:20px;padding-left:20px;border-left:1px solid #eee;">
+        <div style="font-size:11px;color:#888;font-weight:700;">부총무</div>
+        <div style="font-size:15px;font-weight:700;">조재관 집사</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다락방 구조 -->
+  <div class="section-title">다락방 구조</div>
+  <div class="darakbang-grid" style="margin-bottom:20px;">
+
+    <!-- 믿음 -->
+    <div class="darakbang-col">
+      <div class="darakbang-head faith-head">믿음 다락방 (109명)</div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head faith-sub-head">믿음1다락방 · 다락방장 김현식 집사 (61명)</div>
+        <table>
+          <tr><td>01</td><td>김의래 <span class="title-tag">장로</span></td></tr>
+          <tr><td>02</td><td>주웅현 <span class="title-tag">집사</span></td></tr>
+          <tr><td>03</td><td>김현식 <span class="title-tag">집사</span></td></tr>
+          <tr><td>04</td><td>정순영 <span class="title-tag">권사</span></td></tr>
+          <tr><td>05</td><td>정두식 <span class="title-tag">순장</span></td></tr>
+          <tr><td>06</td><td>황한나 <span class="title-tag">권사</span></td></tr>
+        </table>
+      </div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head faith-sub-head">믿음2다락방 · 다락방장 엄재준 집사 (48명)</div>
+        <table>
+          <tr><td>08</td><td>조재관 <span class="title-tag">집사</span></td></tr>
+          <tr><td>09</td><td>이금자 <span class="title-tag">권사</span></td></tr>
+          <tr><td>10</td><td>송영이 <span class="title-tag">권사</span></td></tr>
+          <tr><td>11</td><td>이성진 <span class="title-tag">순장</span></td></tr>
+          <tr><td>12</td><td>이창권 <span class="title-tag">순장</span></td></tr>
+          <tr><td>13</td><td>김영미 <span class="title-tag">순장</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 소망 -->
+    <div class="darakbang-col">
+      <div class="darakbang-head hope-head">소망 다락방 (54명)</div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head hope-sub-head">소망1다락방 · 다락방장 홍진섭 집사 (32명)</div>
+        <table>
+          <tr><td>01</td><td>박제한 <span class="title-tag">집사</span></td></tr>
+          <tr><td>02</td><td>강행자 <span class="title-tag">권사</span></td></tr>
+          <tr><td>03</td><td>이명선 <span class="title-tag">권사</span></td></tr>
+          <tr><td>04</td><td>이강남 <span class="title-tag">순장</span></td></tr>
+        </table>
+      </div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head hope-sub-head">소망2다락방 · 다락방장 남관우 집사 (22명)</div>
+        <table>
+          <tr><td>08</td><td>남관우 <span class="title-tag">집사</span></td></tr>
+          <tr><td>09</td><td>최인경 <span class="title-tag">집사</span></td></tr>
+          <tr><td>10</td><td>허은진 <span class="title-tag">권사</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- 사랑 -->
+    <div class="darakbang-col">
+      <div class="darakbang-head love-head">사랑 다락방 (155명)</div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head love-sub-head">사랑1다락방 · 다락방장 김성현 집사 (73명)</div>
+        <table>
+          <tr><td>01</td><td>김성현 <span class="title-tag">집사</span></td></tr>
+          <tr><td>02</td><td>고주식 <span class="title-tag">순장</span></td></tr>
+          <tr><td>03</td><td>유덕영 <span class="title-tag">순장</span></td></tr>
+          <tr><td>04</td><td>이숙인 <span class="title-tag">권사</span></td></tr>
+          <tr><td>05</td><td>—</td></tr>
+          <tr><td>06</td><td>강은주 <span class="title-tag">권사</span></td></tr>
+          <tr><td>07</td><td>송정미 <span class="title-tag">순장</span></td></tr>
+        </table>
+      </div>
+
+      <div class="darakbang-sub">
+        <div class="darakbang-sub-head love-sub-head">사랑2다락방 · 다락방장 김진국 집사 (82명)</div>
+        <table>
+          <tr><td>08</td><td>이성한 <span class="title-tag">순장</span></td></tr>
+          <tr><td>09</td><td>안승립 <span class="title-tag">집사</span></td></tr>
+          <tr><td>10</td><td>이영욱 <span class="title-tag">순장</span></td></tr>
+          <tr><td>11</td><td>최 황 <span class="title-tag">순장</span></td></tr>
+          <tr><td>12</td><td>박지수 <span class="title-tag">순장</span></td></tr>
+          <tr><td>13</td><td>김종중 <span class="title-tag">순장</span></td></tr>
+          <tr><td>14</td><td>정충균 <span class="title-tag">순장</span></td></tr>
+          <tr><td>15</td><td>이연주 <span class="title-tag">집사</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 사역장로 / 시무장로 -->
+  <div class="section-title">장로</div>
+  <div class="elder-grid" style="margin-bottom:20px;">
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">신우권</div></div>
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">박병익</div></div>
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">심춘보</div></div>
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">이재호</div></div>
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">백남인</div></div>
+    <div class="elder-card"><div class="e-role">사역장로</div><div class="e-name">호종일</div></div>
+    <div class="elder-card" style="border-top-color:#1e3a5f;"><div class="e-role">시무장로</div><div class="e-name">이인용</div></div>
+    <div class="elder-card" style="border-top-color:#1e3a5f;"><div class="e-role">시무장로</div><div class="e-name">김의래</div></div>
+    <div class="elder-card" style="border-top-color:#7c3aed;"><div class="e-role">사역장로(믿음)</div><div class="e-name">함공식</div></div>
+    <div class="elder-card" style="border-top-color:#7c3aed;"><div class="e-role">사역장로(믿음)</div><div class="e-name">정문규</div></div>
+    <div class="elder-card" style="border-top-color:#7c3aed;"><div class="e-role">사역장로(믿음)</div><div class="e-name">홍범식</div></div>
+    <div class="elder-card" style="border-top-color:#7c3aed;"><div class="e-role">사역장로(믿음)</div><div class="e-name">이상도</div></div>
+  </div>
+
+  <!-- 사역 담당 -->
+  <div class="section-title">사역 담당</div>
+  <div class="ministry-grid" style="margin-bottom:20px;">
+    <div class="ministry-card">
+      <div class="m-title">대표권사</div>
+      <div class="m-name">복유선 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">권사회총무</div>
+      <div class="m-name">황한나 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">서기</div>
+      <div class="m-name">박제한 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">회계</div>
+      <div class="m-name">정충균</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">새가족사역 (토)</div>
+      <div class="m-name">정순영 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">새가족사역 (일)</div>
+      <div class="m-name">이은경 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">양육총무</div>
+      <div class="m-name">이성우 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">선교사역</div>
+      <div class="m-name">김성현 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">사회선교사역</div>
+      <div class="m-name">남관우 집사</div>
+      <div class="m-sub">부: 정두식</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">예배사역</div>
+      <div class="m-name">남관우 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">주차사역</div>
+      <div class="m-name">홍진섭 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">일대일사역</div>
+      <div class="m-name">강은주 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">임직관리 / 장례사역</div>
+      <div class="m-name">박제한 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">찬양사역 인도</div>
+      <div class="m-name">주웅현 집사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">찬양사역 반주</div>
+      <div class="m-name">황한나 권사</div>
+    </div>
+    <div class="ministry-card">
+      <div class="m-title">전도사역</div>
+      <div class="m-name">전성심 권사</div>
+    </div>
+  </div>
+
+  <!-- 후원선교사 -->
+  <div class="section-title">후원선교사</div>
+  <div class="mission-grid">
+    <div class="mission-card">
+      <div class="mc-region">감비아</div>
+      <div class="mc-name">정진아</div>
+      <div class="mc-support">써포터: 복유선 권사</div>
+    </div>
+    <div class="mission-card">
+      <div class="mc-region">코트디브아르</div>
+      <div class="mc-name">김은주</div>
+      <div class="mc-support">써포터: 최인경 집사</div>
+    </div>
+    <div class="mission-card">
+      <div class="mc-region">해외선교</div>
+      <div class="mc-name">이상오, 박선희</div>
+      <div class="mc-support">써포터: 이선화</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  개정 250314 · 중종로공동체 총무 주웅현 · 최종수정 20260613<br>
+  <a href="./org.html" style="color:#93c5fd;text-decoration:none;font-size:11px;">다락방별 명단 보기 →</a>
+</footer>
+
+</body>
+</html>
