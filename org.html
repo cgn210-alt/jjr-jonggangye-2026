@@ -155,6 +155,8 @@
     table { min-width: 520px; }
 
     .순장 { font-weight: 700; color: #1e40af; }
+    .순장 .leader-name { color: #1e40af; font-weight: 700; }
+    .순장 .spouse-name { color: #111; font-weight: 500; }
     .명단 { color: #374151; }
     .pair { display: inline-block; margin-right: 6px; }
     .temp { color: #f59e0b; font-size: 11px; }
@@ -434,8 +436,8 @@
           </tr>
           <tr>
             <td>5</td><td>5</td>
-            <td class="순장">강정수</td>
-            <td class="명단">안진아 / 김홍란 / 김효정 / 정현옥</td>
+            <td class="순장">—</td>
+            <td class="명단">강정수 / 안진아 / 김홍란 / 김효정 / 정현옥</td>
           </tr>
           <tr>
             <td>6</td><td>15</td>
@@ -510,6 +512,22 @@
 </div>
 
 <footer>개정 250314 · 중종로공동체 총무 주웅현 · 최종수정 20260613</footer>
+
+<script>
+/* 순장 셀: 첫 이름(순장)만 청색, 함께 적힌 이름(아내)은 블랙 처리 */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('td.순장').forEach(function (td) {
+    var raw = td.textContent.trim();
+    if (!raw || raw === '—') return;
+    var parts = raw.split(',');
+    var leader = parts.shift().trim();
+    var spouse = parts.join(',').trim();
+    td.innerHTML =
+      '<span class="leader-name">' + leader + '</span>' +
+      (spouse ? '<span class="spouse-name">, ' + spouse + '</span>' : '');
+  });
+});
+</script>
 
 </body>
 </html>
