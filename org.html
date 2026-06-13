@@ -137,42 +137,9 @@
     td:nth-child(2) { text-align: center; font-weight: 700; white-space: nowrap; }
     td:nth-child(3) { white-space: nowrap; }
 
-    /* 모바일: 테이블을 카드형으로 변환 */
-    @media (max-width: 600px) {
-      thead { display: none; }
-      table, tbody, tr, td { display: block; width: 100%; }
-      tr {
-        border-bottom: 1px solid #e5e7eb;
-        padding: 8px 12px;
-        position: relative;
-      }
-      tr:last-child { border-bottom: none; }
-      td {
-        padding: 2px 0 2px 80px;
-        border-bottom: none;
-        font-size: 12px;
-        min-height: 22px;
-        position: relative;
-        word-break: keep-all;
-        white-space: normal !important;
-      }
-      td::before {
-        position: absolute;
-        left: 0;
-        top: 2px;
-        font-size: 10px;
-        font-weight: 700;
-        color: #aaa;
-        width: 76px;
-      }
-      td:nth-child(1)::before { content: "순"; }
-      td:nth-child(2)::before { content: "인원"; }
-      td:nth-child(3)::before { content: "순장"; }
-      td:nth-child(4)::before { content: "순원"; }
-      td:nth-child(1) { text-align: left; }
-      td:nth-child(2) { text-align: left; font-weight: normal; }
-      td:nth-child(3) { font-weight: 700; color: #1e40af; }
-    }
+    /* 모바일: 가로 스크롤 */
+    .sub-block { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 520px; }
 
     .순장 { font-weight: 700; color: #1e40af; }
     .명단 { color: #374151; }
@@ -197,9 +164,10 @@
 
     @media (max-width: 600px) {
       .summary-bar { gap: 8px; }
-      .summary-card { min-width: 120px; padding: 10px; }
-      .summary-card .num { font-size: 20px; }
-      th, td { padding: 6px 8px; font-size: 11px; }
+      .summary-card { min-width: 100px; padding: 10px 6px; }
+      .summary-card .num { font-size: 18px; }
+      .summary-card .label { font-size: 10px; }
+      .container { padding: 0 8px; }
     }
   </style>
 </head>
