@@ -229,7 +229,38 @@
       .darakbang-grid { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .mission-grid { grid-template-columns: 1fr; }
+      .ministry-grid { grid-template-columns: repeat(2, 1fr); }
       .leader-name { font-size: 15px; }
+      .leader-card { flex-direction: column; gap: 4px; text-align: center; }
+      .leader-card > div:last-child { border-left: none !important; border-top: 1px solid #eee; margin-left: 0 !important; padding-left: 0 !important; margin-top: 6px; padding-top: 6px; }
+
+      /* 다락방 순 테이블 모바일 카드형 */
+      .darakbang-sub thead { display: none; }
+      .darakbang-sub table, .darakbang-sub tbody,
+      .darakbang-sub tr, .darakbang-sub td { display: block; width: 100%; }
+      .darakbang-sub tr { border-bottom: 1px solid #f3f4f6; padding: 6px 10px; }
+      .darakbang-sub tr:last-child { border-bottom: none; }
+      .darakbang-sub td {
+        padding: 1px 0 1px 60px;
+        border-bottom: none;
+        font-size: 12px;
+        position: relative;
+        word-break: keep-all;
+        white-space: normal !important;
+        min-height: 20px;
+      }
+      .darakbang-sub td::before {
+        position: absolute;
+        left: 0;
+        top: 1px;
+        font-size: 10px;
+        color: #aaa;
+        font-weight: 700;
+        width: 56px;
+      }
+      .darakbang-sub td:nth-child(1)::before { content: "순"; }
+      .darakbang-sub td:nth-child(2)::before { content: "직분"; }
+      .darakbang-sub td:nth-child(1) { font-weight: 700; color: #555; }
     }
   </style>
 </head>
