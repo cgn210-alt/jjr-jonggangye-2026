@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026년 중종로공동체 조직도</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #1e3a5f;
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header a {
+      color: #aac4e8;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    header a:hover { text-decoration: underline; }
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      flex: 1;
+    }
+
+    /* 조직도 테이블 */
+    .org-section {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .org-section-header {
+      background: #1e3a5f;
+      color: white;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .org-section-header.purple { background: #5b21b6; }
+    .org-section-header.blue   { background: #1d4ed8; }
+    .org-section-header.pink   { background: #9d174d; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    th {
+      background: #f5f7fa;
+      font-weight: 700;
+      color: #555;
+      width: 140px;
+    }
+    tr:last-child th, tr:last-child td { border-bottom: none; }
+    td { color: #333; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .badge-leader { background: #dbeafe; color: #1d4ed8; }
+    .badge-sub    { background: #ede9fe; color: #5b21b6; }
+
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #92400e;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <a href="./index.html">← 중종로공동체 여름 수련회</a>
+    <h1>2026년 중종로공동체 조직도</h1>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="notice">
+    ⚠️ 이 페이지는 현재 내용을 입력 중입니다. 조직도 내용은 순차적으로 업데이트됩니다.
+  </div>
+
+  <!-- 공동체 리더십 -->
+  <div class="org-section">
+    <div class="org-section-header">공동체 리더십</div>
+    <table>
+      <tr>
+        <th>담당 교역자</th>
+        <td>（이름）</td>
+      </tr>
+      <tr>
+        <th>공동체장</th>
+        <td>（이름）</td>
+      </tr>
+      <tr>
+        <th>총무</th>
+        <td>（이름）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 믿음 다락방 -->
+  <div class="org-section">
+    <div class="org-section-header purple">믿음 다락방</div>
+    <table>
+      <tr>
+        <th>순장</th>
+        <td>（이름）</td>
+      </tr>
+      <tr>
+        <th>순원</th>
+        <td>（이름）, （이름）, （이름）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 소망 다락방 -->
+  <div class="org-section">
+    <div class="org-section-header blue">소망 다락방</div>
+    <table>
+      <tr>
+        <th>순장</th>
+        <td>（이름）</td>
+      </tr>
+      <tr>
+        <th>순원</th>
+        <td>（이름）, （이름）, （이름）</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 사랑 다락방 -->
+  <div class="org-section">
+    <div class="org-section-header pink">사랑 다락방</div>
+    <table>
+      <tr>
+        <th>순장</th>
+        <td>（이름）</td>
+      </tr>
+      <tr>
+        <th>순원</th>
+        <td>（이름）, （이름）, （이름）</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<footer>2026 중종로공동체 여름 수련회</footer>
+
+</body>
+</html>
