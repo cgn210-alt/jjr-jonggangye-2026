@@ -184,6 +184,7 @@
       .container { padding: 0 8px; }
     }
   </style>
+  <script src="./community-totals.js"></script>
 </head>
 <body>
 
@@ -199,22 +200,22 @@
 <div class="summary-bar">
   <!-- 1단: 총인원 -->
   <div class="summary-card total">
-    <div class="num">318명</div>
-    <div class="label">총 인원 · 33개 순</div>
+    <div class="num" data-ct-members="ALL">318명</div>
+    <div class="label">총 인원 · <span data-ct-sun="ALL">34개 순</span></div>
   </div>
   <!-- 2단: 다락방별 -->
   <div class="summary-row3">
     <div class="summary-card faith">
-      <div class="num">109명</div>
-      <div class="label">믿음 다락방 (12개 순)</div>
+      <div class="num" data-ct-members="GROUP:믿음">109명</div>
+      <div class="label">믿음 다락방 (<span data-ct-sun="GROUP:믿음">12개 순</span>)</div>
     </div>
     <div class="summary-card hope">
-      <div class="num">54명</div>
-      <div class="label">소망 다락방 (7개 순)</div>
+      <div class="num" data-ct-members="GROUP:소망">54명</div>
+      <div class="label">소망 다락방 (<span data-ct-sun="GROUP:소망">7개 순</span>)</div>
     </div>
     <div class="summary-card love">
-      <div class="num">155명</div>
-      <div class="label">사랑 다락방 (14개 순)</div>
+      <div class="num" data-ct-members="GROUP:사랑">155명</div>
+      <div class="label">사랑 다락방 (<span data-ct-sun="GROUP:사랑">15개 순</span>)</div>
     </div>
   </div>
 </div>
@@ -226,13 +227,13 @@
     <div class="legend" style="border-top:none;border-bottom:1px solid #e5e7eb;">* 적색 표기: 새가족 순배정 &nbsp;·&nbsp; 자색 표기: 최근 재배정</div>
     <div class="darakbang-title faith-bg">
       믿음 다락방
-      <span class="count-badge">109명 · 12개 순</span>
+      <span class="count-badge"><span data-ct-members="GROUP:믿음">109명</span> · <span data-ct-sun="GROUP:믿음">12개 순</span></span>
     </div>
 
     <!-- 믿음1 -->
     <div class="sub-block">
       <div class="sub-header faith-sub">
-        믿음1다락방 <span class="count-badge" style="background:#ddd5fe;color:#5b21b6;padding:1px 8px;border-radius:20px;font-size:11px;">61명 · 6개 순</span>
+        믿음1다락방 <span class="count-badge" style="background:#ddd5fe;color:#5b21b6;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="믿음1">61명</span> · <span data-ct-sun="믿음1">6개 순</span></span>
         <span class="leader-tag">다락방장 김현식</span>
       </div>
       <table>
@@ -277,7 +278,7 @@
     <!-- 믿음2 -->
     <div class="sub-block">
       <div class="sub-header faith-sub">
-        믿음2다락방 <span class="count-badge" style="background:#ddd5fe;color:#5b21b6;padding:1px 8px;border-radius:20px;font-size:11px;">48명 · 6개 순</span>
+        믿음2다락방 <span class="count-badge" style="background:#ddd5fe;color:#5b21b6;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="믿음2">48명</span> · <span data-ct-sun="믿음2">6개 순</span></span>
         <span class="leader-tag">다락방장 엄재준</span>
       </div>
       <table>
@@ -324,13 +325,13 @@
   <div class="darakbang-block">
     <div class="darakbang-title hope-bg">
       소망 다락방
-      <span class="count-badge">54명 · 7개 순</span>
+      <span class="count-badge"><span data-ct-members="GROUP:소망">54명</span> · <span data-ct-sun="GROUP:소망">7개 순</span></span>
     </div>
 
     <!-- 소망1 -->
     <div class="sub-block">
       <div class="sub-header hope-sub">
-        소망1다락방 <span class="count-badge" style="background:#bfdbfe;color:#1e40af;padding:1px 8px;border-radius:20px;font-size:11px;">32명 · 4개 순</span>
+        소망1다락방 <span class="count-badge" style="background:#bfdbfe;color:#1e40af;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="소망1">32명</span> · <span data-ct-sun="소망1">4개 순</span></span>
         <span class="leader-tag">다락방장 홍진섭</span>
       </div>
       <table>
@@ -365,7 +366,7 @@
     <!-- 소망2 -->
     <div class="sub-block">
       <div class="sub-header hope-sub">
-        소망2다락방 <span class="count-badge" style="background:#bfdbfe;color:#1e40af;padding:1px 8px;border-radius:20px;font-size:11px;">22명 · 3개 순</span>
+        소망2다락방 <span class="count-badge" style="background:#bfdbfe;color:#1e40af;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="소망2">22명</span> · <span data-ct-sun="소망2">3개 순</span></span>
         <span class="leader-tag">다락방장 남관우</span>
       </div>
       <table>
@@ -397,13 +398,13 @@
   <div class="darakbang-block">
     <div class="darakbang-title love-bg">
       사랑 다락방
-      <span class="count-badge">155명 · 14개 순</span>
+      <span class="count-badge"><span data-ct-members="GROUP:사랑">155명</span> · <span data-ct-sun="GROUP:사랑">15개 순</span></span>
     </div>
 
     <!-- 사랑1 -->
     <div class="sub-block">
       <div class="sub-header love-sub">
-        사랑1다락방 <span class="count-badge" style="background:#fbcfe8;color:#9d174d;padding:1px 8px;border-radius:20px;font-size:11px;">73명 · 7개 순</span>
+        사랑1다락방 <span class="count-badge" style="background:#fbcfe8;color:#9d174d;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="사랑1">73명</span> · <span data-ct-sun="사랑1">7개 순</span></span>
         <span class="leader-tag">다락방장 김성현</span>
       </div>
       <table>
@@ -453,7 +454,7 @@
     <!-- 사랑2 -->
     <div class="sub-block">
       <div class="sub-header love-sub">
-        사랑2다락방 <span class="count-badge" style="background:#fbcfe8;color:#9d174d;padding:1px 8px;border-radius:20px;font-size:11px;">82명 · 8개 순</span>
+        사랑2다락방 <span class="count-badge" style="background:#fbcfe8;color:#9d174d;padding:1px 8px;border-radius:20px;font-size:11px;"><span data-ct-members="사랑2">82명</span> · <span data-ct-sun="사랑2">8개 순</span></span>
         <span class="leader-tag">다락방장 김진국</span>
       </div>
       <table>

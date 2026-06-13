@@ -11,6 +11,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="./community-totals.js"></script>
 
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
@@ -1197,14 +1198,22 @@ function initCandles() {
   // candleArea는 initCandleCount()에서 서버 attending 수에 맞춰 채워짐
 }
 
-/* 다락방별 총원 계산 (MEMBERS_DATA 기준) */
+/* 다락방별 총원 계산
+   분모(전체 인원)는 공용 데이터 파일(community-totals.js)의 공식 인원을 사용한다.
+   → 조직도·명단과 동일한 318명 기준으로 동기화된다.
+   (community-totals.js가 없을 경우에만 MEMBERS_DATA 이름 수로 대체) */
 function getDarakbangTotals() {
   const result = {};
   Object.keys(MEMBERS_DATA).forEach(function(key) {
     var db = MEMBERS_DATA[key];
-    var count = 0;
-    Object.values(db.순).forEach(function(names) { count += names.length; });
-    result[key] = { label: db.label, total: count, attending: 0 };
+    var total;
+    if (typeof COMMUNITY_TOTALS !== 'undefined' && COMMUNITY_TOTALS[key]) {
+      total = COMMUNITY_TOTALS[key].members;
+    } else {
+      total = 0;
+      Object.values(db.순).forEach(function(names) { total += names.length; });
+    }
+    result[key] = { label: db.label, total: total, attending: 0 };
   });
   return result;
 }

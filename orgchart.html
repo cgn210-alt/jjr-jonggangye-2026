@@ -239,6 +239,7 @@
       .mission-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <script src="./community-totals.js"></script>
 </head>
 <body>
 
@@ -253,23 +254,23 @@
   <!-- 총인원 -->
   <div style="background:white;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);padding:18px 16px 8px;margin-top:4px;text-align:center;">
     <div style="font-size:12px;font-weight:700;color:#aaa;letter-spacing:0.08em;margin-bottom:4px;">중종로공동체 총인원</div>
-    <div style="font-size:36px;font-weight:900;color:#1e3a5f;line-height:1.1;">318명</div>
-    <div style="font-size:13px;font-weight:600;color:#bbb;margin-bottom:14px;">33개 순</div>
+    <div style="font-size:36px;font-weight:900;color:#1e3a5f;line-height:1.1;" data-ct-members="ALL">318명</div>
+    <div style="font-size:13px;font-weight:600;color:#bbb;margin-bottom:14px;" data-ct-sun="ALL">34개 순</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px;">
       <div style="background:#f5f0ff;border-radius:10px;padding:12px 6px;">
         <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:4px;">믿음 다락방</div>
-        <div style="font-size:22px;font-weight:900;color:#6d28d9;">109명</div>
-        <div style="font-size:10px;color:#aaa;margin-top:3px;">12개 순</div>
+        <div style="font-size:22px;font-weight:900;color:#6d28d9;" data-ct-members="GROUP:믿음">109명</div>
+        <div style="font-size:10px;color:#aaa;margin-top:3px;" data-ct-sun="GROUP:믿음">12개 순</div>
       </div>
       <div style="background:#eff6ff;border-radius:10px;padding:12px 6px;">
         <div style="font-size:11px;font-weight:700;color:#1d4ed8;margin-bottom:4px;">소망 다락방</div>
-        <div style="font-size:22px;font-weight:900;color:#1e40af;">54명</div>
-        <div style="font-size:10px;color:#aaa;margin-top:3px;">7개 순</div>
+        <div style="font-size:22px;font-weight:900;color:#1e40af;" data-ct-members="GROUP:소망">54명</div>
+        <div style="font-size:10px;color:#aaa;margin-top:3px;" data-ct-sun="GROUP:소망">7개 순</div>
       </div>
       <div style="background:#fff0f6;border-radius:10px;padding:12px 6px;">
         <div style="font-size:11px;font-weight:700;color:#be185d;margin-bottom:4px;">사랑 다락방</div>
-        <div style="font-size:22px;font-weight:900;color:#9d174d;">155명</div>
-        <div style="font-size:10px;color:#aaa;margin-top:3px;">14개 순</div>
+        <div style="font-size:22px;font-weight:900;color:#9d174d;" data-ct-members="GROUP:사랑">155명</div>
+        <div style="font-size:10px;color:#aaa;margin-top:3px;" data-ct-sun="GROUP:사랑">15개 순</div>
       </div>
     </div>
   </div>
@@ -303,11 +304,11 @@
   <div class="sec-title">다락방 구조</div>
 
   <div class="db-block">
-    <div class="db-hd faith">믿음 다락방 <span class="db-cnt">109명 · 12개 순</span></div>
+    <div class="db-hd faith">믿음 다락방 <span class="db-cnt"><span data-ct-members="GROUP:믿음">109명</span> · <span data-ct-sun="GROUP:믿음">12개 순</span></span></div>
     <div class="db-body">
 
       <div class="sub-hd faith">
-        <div class="sub-hd-top"><span class="sub-name">믿음1다락방</span><span class="sub-cnt">61명 · 6개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">믿음1다락방</span><span class="sub-cnt"><span data-ct-members="믿음1">61명</span> · <span data-ct-sun="믿음1">6개 순</span></span></div>
         <div class="sub-ldr">다락방장 김현식 안수집사</div>
       </div>
       <div class="sun-list">
@@ -320,7 +321,7 @@
       </div>
 
       <div class="sub-hd faith">
-        <div class="sub-hd-top"><span class="sub-name">믿음2다락방</span><span class="sub-cnt">48명 · 6개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">믿음2다락방</span><span class="sub-cnt"><span data-ct-members="믿음2">48명</span> · <span data-ct-sun="믿음2">6개 순</span></span></div>
         <div class="sub-ldr">다락방장 엄재준 안수집사</div>
       </div>
       <div class="sun-list">
@@ -337,11 +338,11 @@
 
   <!-- ════ 소망 다락방 ════ -->
   <div class="db-block">
-    <div class="db-hd hope">소망 다락방 <span class="db-cnt">54명 · 7개 순</span></div>
+    <div class="db-hd hope">소망 다락방 <span class="db-cnt"><span data-ct-members="GROUP:소망">54명</span> · <span data-ct-sun="GROUP:소망">7개 순</span></span></div>
     <div class="db-body">
 
       <div class="sub-hd hope">
-        <div class="sub-hd-top"><span class="sub-name">소망1다락방</span><span class="sub-cnt">32명 · 4개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">소망1다락방</span><span class="sub-cnt"><span data-ct-members="소망1">32명</span> · <span data-ct-sun="소망1">4개 순</span></span></div>
         <div class="sub-ldr">다락방장 홍진섭 안수집사</div>
       </div>
       <div class="sun-list">
@@ -352,7 +353,7 @@
       </div>
 
       <div class="sub-hd hope">
-        <div class="sub-hd-top"><span class="sub-name">소망2다락방</span><span class="sub-cnt">22명 · 3개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">소망2다락방</span><span class="sub-cnt"><span data-ct-members="소망2">22명</span> · <span data-ct-sun="소망2">3개 순</span></span></div>
         <div class="sub-ldr">다락방장 남관우 안수집사</div>
       </div>
       <div class="sun-list">
@@ -366,11 +367,11 @@
 
   <!-- ════ 사랑 다락방 ════ -->
   <div class="db-block">
-    <div class="db-hd love">사랑 다락방 <span class="db-cnt">155명 · 14개 순</span></div>
+    <div class="db-hd love">사랑 다락방 <span class="db-cnt"><span data-ct-members="GROUP:사랑">155명</span> · <span data-ct-sun="GROUP:사랑">15개 순</span></span></div>
     <div class="db-body">
 
       <div class="sub-hd love">
-        <div class="sub-hd-top"><span class="sub-name">사랑1다락방</span><span class="sub-cnt">73명 · 7개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">사랑1다락방</span><span class="sub-cnt"><span data-ct-members="사랑1">73명</span> · <span data-ct-sun="사랑1">7개 순</span></span></div>
         <div class="sub-ldr">다락방장 김성현 안수집사</div>
       </div>
       <div class="sun-list">
@@ -378,13 +379,13 @@
         <div class="sun-row"><span class="sun-num">순02</span><span class="sun-nm">고주식</span><span class="sun-badge">순장</span></div>
         <div class="sun-row"><span class="sun-num">순03</span><span class="sun-nm">유덕영</span><span class="sun-badge">순장</span></div>
         <div class="sun-row"><span class="sun-num">순04</span><span class="sun-nm">이숙인</span><span class="sun-badge">순장</span><span class="sun-role-tag">권사</span></div>
-        <div class="sun-row empty"><span class="sun-num">순05</span><span class="sun-nm">—</span></div>
+        <div class="sun-row"><span class="sun-num">순05</span><span class="sun-nm">강정수</span><span class="sun-badge">순장</span></div>
         <div class="sun-row"><span class="sun-num">순06</span><span class="sun-nm">강은주</span><span class="sun-badge">순장</span><span class="sun-role-tag">권사</span></div>
         <div class="sun-row"><span class="sun-num">순07</span><span class="sun-nm">송정미</span><span class="sun-badge">순장</span></div>
       </div>
 
       <div class="sub-hd love">
-        <div class="sub-hd-top"><span class="sub-name">사랑2다락방</span><span class="sub-cnt">82명 · 8개 순</span></div>
+        <div class="sub-hd-top"><span class="sub-name">사랑2다락방</span><span class="sub-cnt"><span data-ct-members="사랑2">82명</span> · <span data-ct-sun="사랑2">8개 순</span></span></div>
         <div class="sub-ldr">다락방장 김진국 안수집사</div>
       </div>
       <div class="sun-list">
