@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/worship.mp3"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
