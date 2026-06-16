@@ -11,10 +11,10 @@
 const COMMUNITY_TOTALS = {
   '믿음1': { label: '믿음1다락방', members: 61, sun: 6 },
   '믿음2': { label: '믿음2다락방', members: 48, sun: 6 },
-  '소망1': { label: '소망1다락방', members: 32, sun: 4 },
+  '소망1': { label: '소망1다락방', members: 33, sun: 4 },
   '소망2': { label: '소망2다락방', members: 22, sun: 3 },
   '사랑1': { label: '사랑1다락방', members: 73, sun: 7 },
-  '사랑2': { label: '사랑2다락방', members: 82, sun: 8 },
+  '사랑2': { label: '사랑2다락방', members: 80, sun: 8 },
 };
 
 /* 대(大)다락방 묶음 */

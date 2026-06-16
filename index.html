@@ -11,7 +11,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <script src="./community-totals.js"></script>
+  <script src="./community-totals.js?v=20260616"></script>
 
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
@@ -806,7 +806,7 @@
                  style="flex:1;padding:6px 10px;font-size:12px;"/>
         </div>
         <div style="display:flex;gap:6px;margin-bottom:10px;">
-          <button onclick="saveMembersToLocal()" style="flex:1;padding:6px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;">저장 (로컬)</button>
+          <button onclick="saveMembersToLocal()" style="flex:1;padding:6px;border-radius:10px;border:1.5px solid var(--gold);background:var(--gold);color:white;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;">저장 (전체 적용)</button>
           <button onclick="resetMembersData()" style="flex:1;padding:6px;border-radius:10px;border:1.5px solid var(--border);background:white;color:var(--text-soft);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;">원본으로 초기화</button>
         </div>
         <p style="font-size:10px;color:var(--text-soft);margin-bottom:8px;">
@@ -953,7 +953,7 @@ const MEMBERS_DATA = {
     '1순': ['박제한','김윤미','김진철','강화영','이현성','김선영','이현철','김윤영','정태옥','홍진섭','허효창','최인경','지형근','이지연','이준혁','고민화','정주형','고형민','허미호'],
     '2순': ['강행자','장청자','한정순'],
     '3순': ['이명선','김태희','조경애','김경희','이은경'],
-    '4순': ['이강남','강유미','김영현','백남숙','정선희','최춘자'],
+    '4순': ['이강남','강유미','김영현','백남숙','정선희','최춘자','황혜자'],
   }},
   '소망2': { label: '소망2다락방', 순: {
     '8순': ['남관우','구자영','김희정','이세종','이창배','정찬의','장해영','이홍언','서인호','이순희'],
@@ -970,7 +970,7 @@ const MEMBERS_DATA = {
     '7순': ['송정미','오경숙','김수옥','김지연','장윤지','배은하','박성예','임소이','변지숙'],
   }},
   '사랑2': { label: '사랑2다락방', 순: {
-    '8순': ['이성한','이선화','강병철','홍지윤','김진국','김정현','배석원','강혜진','이보윤','안은주','이중희','우사라','정주호','이효진','심승보','김현진'],
+    '8순': ['이성한','이선화','강병철','홍지윤','김진국','김정현','배석원','강혜진','이보윤','안은주','정주호','이효진','심승보','김현진'],
     '9순': ['안승립','구혜정','이요섭','변은미','박성호','이희자','이용구','김남정'],
     '10순': ['이영욱','김길자','김영희','방통일','서정애','정광자','홍규숙','김민경'],
     '11순': ['최황','오영미','류성민','문요환','고은하','우인숙','유정희','이성희','이창환','김경희'],
@@ -1212,7 +1212,7 @@ function initCandles() {
 
 /* 다락방별 총원 계산
    분모(전체 인원)는 공용 데이터 파일(community-totals.js)의 공식 인원을 사용한다.
-   → 조직도·명단과 동일한 318명 기준으로 동기화된다.
+   → 조직도·명단과 동일한 공식 인원(community-totals.js) 기준으로 동기화된다.
    (community-totals.js가 없을 경우에만 MEMBERS_DATA 이름 수로 대체) */
 function getDarakbangTotals() {
   const result = {};
@@ -2050,7 +2050,8 @@ function updateStatUI(total, yes, no, rows) {
   const pendingDiv = document.getElementById('adminPending');
   pendingDiv.innerHTML = '';
   let pendingCount = 0;
-  Object.entries(MEMBERS_DATA).forEach(([key, dbData]) => {
+  const _memberSource = (_membersEdit && Object.keys(_membersEdit).length) ? _membersEdit : MEMBERS_DATA;
+  Object.entries(_memberSource).forEach(([key, dbData]) => {
     const label = dbData.label;
     Object.entries(dbData['순']).forEach(([순이름, names]) => {
       const pending = names.filter(n => !respondedSet.has(label + '__' + n));
@@ -2177,12 +2178,38 @@ function adminToggleEdit(row) {
 let _membersEdit = null;
 
 function initMembersData() {
-  if (_membersEdit) return; // 이미 초기화됨
+  if (_membersEdit) {
+    // 이미 초기화됐어도 서버에서 최신본 비동기 갱신
+    _fetchMembersFromServer();
+    return;
+  }
+  // 로컬 캐시로 즉시 화면 표시
   const saved = localStorage.getItem('jjr_members_edit');
   if (saved) {
-    try { _membersEdit = JSON.parse(saved); return; } catch(e) {}
+    try { _membersEdit = JSON.parse(saved); } catch(e) {}
   }
-  _membersEdit = JSON.parse(JSON.stringify(MEMBERS_DATA));
+  if (!_membersEdit) _membersEdit = JSON.parse(JSON.stringify(MEMBERS_DATA));
+  // 서버에서 최신 데이터 비동기 로딩 (완료되면 _onServerMembers 가 재렌더링)
+  _fetchMembersFromServer();
+}
+
+function _fetchMembersFromServer() {
+  if (!CONFIG.APPS_SCRIPT_URL) return;
+  const tag = document.createElement('script');
+  tag.src = CONFIG.APPS_SCRIPT_URL + '?action=getMembersOverride&callback=_onServerMembers';
+  tag.onerror = function() { try { document.head.removeChild(tag); } catch(e) {} };
+  document.head.appendChild(tag);
+}
+
+function _onServerMembers(res) {
+  if (res && res.success && res.data) {
+    _membersEdit = res.data;
+    localStorage.setItem('jjr_members_edit', JSON.stringify(_membersEdit));
+    const searchInput = document.getElementById('memberSearchInput');
+    renderMemberGroups(searchInput ? searchInput.value : '');
+    // 미응답자 현황도 갱신
+    if (typeof _lastRows !== 'undefined') renderAdminStats(_lastRows);
+  }
 }
 
 function renderMemberGroups(filter) {
@@ -2284,8 +2311,29 @@ function renderMemberGroups(filter) {
 
 function saveMembersToLocal() {
   if (!_membersEdit) return;
+  // 로컬 캐시 저장
   localStorage.setItem('jjr_members_edit', JSON.stringify(_membersEdit));
-  showToast('명단이 저장되었습니다');
+  // 서버(Google Sheets)에도 저장 — 다른 기기에 즉시 반영
+  const dataStr = encodeURIComponent(JSON.stringify(_membersEdit));
+  const tag = document.createElement('script');
+  tag.src = CONFIG.APPS_SCRIPT_URL
+    + '?action=setMembersOverride&pw=' + encodeURIComponent(CONFIG.ADMIN_PASSWORD)
+    + '&data=' + dataStr
+    + '&callback=_onMembersSaved';
+  tag.onerror = function() {
+    showToast('서버 저장 실패 — 로컬에만 저장됨');
+    try { document.head.removeChild(tag); } catch(e) {}
+  };
+  showToast('서버에 저장 중...');
+  document.head.appendChild(tag);
+}
+
+function _onMembersSaved(res) {
+  if (res && res.success) {
+    showToast('명단이 서버에 저장됐습니다 (모든 기기에 반영)');
+  } else {
+    showToast('서버 저장 실패: ' + (res && res.error ? res.error : '알 수 없는 오류'));
+  }
 }
 
 function resetMembersData() {
