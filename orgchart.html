@@ -215,6 +215,39 @@
     .msc .mn { font-size: 15px; font-weight: 900; }
     .msc .ms { font-size: 11px; color: #888; margin-top: 4px; }
 
+    /* 선교사별 기도제목 입력 */
+    .ms-pray { margin-top: 10px; border-top: 1px dashed #f0d9b0; padding-top: 8px; }
+    .ms-pray-head {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 10px; font-weight: 700; color: #d97706; margin-bottom: 4px;
+    }
+    .ms-pray-btn {
+      font-size: 10px; font-weight: 700; color: #b45309;
+      background: #fff7ed; border: 1px solid #fcd9a8;
+      border-radius: 6px; padding: 2px 8px; cursor: pointer;
+      font-family: inherit;
+    }
+    .ms-pray-btn:hover { background: #ffedd5; }
+    .ms-pray-text {
+      font-size: 12px; color: #444; line-height: 1.6;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .ms-pray-text.empty { color: #bbb; font-style: italic; }
+    .ms-pray-edit textarea {
+      width: 100%; min-height: 70px; resize: vertical;
+      font-family: inherit; font-size: 12px; line-height: 1.6;
+      border: 1px solid #fcd9a8; border-radius: 8px; padding: 8px;
+      box-sizing: border-box; outline: none;
+    }
+    .ms-pray-edit textarea:focus { border-color: #f59e0b; }
+    .ms-pray-actions { display: flex; gap: 6px; margin-top: 6px; }
+    .ms-pray-save, .ms-pray-cancel {
+      font-size: 11px; font-weight: 700; border-radius: 6px;
+      padding: 4px 10px; cursor: pointer; font-family: inherit;
+    }
+    .ms-pray-save { background: #f59e0b; color: white; border: none; }
+    .ms-pray-cancel { background: white; color: #888; border: 1px solid #ddd; }
+
     footer { text-align: center; padding: 20px; font-size: 11px; color: #bbb; }
 
     /* ── 모바일 보정 ── */
@@ -458,16 +491,19 @@
       <div class="mr">감비아</div>
       <div class="mn">정진아</div>
       <div class="ms">써포터: 복유선 권사</div>
+      <div class="ms-pray" data-miss="gambia"></div>
     </div>
     <div class="msc">
       <div class="mr">이디오피아</div>
       <div class="mn">김은주</div>
       <div class="ms">써포터: 최인경 집사</div>
+      <div class="ms-pray" data-miss="ethiopia"></div>
     </div>
     <div class="msc">
-      <div class="mr">해외선교</div>
+      <div class="mr">미얀마</div>
       <div class="mn">이상오, 박선희</div>
       <div class="ms">써포터: 이선화</div>
+      <div class="ms-pray" data-miss="myanmar"></div>
     </div>
   </div>
 
@@ -477,6 +513,71 @@
   총무 주웅현 개정 20260613<br>
   <a href="./org.html" style="color:#93c5fd;font-size:11px;text-decoration:none;">다락방별 명단 보기 →</a>
 </footer>
+
+<script>
+/* ── 선교사별 기도제목 (수기 입력 · 이 기기에 저장) ── */
+(function () {
+  function key(miss) { return 'jjr_miss_pray_' + miss; }
+
+  function render(box) {
+    var miss = box.getAttribute('data-miss');
+    var saved = '';
+    try { saved = localStorage.getItem(key(miss)) || ''; } catch (e) {}
+
+    var head = '<div class="ms-pray-head"><span>기도제목</span>' +
+               '<button class="ms-pray-btn" data-act="edit">✎ 작성</button></div>';
+    var body;
+    if (saved.trim()) {
+      body = '<div class="ms-pray-text"></div>';
+    } else {
+      body = '<div class="ms-pray-text empty">기도제목을 입력해 주세요</div>';
+    }
+    box.innerHTML = head + body;
+    if (saved.trim()) box.querySelector('.ms-pray-text').textContent = saved;
+  }
+
+  function edit(box) {
+    var miss = box.getAttribute('data-miss');
+    var saved = '';
+    try { saved = localStorage.getItem(key(miss)) || ''; } catch (e) {}
+    var wrap = document.createElement('div');
+    wrap.className = 'ms-pray-edit';
+    wrap.innerHTML =
+      '<div class="ms-pray-head"><span>기도제목 작성</span></div>' +
+      '<textarea placeholder="예) 현지 사역의 문이 열리도록&#10;건강과 안전을 위해"></textarea>' +
+      '<div class="ms-pray-actions">' +
+        '<button class="ms-pray-save" data-act="save">저장</button>' +
+        '<button class="ms-pray-cancel" data-act="cancel">취소</button>' +
+      '</div>';
+    box.innerHTML = '';
+    box.appendChild(wrap);
+    var ta = wrap.querySelector('textarea');
+    ta.value = saved;
+    ta.focus();
+  }
+
+  function save(box) {
+    var miss = box.getAttribute('data-miss');
+    var ta = box.querySelector('textarea');
+    var val = ta ? ta.value : '';
+    try { localStorage.setItem(key(miss), val); } catch (e) {}
+    render(box);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var boxes = document.querySelectorAll('.ms-pray');
+    boxes.forEach(function (box) {
+      render(box);
+      box.addEventListener('click', function (e) {
+        var act = e.target.getAttribute('data-act');
+        if (act === 'edit')   edit(box);
+        if (act === 'save')   save(box);
+        if (act === 'cancel') render(box);
+      });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
