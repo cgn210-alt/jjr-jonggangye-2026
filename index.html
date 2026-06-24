@@ -728,7 +728,7 @@
     <div id="adminLogin">
       <p style="font-size:12px;color:var(--text-soft);margin-bottom:12px;">관리자 비밀번호를 입력하세요</p>
       <input type="password" id="adminPwInput" class="warm-input" placeholder="비밀번호" style="margin-bottom:10px;" onkeydown="if(event.key==='Enter')verifyAdmin()" />
-      <button class="btn-primary" onclick="verifyAdmin()">
+      <button class="btn-primary" id="adminLoginBtn" onclick="verifyAdmin()">
         <i data-lucide="lock" style="width:14px;height:14px;"></i> 확인
       </button>
     </div>
@@ -1992,9 +1992,17 @@ function loadLocalStats() {
 
 async function fetchStats(pw) {
   if (!CONFIG.APPS_SCRIPT_URL) return;
+  var btn = document.getElementById('adminLoginBtn');
+  var orig = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.textContent = '확인 중... (최대 20초)'; }
+
+  // 서버(구글 앱스 스크립트)가 첫 호출 시 느릴 수 있어 20초 제한을 둔다
+  var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 20000) : null;
+
   try {
     const url = CONFIG.APPS_SCRIPT_URL + '?action=stats&pw=' + encodeURIComponent(pw);
-    const res  = await fetch(url);
+    const res  = await fetch(url, ctrl ? { signal: ctrl.signal, cache: 'no-store' } : { cache: 'no-store' });
     const data = await res.json();
     if (data.error === 'unauthorized') { showToast('비밀번호가 올바르지 않습니다'); return; }
     if (!data.success) { showToast('데이터를 불러오지 못했습니다'); return; }
@@ -2002,7 +2010,13 @@ async function fetchStats(pw) {
     document.getElementById('adminLogin').style.display = 'none';
     document.getElementById('adminStats').style.display = 'block';
     updateStatUI(data.total, data.attending, data.notAttending, data.rows);
-  } catch(e) { showToast('서버 연결에 실패했습니다'); }
+  } catch(e) {
+    if (e && e.name === 'AbortError') showToast('서버 응답이 지연됩니다. 잠시 후 다시 시도해 주세요');
+    else showToast('서버 연결에 실패했습니다');
+  } finally {
+    if (timer) clearTimeout(timer);
+    if (btn) { btn.disabled = false; btn.innerHTML = orig; if (window.lucide) lucide.createIcons(); }
+  }
 }
 
 let _lastRows = [];
@@ -2068,7 +2082,13 @@ function updateStatUI(total, yes, no, rows) {
   if (pendingCount === 0) {
     pendingDiv.innerHTML = '<p style="font-size:12px;color:#16A34A;text-align:center;padding:16px;font-weight:700;">전원 응답 완료!</p>';
   }
-  document.getElementById('tabPending').textContent = '미응답자 (' + pendingCount + '명)';
+  // 미응답자 수 = 공식 총원(community-totals.js) − 응답자 수
+  // (이름 목록 합계가 아니라 조직도와 동일한 공식 인원 기준으로 표시)
+  var officialTotal = (typeof communityGrandTotal === 'function')
+    ? communityGrandTotal().members
+    : (pendingCount + (total || 0));
+  var pendingDisplay = Math.max(0, officialTotal - (total || 0));
+  document.getElementById('tabPending').textContent = '미응답자 (' + pendingDisplay + '명)';
 }
 
 function refreshStats() {
