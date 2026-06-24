@@ -34,13 +34,16 @@ function communityGroupTotal(group) {
   }, { members: 0, sun: 0 });
 }
 
-/* 전체 합계 */
+/* 다락방에 속하지 않는 리더십 인원 (담당목사 노치형) */
+const COMMUNITY_LEADERSHIP = 1;
+
+/* 전체 합계 (다락방 합계 + 담당목사) */
 function communityGrandTotal() {
   return Object.keys(COMMUNITY_TOTALS).reduce(function (acc, k) {
     acc.members += COMMUNITY_TOTALS[k].members;
     acc.sun     += COMMUNITY_TOTALS[k].sun;
     return acc;
-  }, { members: 0, sun: 0 });
+  }, { members: COMMUNITY_LEADERSHIP, sun: 0 });
 }
 
 /* 키 해석: 'ALL' | 'GROUP:믿음' | '믿음1' 등 */

@@ -11,7 +11,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <script src="./community-totals.js?v=20260616"></script>
+  <script src="./community-totals.js?v=20260625"></script>
 
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
@@ -421,7 +421,7 @@
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
       <div>
         <p style="font-size:15px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">릴레이 기도자</p>
-        <p style="font-size:11px;color:var(--text-soft);">각 직분이 연대하여 기도의 단을 쌓아갑니다</p>
+        <p style="font-size:11px;color:var(--text-soft);">해당 리더십의 화살표를 누르면 기도의 내용을 볼 수 있습니다</p>
       </div>
       <span style="font-size:11px;font-weight:700;color:var(--gold);background:#EDE0F8;border:1px solid var(--border-soft);border-radius:50px;padding:4px 10px;white-space:nowrap;">100% 동참</span>
     </div>
@@ -517,6 +517,7 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <select id="rsvpDarakbang" class="warm-input" onchange="onDarakbangChange()" style="font-size:12px;padding:8px 10px;">
             <option value="">— 다락방 —</option>
+            <option value="담당목사">담당목사</option>
             <option value="믿음1">믿음1다락방</option>
             <option value="믿음2">믿음2다락방</option>
             <option value="소망1">소망1다락방</option>
@@ -945,6 +946,9 @@ const CONFIG = {
    MEMBERS DATA — 전체 명단 (다락방 > 순 > 이름)
 ─────────────────────────────────────────────────────────────────────── */
 const MEMBERS_DATA = {
+  '담당목사': { label: '담당목사', 순: {
+    '목사': ['노치형'],
+  }},
   '믿음1': { label: '믿음1다락방', 순: {
     '1순': ['김의래','김성희','김기수','이정숙','이우형','김세경','정문규','이희영','황광석','박혜선','박병익','전정희'],
     '2순': ['주웅현','서정숙','김재범','이수정','박흥서','송경옥','윤민학','강성희','전해정','홍장기','안희정','이혜진','박정훈','신경재','김영옥','이승현','차현아'],
@@ -1278,7 +1282,8 @@ function renderDarakbangStats(dbTotals) {
     list.appendChild(row);
   });
 
-  document.getElementById('totalMemberNote').textContent = '전체 ' + grandTotal + '명 기준';
+  var officialTotal = (typeof communityGrandTotal === 'function') ? communityGrandTotal().members : grandTotal;
+  document.getElementById('totalMemberNote').textContent = '전체 ' + officialTotal + '명 기준';
   container.style.display = 'block';
 }
 
