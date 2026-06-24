@@ -147,21 +147,21 @@
 
     /* ── Prayer wall scroll ── */
     #prayerWall {
-      max-height: 300px; overflow-y: auto;
-      padding-right: 10px;            /* 스크롤바와 박스 사이 여백 */
-      scrollbar-width: thin;          /* Firefox */
-      scrollbar-color: #C9A8E8 #F0EBFA;
+      max-height: 360px; overflow-y: auto;   /* 약 6칸 기본 노출 */
+      padding-right: 12px;            /* 스크롤바와 박스 사이 여백 */
+      scrollbar-width: auto;          /* Firefox: 굵은 기본 스크롤바 */
+      scrollbar-color: #B083D6 #F0EBFA;
     }
-    #prayerWall::-webkit-scrollbar { width: 12px; }
+    #prayerWall::-webkit-scrollbar { width: 14px; }
     #prayerWall::-webkit-scrollbar-track {
-      background: #F0EBFA; border-radius: 8px;
+      background: #F0EBFA; border-radius: 10px;
     }
     #prayerWall::-webkit-scrollbar-thumb {
-      background: #C9A8E8; border-radius: 8px;
+      background: #B083D6; border-radius: 10px;
       border: 3px solid #F0EBFA;      /* 좌우 여백을 줘서 잡기 쉽게 */
-      min-height: 40px;
+      min-height: 48px;
     }
-    #prayerWall::-webkit-scrollbar-thumb:hover { background: #B083D6; }
+    #prayerWall::-webkit-scrollbar-thumb:hover { background: #9457C4; }
 
     /* ── Progress bar ── */
     .progress-track { height: 6px; background: var(--border-soft); border-radius: 10px; overflow: hidden; }
