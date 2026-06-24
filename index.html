@@ -146,10 +146,22 @@
     .rsvp-choice.selected-no  { border-color: #F59E0B; background: #FFFBEB; color: #D97706; }
 
     /* ── Prayer wall scroll ── */
-    #prayerWall { max-height: 260px; overflow-y: auto; }
-    #prayerWall::-webkit-scrollbar { width: 4px; }
-    #prayerWall::-webkit-scrollbar-track { background: #F3EEF8; }
-    #prayerWall::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    #prayerWall {
+      max-height: 300px; overflow-y: auto;
+      padding-right: 10px;            /* 스크롤바와 박스 사이 여백 */
+      scrollbar-width: thin;          /* Firefox */
+      scrollbar-color: #C9A8E8 #F0EBFA;
+    }
+    #prayerWall::-webkit-scrollbar { width: 12px; }
+    #prayerWall::-webkit-scrollbar-track {
+      background: #F0EBFA; border-radius: 8px;
+    }
+    #prayerWall::-webkit-scrollbar-thumb {
+      background: #C9A8E8; border-radius: 8px;
+      border: 3px solid #F0EBFA;      /* 좌우 여백을 줘서 잡기 쉽게 */
+      min-height: 40px;
+    }
+    #prayerWall::-webkit-scrollbar-thumb:hover { background: #B083D6; }
 
     /* ── Progress bar ── */
     .progress-track { height: 6px; background: var(--border-soft); border-radius: 10px; overflow: hidden; }
@@ -598,7 +610,7 @@
     <div class="warm-divider"></div>
 
     <!-- Prayers -->
-    <div id="prayerWall" style="display:flex;flex-direction:column;gap:8px;">
+    <div id="prayerWall" style="display:flex;flex-direction:column;gap:5px;">
       <!-- Preset entries injected by JS -->
     </div>
   </section>
@@ -1333,14 +1345,14 @@ function makePrayerCard(name, time, text, highlight, animName) {
   highlight = highlight || false;
   animName  = animName  || 'rise';
   const card = document.createElement('div');
-  card.style.cssText = 'padding:12px 14px;border-radius:12px;background:' +
+  card.style.cssText = 'padding:8px 12px;border-radius:10px;background:' +
     (highlight ? '#F5EFFE' : '#FAFAF8') + ';border:1px solid ' +
     (highlight ? 'var(--border)' : 'var(--border-soft)') + ';animation:' + animName + ' 0.35s ease forwards;';
   card.innerHTML =
-    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">' +
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">' +
     '<span style="font-size:11px;color:' + (highlight ? 'var(--gold-light)' : 'var(--border)') + ';">♥</span>' +
     '<span style="font-size:10px;color:var(--text-soft);">' + escapeHTML(time) + '</span></div>' +
-    '<p style="font-size:13px;color:var(--text-deep);line-height:1.7;">' + escapeHTML(text) + '</p>';
+    '<p style="font-size:13px;color:var(--text-deep);line-height:1.55;">' + escapeHTML(text) + '</p>';
   return card;
 }
 
