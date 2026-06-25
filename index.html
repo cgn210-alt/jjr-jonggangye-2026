@@ -657,7 +657,7 @@
         </div>
         <div>
           <p style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">입장 안내</p>
-          <p style="font-size:12px;color:var(--text-soft);line-height:1.6;">오후 6시까지 오셔서 식사를 먼저 하시고, 7시 20분부터 예배가 시작됩니다.</p>
+          <p style="font-size:12px;color:var(--text-soft);line-height:1.6;">7월 3일(금) 오후 6시까지 두란노홀로 오셔서 식사를 먼저 하시고, 오후 7시 찬양으로 예배가 시작됩니다.</p>
         </div>
       </div>
       <div class="warm-divider" style="margin:4px 0;"></div>
@@ -667,7 +667,7 @@
         </div>
         <div>
           <p id="specialTitle" style="font-size:13px;font-weight:700;color:var(--text-deep);margin-bottom:2px;">특별 순서</p>
-          <p id="specialBody" style="font-size:12px;color:var(--text-soft);line-height:1.6;">감사한 일로 후원하시는 분들이 준비한 맛있는 간식과 순예배 활성화를 위한 모바일 특별 교육이 있습니다.</p>
+          <p id="specialBody" style="font-size:12px;color:var(--text-soft);line-height:1.6;">모바일을 이용한 순예배 방법과 교회행정 서비스 플랫폼 등록과 활용에 대한 교육이 진행됩니다.</p>
         </div>
       </div>
     </div>
@@ -1733,7 +1733,7 @@ function populateSettingsForm() {
   document.getElementById('adminMusicUrl').value   = serverUrl || localStorage.getItem('jjr_music_url')   || CONFIG.MUSIC_URL;
   document.getElementById('adminMusicTitle').value = window._serverMusicTitle || localStorage.getItem('jjr_music_title') || '';
   document.getElementById('specialTitleInput').value = localStorage.getItem('jjr_special_title') || '특별 순서';
-  document.getElementById('specialBodyInput').value  = localStorage.getItem('jjr_special_body')  || '감사한 일로 후원하시는 분들이 준비한 맛있는 간식과 순예배 활성화를 위한 모바일 특별 교육이 있습니다.';
+  document.getElementById('specialBodyInput').value  = localStorage.getItem('jjr_special_body')  || '모바일을 이용한 순예배 방법과 교회행정 서비스 플랫폼 등록과 활용에 대한 교육이 진행됩니다.';
   const topics = loadPrayerTopics();
   topics.forEach((t, i) => {
     const n = i + 1;
