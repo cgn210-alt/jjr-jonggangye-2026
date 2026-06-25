@@ -517,6 +517,7 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <select id="rsvpDarakbang" class="warm-input" onchange="onDarakbangChange()" style="font-size:12px;padding:8px 10px;">
             <option value="">♡ 다락방 선택</option>
+            <option value="담당목사">담당목사</option>
             <option value="믿음1">믿음1다락방</option>
             <option value="믿음2">믿음2다락방</option>
             <option value="소망1">소망1다락방</option>
@@ -558,18 +559,6 @@
       <button onclick="resetRSVP()" style="margin-top:14px;background:none;border:none;color:var(--text-soft);font-size:12px;text-decoration:underline;cursor:pointer;font-family:inherit;">응답 다시 하기</button>
     </div>
 
-    <!-- 담당목사 전용 참석 응답 -->
-    <div id="leaderRsvp" style="margin-top:14px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#f3eefb,#fbf7ff);border:1px solid var(--border-soft);">
-      <p style="font-size:12px;font-weight:700;color:var(--text-deep);margin-bottom:8px;">
-        담당목사 <span style="color:var(--gold-light);">노치형</span> 목사님 참석 응답
-      </p>
-      <div id="leaderRsvpButtons" style="display:flex;gap:8px;">
-        <button class="rsvp-choice" onclick="submitLeaderRSVP('참석')" style="flex:1;padding:9px 8px;font-size:13px;">참석</button>
-        <button class="rsvp-choice" onclick="submitLeaderRSVP('불참')" style="flex:1;padding:9px 8px;font-size:13px;">불참</button>
-      </div>
-      <p id="leaderRsvpDone" style="display:none;font-size:12px;font-weight:700;color:#16A34A;text-align:center;padding:6px 0 2px;"></p>
-      <button id="leaderRsvpReset" onclick="resetLeaderRSVP()" style="display:none;margin:4px auto 0;background:none;border:none;color:var(--text-soft);font-size:11px;text-decoration:underline;cursor:pointer;font-family:inherit;">다시 응답</button>
-    </div>
   </section>
 
   <!-- ⑤ Prayer Candle -->
@@ -1175,38 +1164,6 @@ async function submitRSVP() {
 
   showRSVPDone({ name, attendance, message });
   if (attendance === '참석') lightCandle();
-}
-
-/* 담당목사(노치형) 전용 참석 응답 — 다락방/순 선택 없이 한 번에 제출 */
-function submitLeaderRSVP(attendance) {
-  var name      = '노치형';
-  var cellGroup = '담당목사';
-  if (CONFIG.APPS_SCRIPT_URL) {
-    try {
-      var url = CONFIG.APPS_SCRIPT_URL
-        + '?action=submit_rsvp'
-        + '&name='       + encodeURIComponent(name)
-        + '&cellGroup='  + encodeURIComponent(cellGroup)
-        + '&attendance=' + encodeURIComponent(attendance)
-        + '&message='
-        + '&deviceId='   + encodeURIComponent(getDeviceId());
-      fetch(url, { mode: 'no-cors' });
-    } catch(e) { console.warn('전송 실패:', e); }
-  }
-  if (attendance === '참석' && typeof lightCandle === 'function') lightCandle();
-
-  document.getElementById('leaderRsvpButtons').style.display = 'none';
-  var doneEl = document.getElementById('leaderRsvpDone');
-  doneEl.style.display = 'block';
-  doneEl.textContent = '노치형 목사님 — ' + attendance + ' 응답이 등록되었습니다';
-  document.getElementById('leaderRsvpReset').style.display = 'block';
-  showToast('담당목사님 ' + attendance + ' 응답이 등록되었습니다');
-}
-
-function resetLeaderRSVP() {
-  document.getElementById('leaderRsvpDone').style.display = 'none';
-  document.getElementById('leaderRsvpReset').style.display = 'none';
-  document.getElementById('leaderRsvpButtons').style.display = 'flex';
 }
 
 function showRSVPDone(data) {
