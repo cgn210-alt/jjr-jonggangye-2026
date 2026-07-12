@@ -121,13 +121,11 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
-
-  // ★ Firebase 설정값 입력
-  const firebaseConfig = {
+<!-- Firebase Compat SDK (CDN — GitHub Pages 호환) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  var firebaseConfig = {
     apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
     authDomain:        "cgn-love.firebaseapp.com",
     databaseURL:       "https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -137,20 +135,18 @@
     appId:             "1:164467571776:web:6c3df66c56f907e808b3a5"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db  = getDatabase(app);
-  const dbRef = ref(db, 'baecharyo');
+  firebase.initializeApp(firebaseConfig);
+  var _db = firebase.database();
+  var _dbRef = _db.ref('baecharyo');
 
-  // Firebase 연결 후 데이터 로드
-  onValue(dbRef, function(snapshot) {
-    const dot  = document.getElementById('statusDot');
-    const text = document.getElementById('statusText');
+  _dbRef.on('value', function(snapshot) {
+    var dot  = document.getElementById('statusDot');
+    var text = document.getElementById('statusText');
     dot.classList.add('connected');
     text.textContent = 'Firebase 연결됨 — 저장 시 즉시 반영';
 
-    const data = snapshot.val();
+    var data = snapshot.val();
     if (data) {
-      // 기본 정보 채우기
       if (data.info) {
         document.getElementById('info-funeral').value = data.info.funeral || '';
         document.getElementById('info-date').value    = data.info.date    || '';
@@ -158,13 +154,11 @@
         document.getElementById('info-addr').value    = data.info.addr    || '';
         document.getElementById('info-total').value   = data.info.total   || '';
       }
-      // 차량 데이터 채우기
       if (data.cars) {
         window._cars = data.cars;
         renderCarEditors();
       }
     } else {
-      // 최초 실행 — 기본값 세팅
       window._cars = getDefaultCars();
       document.getElementById('info-funeral').value = '정지훈 팀장 부친상 (故 정제민(남))';
       document.getElementById('info-date').value    = '2026년 7월 13일(월) 오전 11:30 출발';
@@ -175,12 +169,11 @@
     }
   }, function(error) {
     document.getElementById('statusDot').style.background = '#c0392b';
-    document.getElementById('statusText').textContent = 'Firebase 연결 실패 — 설정값을 확인하세요';
+    document.getElementById('statusText').textContent = 'Firebase 연결 실패: ' + error.message;
   });
 
-  // 저장 함수 — window에 등록해서 일반 스크립트에서 호출 가능하게
   window.saveToFirebase = function() {
-    const data = {
+    var data = {
       info: {
         funeral: document.getElementById('info-funeral').value,
         date:    document.getElementById('info-date').value,
@@ -190,7 +183,7 @@
       },
       cars: collectData()
     };
-    set(dbRef, data).then(function() {
+    _dbRef.set(data).then(function() {
       showToast('저장 완료 — 배차표 앱에 즉시 반영되었습니다');
     }).catch(function(err) {
       showToast('저장 실패: ' + err.message);
