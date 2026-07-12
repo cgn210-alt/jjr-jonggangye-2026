@@ -146,41 +146,42 @@ var _dbRef = null;
 // ── Firebase 초기화 ────────────────────────────
 window.addEventListener('load', function() {
   try {
-  firebase.initializeApp({
-    apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
-    authDomain:        "cgn-love.firebaseapp.com",
-    databaseURL:       "https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId:         "cgn-love",
-    storageBucket:     "cgn-love.firebasestorage.app",
-    messagingSenderId: "164467571776",
-    appId:             "1:164467571776:web:6c3df66c56f907e808b3a5"
-  });
-
-  _dbRef = firebase.database().ref('baecharyo');
-
-  _dbRef.on('value', function(snap) {
-    document.getElementById('statusDot').classList.add('connected');
-    document.getElementById('statusText').textContent = 'Firebase 연결됨 — 저장 시 즉시 반영';
-
-    var data = snap.val();
-    if (data && data.info) {
-      document.getElementById('info-funeral').value = data.info.funeral || '';
-      document.getElementById('info-date').value    = data.info.date    || '';
-      document.getElementById('info-place').value   = data.info.place   || '';
-      document.getElementById('info-addr').value    = data.info.addr    || '';
-    }
-    if (data && data.cars) {
-      _cars = normalizeCars(data.cars);
-    } else {
-      _cars = defaultCars();
-      setDefaultInfo();
-    }
-    renderCarEditors();
-    recalcTotal();
-  }, function(err) {
+    firebase.initializeApp({
+      apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
+      authDomain:        "cgn-love.firebaseapp.com",
+      databaseURL:       "https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId:         "cgn-love",
+      storageBucket:     "cgn-love.firebasestorage.app",
+      messagingSenderId: "164467571776",
+      appId:             "1:164467571776:web:6c3df66c56f907e808b3a5"
+    });
+    _dbRef = firebase.database().ref('baecharyo');
+    _dbRef.on('value', function(snap) {
+      document.getElementById('statusDot').classList.add('connected');
+      document.getElementById('statusText').textContent = 'Firebase 연결됨 — 저장 시 즉시 반영';
+      var data = snap.val();
+      if (data && data.info) {
+        document.getElementById('info-funeral').value = data.info.funeral || '';
+        document.getElementById('info-date').value    = data.info.date    || '';
+        document.getElementById('info-place').value   = data.info.place   || '';
+        document.getElementById('info-addr').value    = data.info.addr    || '';
+      }
+      if (data && data.cars) {
+        _cars = normalizeCars(data.cars);
+      } else {
+        _cars = defaultCars();
+        setDefaultInfo();
+      }
+      renderCarEditors();
+      recalcTotal();
+    }, function(err) {
+      document.getElementById('statusDot').style.background = '#c0392b';
+      document.getElementById('statusText').textContent = '연결 실패: ' + err.message;
+    });
+  } catch(e) {
     document.getElementById('statusDot').style.background = '#c0392b';
-    document.getElementById('statusText').textContent = '연결 실패: ' + err.message;
-  });
+    document.getElementById('statusText').textContent = 'Firebase 오류: ' + e.message;
+  }
 });
 
 // Firebase 배열→객체 복원 + 정규화
@@ -287,8 +288,7 @@ function renderOneEditor(idx) {
         '<div class="field-label">탑승인원 <span class="count-display" id="pcnt-' + idx + '">' + c.passengers.length + '명</span></div>' +
         '<div class="tag-editor" id="tags-' + idx + '" style="margin-bottom:6px;"></div>' +
         '<div class="tag-add-row">' +
-          '<input class="tag-add-input" id="tag-inp-' + idx + '" placeholder="이름 입력" ' +
-            'onkeydown="if(event.key===\'Enter\'||event.key===\',\'){event.preventDefault();addTagByBtn(' + idx + ');}" />' +
+          '<input class="tag-add-input" id="tag-inp-' + idx + '" placeholder="이름 입력" />' +
           '<button class="tag-add-btn" onclick="addTagByBtn(' + idx + ')">+ 추가</button>' +
         '</div>' +
         '<div class="tag-hint">이름 입력 후 + 추가 버튼 또는 Enter · × 버튼으로 삭제</div>' +
@@ -309,6 +309,17 @@ function buildTagEditor(idx) {
     tag.innerHTML = esc(p) + '<button class="tag-remove" onclick="removeTag(' + idx + ',' + pi + ')">×</button>';
     container.appendChild(tag);
   });
+  // 입력창 키 이벤트 바인딩
+  var inp = document.getElementById('tag-inp-' + idx);
+  if (inp) {
+    inp.onkeydown = null;
+    inp.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        addTagByBtn(idx);
+      }
+    });
+  }
 }
 
 function addTagByBtn(idx) {
