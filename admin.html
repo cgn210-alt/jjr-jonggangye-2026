@@ -95,7 +95,7 @@
   <div class="admin-header">
     <div>
       <div class="admin-header-title">배차표 관리자</div>
-      <div class="admin-header-sub">수정 → HTML 생성 → 복사 → 파일 교체</div>
+      <div class="admin-header-sub">수정 → 저장 → HTML 생성 → 파일 다운로드 → GitHub 업로드</div>
     </div>
     <button class="btn-logout" onclick="doLogout()">로그아웃</button>
   </div>
@@ -122,7 +122,7 @@
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-title">수정된 HTML 코드</div>
-    <div class="modal-desc">아래 코드를 복사한 뒤 funeral_transport.html 파일 전체를 교체하고 GitHub에 업로드하세요</div>
+    <div class="modal-desc">아래 <b>파일 다운로드</b> 버튼으로 받은 funeral_transport.html 파일을 GitHub 폴더에 덮어쓴 뒤 커밋 → Push 하세요.<br>전체 복사 후 수동 붙여넣기는 오류가 생길 수 있으니 <b>파일 다운로드</b>를 권장합니다.</div>
     <div class="modal-code" id="modalCode"></div>
     <div class="modal-btns">
       <button class="btn-copy" onclick="copyHtml()">전체 복사</button>
@@ -313,7 +313,7 @@ function collectData() {
 
 function saveAndConfirm() {
   cars = collectData();
-  showToast('저장되었습니다');
+  showToast('저장 완료 — HTML 생성 버튼으로 파일을 받으세요');
 }
 
 function showToast(msg) {
