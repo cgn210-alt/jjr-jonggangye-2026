@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>조문 차량 탑승 배차표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f1;
+      --surface: #ffffff;
+      --surface-sub: #f9f8f6;
+      --border: #e4e2dc;
+      --border-strong: #c8c5bc;
+      --text-primary: #1a1916;
+      --text-secondary: #5c5a55;
+      --text-muted: #9c9990;
+      --accent-bg: #eef3fb;
+      --accent-text: #1a4f9c;
+      --radius: 10px;
+      --font: 'Noto Sans KR', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 18px 16px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+    .header-meta {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 2;
+    }
+    .header-meta span { display: block; }
+    .header-meta .addr { color: var(--text-muted); font-size: 11.5px; }
+    .total-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: var(--accent-bg);
+      color: var(--accent-text);
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* SEARCH */
+    .search-wrap {
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .search-wrap input {
+      width: 100%;
+      font-family: var(--font);
+      font-size: 14px;
+      color: var(--text-primary);
+      background: var(--surface-sub);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 9px 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-wrap input:focus { border-color: var(--border-strong); }
+    .search-wrap input::placeholder { color: var(--text-muted); }
+
+    /* LIST */
+    .car-list {
+      padding: 14px 14px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* CARD */
+    .car-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .car-card.reserve-card { opacity: 0.55; }
+
+    .car-card-header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 14px;
+      cursor: pointer;
+      background: var(--surface);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.12s;
+    }
+    .car-card-header:active { background: var(--surface-sub); }
+    .car-card.reserve-card .car-card-header { background: var(--surface-sub); }
+
+    /* badge */
+    .car-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      flex-shrink: 0;
+      letter-spacing: -0.3px;
+    }
+    .c0 { background:#deeaf9; color:#0e3d82; }
+    .c1 { background:#ddf0e2; color:#1a5c2e; }
+    .c2 { background:#fdebd8; color:#7a3a10; }
+    .c3 { background:#ece9fe; color:#3d2a9e; }
+    .c4 { background:#d8f2e8; color:#0a5436; }
+    .c5 { background:#fde8e3; color:#7a2415; }
+    .c6 { background:#dde8fb; color:#153d8a; }
+    .c7 { background:#e0f2dc; color:#1f5a18; }
+    .cr { background:#f0efec; color:#9c9990; border: 1.5px dashed #c8c5bc; }
+
+    .car-info { flex: 1; min-width: 0; }
+    .car-name-row { display: flex; align-items: center; gap: 8px; }
+    .car-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .car-plate {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: 'Courier New', monospace;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: 5px;
+      padding: 1px 7px;
+      letter-spacing: 0.8px;
+    }
+    .car-dept {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .car-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .person-count { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .driver-name { font-size: 11.5px; color: var(--text-muted); }
+
+    .chevron {
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      margin-left: 2px;
+    }
+    .chevron.open { transform: rotate(180deg); }
+
+    /* BODY */
+    .car-card-body {
+      display: none;
+      padding: 12px 14px 14px;
+      gap: 9px;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+      background: var(--surface-sub);
+    }
+    .car-card-body.open { display: flex; }
+
+    .detail-row { display: flex; gap: 10px; align-items: flex-start; }
+    .detail-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      min-width: 44px;
+      flex-shrink: 0;
+      padding-top: 3px;
+      font-weight: 500;
+    }
+    .detail-val { font-size: 13.5px; color: var(--text-primary); line-height: 1.6; }
+
+    .passenger-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .pchip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 12.5px;
+      color: var(--text-primary);
+      font-family: var(--font);
+    }
+
+    .reserve-note {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    /* NO RESULT */
+    .no-result {
+      text-align: center;
+      padding: 48px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">조문 차량 탑승 배차표</div>
+  <div class="header-meta">
+    <span>장례 : 정지훈 팀장 부친상 (故 정제민(남))</span>
+    <span>2026년 7월 13일(월) &nbsp;오전 11:30 출발</span>
+    <span>원자력병원장례식장 2호실</span>
+    <span class="addr">서울시 노원구 노원로 75</span>
+  </div>
+  <div class="total-badge">총 43명</div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="이름, 부서, 차량 검색" oninput="filterCards(this.value)" />
+</div>
+
+<div class="car-list" id="carList"></div>
+<div class="no-result" id="noResult">검색 결과가 없습니다</div>
+
+<div class="footer">CGN · 2026년 7월 13일</div>
+
+<script>
+const cars = [
+  {
+    no:'1호', type:'소나타', plate:'5311', color:'c0',
+    dept:'경영본부', count:4, driver:'서정민',
+    passengers:['대표','경영본부장','제작본부장']
+  },
+  {
+    no:'2호', type:'K3', plate:'1440', color:'c1',
+    dept:'AI혁신팀, 사목, 콘텐츠제작1실', count:4, driver:'김보름',
+    passengers:['김창호','이예랑','백주희']
+  },
+  {
+    no:'3호', type:'스타리아', plate:'2526', color:'c2',
+    dept:'퐁당네트워크사역팀, 콘텐츠제작1실', count:8, driver:'안기성',
+    passengers:['강아름','양진아','송유진','박지오','황사라','김희경','유진주']
+  },
+  {
+    no:'4호', type:'스타리아', plate:'2527', color:'c3',
+    dept:'콘텐츠제작2실', count:8, driver:'편효원',
+    passengers:['김경숙','심성순','심수정','이성우','김성현','최규섭','민채원']
+  },
+  {
+    no:'5호', type:'스타리아', plate:'8423', color:'c4',
+    dept:'콘텐츠플랫폼기획실', count:8, driver:'유정호',
+    passengers:['성정현','박은초롱','하성은','백린','현아영','지효선','양은주']
+  },
+  {
+    no:'6호', type:'셀토스', plate:'2459', color:'c5',
+    dept:'경영관리실', count:4, driver:'강태욱',
+    passengers:['주웅현','김병준','엄기원']
+  },
+  {
+    no:'7호', type:'셀토스', plate:'2460', color:'c6',
+    dept:'제작기술실', count:3, driver:'이명준',
+    passengers:['박민수','안정기']
+  },
+  {
+    no:'8호', type:'셀토스', plate:'2461', color:'c7',
+    dept:'디자인실, 해외사업팀', count:4, driver:'김영균',
+    passengers:['정민정','배정은','최효선']
+  },
+  {
+    no:'9호', type:'K3', plate:'2457', color:'cr',
+    dept:'예비차량', count:0, driver:'', passengers:[], reserve:true
+  },
+];
+
+function renderCards(data) {
+  const list = document.getElementById('carList');
+  const noResult = document.getElementById('noResult');
+  list.innerHTML = '';
+  if (!data.length) { noResult.style.display = 'block'; return; }
+  noResult.style.display = 'none';
+
+  data.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'car-card' + (c.reserve ? ' reserve-card' : '');
+    card.innerHTML = `
+      <div class="car-card-header" onclick="toggleCard(this)">
+        <div class="car-badge ${c.color}">${c.no}</div>
+        <div class="car-info">
+          <div class="car-name-row">
+            <span class="car-name">${c.type}</span>
+            <span class="car-plate">${c.plate}</span>
+          </div>
+          <div class="car-dept">${c.dept}</div>
+        </div>
+        <div class="car-meta">
+          ${c.reserve
+            ? '<span class="driver-name">예비</span>'
+            : `<span class="person-count">${c.count}명</span>
+               <span class="driver-name">${c.driver}</span>`
+          }
+        </div>
+        <div class="chevron">&#8964;</div>
+      </div>
+      <div class="car-card-body">
+        ${c.reserve
+          ? '<span class="reserve-note">예비 차량입니다</span>'
+          : `<div class="detail-row">
+               <span class="detail-label">운전자</span>
+               <span class="detail-val">${c.driver}</span>
+             </div>
+             <div class="detail-row">
+               <span class="detail-label">부서</span>
+               <span class="detail-val">${c.dept}</span>
+             </div>
+             <div class="detail-row">
+               <span class="detail-label">탑승인원</span>
+               <div class="passenger-chips">
+                 ${c.passengers.map(p => `<span class="pchip">${p}</span>`).join('')}
+               </div>
+             </div>`
+        }
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  body.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+
+function filterCards(q) {
+  const query = q.trim();
+  if (!query) { renderCards(cars); return; }
+  const ql = query.toLowerCase();
+  const filtered = cars.filter(c =>
+    c.no.includes(query) ||
+    c.type.toLowerCase().includes(ql) ||
+    c.plate.includes(query) ||
+    c.dept.toLowerCase().includes(ql) ||
+    c.driver.toLowerCase().includes(ql) ||
+    c.passengers.some(p => p.toLowerCase().includes(ql))
+  );
+  renderCards(filtered);
+}
+
+renderCards(cars);
+</script>
+</body>
+</html>
