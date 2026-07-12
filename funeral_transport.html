@@ -283,7 +283,7 @@ const cars = [
     dept:'디자인실, 해외사업팀', count:4, driver:'김영균',
     passengers:['정민정','배정은','최효선'] },
   { no:'9호', type:'K3', plate:'2457', badge:'badge-reserve',
-    dept:'예비차량', count:0, driver:'', passengers:[], reserve:true },
+    dept:'예비차량', count:0, driver:'', passengers:[] },
 ];
 
 function renderCards(data) {
@@ -306,29 +306,26 @@ function renderCards(data) {
           <div class="car-dept">${c.dept}</div>
         </div>
         <div class="car-meta">
-          ${c.reserve
-            ? '<span class="driver-name">예비</span>'
-            : `<span class="person-count">${c.count}명</span><span class="driver-name">${c.driver}</span>`}
+          <span class="person-count">${c.count ? c.count + '명' : '예비'}</span>
+          ${c.driver ? `<span class="driver-name">${c.driver}</span>` : ''}
         </div>
         <div class="chevron">&#8964;</div>
       </div>
       <div class="car-card-body">
-        ${c.reserve
-          ? '<span class="reserve-note">예비 차량입니다</span>'
-          : `<div class="detail-row">
-               <span class="detail-label">운전자</span>
-               <span class="detail-val">${c.driver}</span>
-             </div>
-             <div class="detail-row">
-               <span class="detail-label">부서</span>
-               <span class="detail-val">${c.dept}</span>
-             </div>
-             <div class="detail-row">
-               <span class="detail-label">탑승인원</span>
-               <div class="passenger-chips">
-                 ${c.passengers.map(p => `<span class="pchip">${p}</span>`).join('')}
-               </div>
-             </div>`}
+        <div class="detail-row">
+          <span class="detail-label">운전자</span>
+          <span class="detail-val">${c.driver || '미정'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">부서</span>
+          <span class="detail-val">${c.dept}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">탑승인원</span>
+          <div class="passenger-chips">
+            ${c.passengers.length ? c.passengers.map(p => `<span class="pchip">${p}</span>`).join('') : '<span style="font-size:12.5px;color:var(--text-muted)">미정</span>'}
+          </div>
+        </div>
       </div>`;
     list.appendChild(card);
   });
