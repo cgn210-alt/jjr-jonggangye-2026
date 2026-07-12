@@ -203,14 +203,15 @@ window.addEventListener('load', function() {
     }));
   }
 
-  function toggleGuardian() {
-    var t = document.getElementById('guardianTooltip');
-    t.classList.toggle('show');
-    if (t.classList.contains('show')) {
-      setTimeout(function() { t.classList.remove('show'); }, 3000);
-    }
-  }
 }); // window.onload 끝
+
+function toggleGuardian() {
+  var t = document.getElementById('guardianTooltip');
+  t.classList.toggle('show');
+  if (t.classList.contains('show')) {
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+  }
+}
 </script>
 </body>
 </html>
