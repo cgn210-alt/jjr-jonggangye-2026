@@ -188,22 +188,22 @@ window.addEventListener('load', function() {
     });
   }
 
-  function toggleCard(h) {
-    var b = h.nextElementSibling, cv = h.querySelector('.chevron');
-    b.classList.toggle('open'); cv.classList.toggle('open');
-  }
-
-  function filterCards(q) {
-    var ql = q.trim().toLowerCase();
-    if (!ql) { renderCards(_cars); return; }
-    renderCards(_cars.filter(function(c) {
-      return c.no.includes(q) || c.type.includes(ql) || c.plate.includes(q) ||
-        c.dept.includes(ql) || (c.driver && c.driver.includes(ql)) ||
-        (c.passengers && c.passengers.some(function(p) { return p.includes(ql); }));
-    }));
-  }
-
 }); // window.onload 끝
+
+function toggleCard(h) {
+  var b = h.nextElementSibling, cv = h.querySelector('.chevron');
+  b.classList.toggle('open'); cv.classList.toggle('open');
+}
+
+function filterCards(q) {
+  var ql = q.trim().toLowerCase();
+  if (!ql) { renderCards(_cars); return; }
+  renderCards(_cars.filter(function(c) {
+    return c.no.includes(q) || c.type.includes(ql) || c.plate.includes(q) ||
+      c.dept.includes(ql) || (c.driver && c.driver.includes(ql)) ||
+      (c.passengers && c.passengers.some(function(p) { return p.includes(ql); }));
+  }));
+}
 
 function toggleGuardian() {
   var t = document.getElementById('guardianTooltip');
