@@ -410,6 +410,10 @@ function generateHTML() {
     '.pchip { background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 10px; font-size:12.5px; }',
     '.no-result { text-align:center; padding:48px 0; font-size:13px; color:var(--text-muted); display:none; }',
     '.footer { text-align:center; padding:16px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:4px; line-height:1.8; }',
+    '.guardian-name { display:inline; cursor:pointer; text-decoration:underline dotted; -webkit-tap-highlight-color:transparent; }',
+    '.guardian-tooltip { display:none; margin-top:6px; font-size:11.5px; color:var(--text-secondary); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:6px 14px; animation:fadeIn 0.2s ease; }',
+    '.guardian-tooltip.show { display:block; }',
+    '@keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }',
   ].join('\n    ');
 
   const js = [
@@ -454,6 +458,7 @@ function generateHTML() {
     'function toggleCard(h) { var b=h.nextElementSibling,cv=h.querySelector(".chevron"); b.classList.toggle("open"); cv.classList.toggle("open"); }',
     'function filterCards(q) { var ql=q.trim().toLowerCase(); if(!ql){renderCards(cars);return;} renderCards(cars.filter(function(c){ return c.no.includes(q)||c.type.includes(ql)||c.plate.includes(q)||c.dept.includes(ql)||(c.driver&&c.driver.includes(ql))||c.passengers.some(function(p){return p.includes(ql);}); })); }',
     'renderCards(cars);',
+    'function toggleGuardian() { var t=document.getElementById("guardianTooltip"); t.classList.toggle("show"); if(t.classList.contains("show")){setTimeout(function(){t.classList.remove("show");},3000);} }',
   ].join('\n');
 
   return '<!DOCTYPE html>\n'
@@ -489,7 +494,7 @@ function generateHTML() {
     + '</div>\n'
     + '<div class="car-list" id="carList"></div>\n'
     + '<div class="no-result" id="noResult">검색 결과가 없습니다</div>\n'
-    + '<div class="footer">CGN · 2026년 7월 13일<br>제작 GUARDIAN</div>\n'
+    + '<div class="footer">CGN · 2026년 7월 13일<br>제작 <span class="guardian-name" onclick="toggleGuardian()">GUARDIAN</span><div class="guardian-tooltip" id="guardianTooltip">경영관리실 실장 주웅현</div></div>\n'
     + '<script>\n' + js + '\n' + '<' + '/script>\n'
     + '</body>\n'
     + '</html>';
