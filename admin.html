@@ -157,8 +157,16 @@ window.addEventListener('load', function() {
       }
       if (data.cars) {
         window._cars = data.cars.map(function(c) {
-          c.passengers = (c.passengers && c.passengers.filter(function(p){return p;})) || [];
+          // Firebase 배열→객체 변환 복원
+          if (c.passengers && !Array.isArray(c.passengers)) {
+            c.passengers = Object.values(c.passengers).filter(function(p){ return p && p.trim(); });
+          } else if (c.passengers_empty || !c.passengers) {
+            c.passengers = [];
+          } else {
+            c.passengers = c.passengers.filter(function(p){ return p && p.trim(); });
+          }
           c.driver = c.driver || '';
+          c.count  = c.count  || 0;
           return c;
         });
         renderCarEditors();
@@ -304,6 +312,7 @@ window.addEventListener('load', function() {
       const input = document.getElementById('tag-input-' + idx);
       const val = input.value.trim().replace(/,$/, '');
       if (!val) return;
+      if (!Array.isArray(window._cars[idx].passengers)) window._cars[idx].passengers = [];
       window._cars[idx].passengers.push(val);
       input.value = '';
       refreshTags(idx);
@@ -321,7 +330,7 @@ window.addEventListener('load', function() {
   function refreshTags(idx) {
     const container = document.getElementById('tags-' + idx);
     container.innerHTML = '';
-    window._cars[idx].passengers.forEach(function(p, pi) {
+    toArr(window._cars[idx].passengers).forEach(function(p, pi) {
       const tag = document.createElement('span');
       tag.className = 'tag';
       tag.innerHTML = p + '<button class="tag-remove" onclick="removeTag(event,' + idx + ',' + pi + ')">×</button>';
@@ -338,7 +347,7 @@ window.addEventListener('load', function() {
   function updateCount(idx) {
     const el = document.getElementById('car-count-' + idx);
     if (el) {
-      el.value = window._cars[idx].passengers.length + 1;
+      el.value = toArr(window._cars[idx].passengers).length + 1;
       el.style.background = '#fffbe6';
       setTimeout(function() { el.style.background = ''; }, 800);
     }
@@ -359,19 +368,29 @@ window.addEventListener('load', function() {
     }
   }
 
+  function toArr(val) {
+    if (!val) return [];
+    if (Array.isArray(val)) return val.filter(function(v){ return v && v.trim(); });
+    // Firebase가 배열을 객체로 변환한 경우 다시 배열로
+    return Object.values(val).filter(function(v){ return v && v.trim(); });
+  }
+
   function collectData() {
     return window._cars.map(function(c, idx) {
-      var p = window._cars[idx].passengers;
-      return {
-        no:         c.no,
-        type:       document.getElementById('car-type-'   + idx).value,
-        plate:      document.getElementById('car-plate-'  + idx).value,
-        dept:       document.getElementById('car-dept-'   + idx).value,
-        driver:     document.getElementById('car-driver-' + idx).value || '',
-        count:      parseInt(document.getElementById('car-count-' + idx).value) || 0,
-        badge:      typeToBadge(document.getElementById('car-type-' + idx).value),
-        passengers: (p && p.length) ? p : [''],
+      var p = toArr(window._cars[idx].passengers);
+      var result = {
+        no:     c.no,
+        type:   document.getElementById('car-type-'   + idx).value,
+        plate:  document.getElementById('car-plate-'  + idx).value,
+        dept:   document.getElementById('car-dept-'   + idx).value,
+        driver: document.getElementById('car-driver-' + idx).value || '',
+        count:  parseInt(document.getElementById('car-count-' + idx).value) || 0,
+        badge:  typeToBadge(document.getElementById('car-type-' + idx).value),
       };
+      // Firebase는 빈 배열 저장 불가 — 탑승인원 없으면 키 자체를 생략
+      if (p.length > 0) result.passengers = p;
+      else result.passengers_empty = true;
+      return result;
     });
   }
 
