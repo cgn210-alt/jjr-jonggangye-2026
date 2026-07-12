@@ -17,8 +17,6 @@
       --radius: 10px; --font: 'Noto Sans KR', sans-serif;
     }
     body { font-family: var(--font); background: var(--bg); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
-
-    /* 로그인 */
     .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
     .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px; width: 100%; max-width: 340px; text-align: center; }
     .login-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
@@ -27,45 +25,36 @@
     .login-card input[type="password"]:focus { border-color: var(--accent); }
     .btn-login { width: 100%; font-family: var(--font); font-size: 14px; font-weight: 500; color: #fff; background: var(--accent); border: none; border-radius: var(--radius); padding: 11px; cursor: pointer; }
     .login-error { font-size: 12px; color: #9c1a1a; margin-top: 10px; display: none; }
-
-    /* 관리자 화면 */
     .admin-screen { display: none; }
     .admin-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
     .admin-header-title { font-size: 15px; font-weight: 700; }
     .admin-header-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
     .btn-logout { font-family: var(--font); font-size: 12px; color: var(--text-muted); background: var(--surface-sub); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 12px; cursor: pointer; }
-
     .section { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px; margin-bottom: 8px; }
     .section-title { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 12px; text-transform: uppercase; }
     .field-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
     .field-label { font-size: 11.5px; color: var(--text-secondary); font-weight: 500; }
     .field-input { font-family: var(--font); font-size: 13.5px; color: var(--text-primary); background: var(--surface-sub); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; outline: none; width: 100%; transition: border-color 0.15s; }
     .field-input:focus { border-color: var(--accent); }
-
     .car-section { padding: 0 14px 20px; }
     .car-section-title { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; padding: 16px 0 10px; text-transform: uppercase; }
-
     .admin-car-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
     .admin-car-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; transition: background 0.12s; }
     .admin-car-header:active { background: var(--surface-sub); }
     .admin-car-header.open { border-bottom: 1px solid var(--border); }
-
     .car-badge { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
-    .badge-sonata  { background:#deeaf9; color:#0e3d82; }
-    .badge-k3      { background:#ddf0e2; color:#1a5c2e; }
-    .badge-staria  { background:#fdebd8; color:#7a3a10; }
-    .badge-celtos  { background:#ece9fe; color:#3d2a9e; }
-    .badge-reserve { background:#f0efec; color:#9c9990; border:1.5px dashed #c8c5bc; }
-
+    .badge-sonata  { background: #1a6fd4; color: #ffffff; }
+    .badge-k3      { background: #1e9e50; color: #ffffff; }
+    .badge-staria  { background: #e8620a; color: #ffffff; }
+    .badge-celtos  { background: #6c3dd4; color: #ffffff; }
+    .badge-reserve { background: #b0aca4; color: #ffffff; }
     .admin-car-info { flex: 1; min-width: 0; }
     .admin-car-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
     .admin-car-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .chevron { font-size: 16px; color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
     .chevron.open { transform: rotate(180deg); }
-
     .admin-car-body { display: none; padding: 14px; gap: 10px; flex-direction: column; background: var(--surface-sub); }
     .admin-car-body.open { display: flex; }
-
     .tag-editor { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; min-height: 44px; align-items: center; cursor: text; }
     .tag-editor:focus-within { border-color: var(--accent); }
     .tag { display: flex; align-items: center; gap: 4px; background: var(--accent-bg); color: var(--accent); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; font-weight: 500; }
@@ -73,18 +62,12 @@
     .tag-remove:hover { opacity: 1; }
     .tag-input { border: none; outline: none; font-family: var(--font); font-size: 13px; color: var(--text-primary); background: transparent; min-width: 80px; flex: 1; }
     .tag-hint { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
-    /* 저장바 */
     .save-bar { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: var(--surface); border-top: 1px solid var(--border); display: flex; gap: 8px; z-index: 20; }
     .btn-save { flex: 1; font-family: var(--font); font-size: 14px; font-weight: 500; color: #fff; background: var(--accent); border: none; border-radius: var(--radius); padding: 12px; cursor: pointer; }
     .btn-generate { font-family: var(--font); font-size: 14px; font-weight: 500; color: var(--accent); background: var(--accent-bg); border: 1px solid #b8d0f0; border-radius: var(--radius); padding: 12px 16px; cursor: pointer; white-space: nowrap; }
     .admin-content { padding-bottom: 80px; }
-
-    /* 토스트 */
     .toast { position: fixed; top: 70px; left: 50%; transform: translateX(-50%) translateY(-10px); background: var(--text-primary); color: #fff; font-size: 13px; padding: 10px 20px; border-radius: 20px; opacity: 0; transition: opacity 0.2s, transform 0.2s; z-index: 100; white-space: nowrap; pointer-events: none; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* 모달 */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; align-items: flex-end; justify-content: center; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--surface); border-radius: 20px 20px 0 0; padding: 20px 16px; width: 100%; max-height: 80vh; overflow-y: auto; }
@@ -98,7 +81,6 @@
 </head>
 <body>
 
-<!-- 로그인 -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
     <div class="login-title">배차표 관리자</div>
@@ -109,7 +91,6 @@
   </div>
 </div>
 
-<!-- 관리자 화면 -->
 <div class="admin-screen" id="adminScreen">
   <div class="admin-header">
     <div>
@@ -118,7 +99,6 @@
     </div>
     <button class="btn-logout" onclick="doLogout()">로그아웃</button>
   </div>
-
   <div class="admin-content">
     <div class="section">
       <div class="section-title">기본 정보</div>
@@ -128,20 +108,17 @@
       <div class="field-row"><div class="field-label">주소</div><input class="field-input" id="info-addr" value="서울시 노원구 노원로 75" /></div>
       <div class="field-row"><div class="field-label">총 인원</div><input class="field-input" id="info-total" value="총 43명" /></div>
     </div>
-
     <div class="car-section">
       <div class="car-section-title">차량별 탑승 정보</div>
       <div id="carEditorList"></div>
     </div>
   </div>
-
   <div class="save-bar">
     <button class="btn-generate" onclick="openModal()">HTML 생성</button>
     <button class="btn-save" onclick="saveAndConfirm()">저장</button>
   </div>
 </div>
 
-<!-- HTML 출력 모달 -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-title">수정된 HTML 코드</div>
@@ -194,46 +171,35 @@ function renderCarEditors() {
   cars.forEach((c, idx) => {
     const card = document.createElement('div');
     card.className = 'admin-car-card';
-    card.innerHTML = `
-      <div class="admin-car-header" onclick="toggleEditor(this, ${idx})">
-        <div class="car-badge ${c.badge}">${c.no}</div>
-        <div class="admin-car-info">
-          <div class="admin-car-name">${c.type} · ${c.plate}</div>
-          <div class="admin-car-sub">${c.dept}</div>
-        </div>
-        <div class="chevron">&#8964;</div>
-      </div>
-      <div class="admin-car-body" id="editor-${idx}">
-        <div class="field-row">
-          <div class="field-label">차종</div>
-          <input class="field-input" id="car-type-${idx}" value="${c.type}" oninput="syncHeader(${idx})" />
-        </div>
-        <div class="field-row">
-          <div class="field-label">번호판</div>
-          <input class="field-input" id="car-plate-${idx}" value="${c.plate}" oninput="syncHeader(${idx})" />
-        </div>
-        <div class="field-row">
-          <div class="field-label">부서명</div>
-          <input class="field-input" id="car-dept-${idx}" value="${c.dept}" oninput="syncHeader(${idx})" />
-        </div>
-        <div class="field-row">
-          <div class="field-label">운전자</div>
-          <input class="field-input" id="car-driver-${idx}" value="${c.driver}" />
-        </div>
-        <div class="field-row">
-          <div class="field-label">탑승인원</div>
-          <div class="tag-editor" id="tags-${idx}" onclick="focusTagInput(${idx})">
-            ${c.passengers.map((p, pi) => `<span class="tag">${p}<button class="tag-remove" onclick="removeTag(event,${idx},${pi})">×</button></span>`).join('')}
-            <input class="tag-input" id="tag-input-${idx}" placeholder="이름 입력 후 Enter" onkeydown="addTag(event,${idx})" />
-          </div>
-          <div class="tag-hint">이름 입력 후 Enter로 추가 · × 버튼으로 삭제</div>
-        </div>
-        <div class="field-row">
-          <div class="field-label">인원수</div>
-          <input class="field-input" id="car-count-${idx}" type="number" value="${c.count}" min="0" />
-        </div>
-      </div>`;
+    const tagsHtml = c.passengers.map((p, pi) =>
+      '<span class="tag">' + p + '<button class="tag-remove" onclick="removeTag(event,' + idx + ',' + pi + ')">x</button></span>'
+    ).join('');
+    card.innerHTML =
+      '<div class="admin-car-header" onclick="toggleEditor(this,' + idx + ')">' +
+        '<div class="car-badge ' + c.badge + '">' + c.no + '</div>' +
+        '<div class="admin-car-info">' +
+          '<div class="admin-car-name">' + c.type + ' · ' + c.plate + '</div>' +
+          '<div class="admin-car-sub">' + c.dept + '</div>' +
+        '</div>' +
+        '<div class="chevron">&#8964;</div>' +
+      '</div>' +
+      '<div class="admin-car-body" id="editor-' + idx + '">' +
+        '<div class="field-row"><div class="field-label">차종</div><input class="field-input" id="car-type-' + idx + '" value="' + c.type + '" oninput="syncHeader(' + idx + ')" /></div>' +
+        '<div class="field-row"><div class="field-label">번호판</div><input class="field-input" id="car-plate-' + idx + '" value="' + c.plate + '" oninput="syncHeader(' + idx + ')" /></div>' +
+        '<div class="field-row"><div class="field-label">부서명</div><input class="field-input" id="car-dept-' + idx + '" value="' + c.dept + '" oninput="syncHeader(' + idx + ')" /></div>' +
+        '<div class="field-row"><div class="field-label">운전자</div><input class="field-input" id="car-driver-' + idx + '" value="' + c.driver + '" /></div>' +
+        '<div class="field-row">' +
+          '<div class="field-label">탑승인원</div>' +
+          '<div class="tag-editor" id="tags-' + idx + '" onclick="focusTagInput(' + idx + ')">' +
+            tagsHtml +
+            '<input class="tag-input" id="tag-input-' + idx + '" placeholder="이름 입력 후 Enter" />' +
+          '</div>' +
+          '<div class="tag-hint">이름 입력 후 Enter로 추가 · x 버튼으로 삭제</div>' +
+        '</div>' +
+        '<div class="field-row"><div class="field-label">인원수</div><input class="field-input" id="car-count-' + idx + '" type="number" value="' + c.count + '" min="0" /></div>' +
+      '</div>';
     list.appendChild(card);
+    document.getElementById('tag-input-' + idx).addEventListener('keydown', function(e) { addTag(e, idx); });
   });
 }
 
@@ -267,6 +233,7 @@ function addTag(e, idx) {
     cars[idx].passengers.push(val);
     input.value = '';
     refreshTags(idx);
+    updateCount(idx);
   }
 }
 
@@ -274,34 +241,58 @@ function removeTag(e, idx, pi) {
   e.stopPropagation();
   cars[idx].passengers.splice(pi, 1);
   refreshTags(idx);
+  updateCount(idx);
 }
 
 function refreshTags(idx) {
   const container = document.getElementById('tags-' + idx);
-  const oldInput = document.getElementById('tag-input-' + idx);
   container.innerHTML = '';
   cars[idx].passengers.forEach((p, pi) => {
     const tag = document.createElement('span');
     tag.className = 'tag';
-    tag.innerHTML = `${p}<button class="tag-remove" onclick="removeTag(event,${idx},${pi})">×</button>`;
+    tag.innerHTML = p + '<button class="tag-remove" onclick="removeTag(event,' + idx + ',' + pi + ')">x</button>';
     container.appendChild(tag);
   });
   const newInput = document.createElement('input');
   newInput.className = 'tag-input';
   newInput.id = 'tag-input-' + idx;
   newInput.placeholder = '이름 입력 후 Enter';
-  newInput.addEventListener('keydown', e => addTag(e, idx));
+  newInput.addEventListener('keydown', function(e) { addTag(e, idx); });
   container.appendChild(newInput);
+}
+
+function updateCount(idx) {
+  const countEl = document.getElementById('car-count-' + idx);
+  if (countEl) {
+    countEl.value = cars[idx].passengers.length + 1;
+    countEl.style.background = '#fffbe6';
+    setTimeout(function() { countEl.style.background = ''; }, 800);
+  }
+  updateTotal();
+}
+
+function updateTotal() {
+  let total = 0;
+  cars.forEach(function(c, idx) {
+    const el = document.getElementById('car-count-' + idx);
+    total += el ? (parseInt(el.value) || 0) : (c.count || 0);
+  });
+  const totalEl = document.getElementById('info-total');
+  if (totalEl) {
+    totalEl.value = '총 ' + total + '명';
+    totalEl.style.background = '#fffbe6';
+    setTimeout(function() { totalEl.style.background = ''; }, 800);
+  }
 }
 
 function collectData() {
   const updated = JSON.parse(JSON.stringify(cars));
-  updated.forEach((c, idx) => {
-    c.type   = document.getElementById('car-type-'   + idx)?.value ?? c.type;
-    c.plate  = document.getElementById('car-plate-'  + idx)?.value ?? c.plate;
-    c.dept   = document.getElementById('car-dept-'   + idx)?.value ?? c.dept;
-    c.driver = document.getElementById('car-driver-' + idx)?.value ?? c.driver;
-    c.count  = parseInt(document.getElementById('car-count-' + idx)?.value) || 0;
+  updated.forEach(function(c, idx) {
+    c.type   = document.getElementById('car-type-'   + idx).value;
+    c.plate  = document.getElementById('car-plate-'  + idx).value;
+    c.dept   = document.getElementById('car-dept-'   + idx).value;
+    c.driver = document.getElementById('car-driver-' + idx).value;
+    c.count  = parseInt(document.getElementById('car-count-' + idx).value) || 0;
   });
   return updated;
 }
@@ -315,7 +306,7 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(function() { t.classList.remove('show'); }, 2200);
 }
 
 function openModal() {
@@ -329,155 +320,152 @@ function closeModal() {
 }
 
 function copyHtml() {
-  navigator.clipboard.writeText(document.getElementById('modalCode').textContent).then(() => {
+  navigator.clipboard.writeText(document.getElementById('modalCode').textContent).then(function() {
     showToast('복사되었습니다');
     closeModal();
   });
 }
 
 function generateHTML() {
-  const funeral = document.getElementById('info-funeral').value;
-  const date    = document.getElementById('info-date').value;
-  const place   = document.getElementById('info-place').value;
-  const addr    = document.getElementById('info-addr').value;
-  const total   = document.getElementById('info-total').value;
+  const funeral  = document.getElementById('info-funeral').value;
+  const date     = document.getElementById('info-date').value;
+  const place    = document.getElementById('info-place').value;
+  const addr     = document.getElementById('info-addr').value;
+  const total    = document.getElementById('info-total').value;
   const carsJSON = JSON.stringify(cars, null, 2);
 
-  return `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>조문 차량 탑승 배차표</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:#f5f4f1; --surface:#ffffff; --surface-sub:#f9f8f6;
-      --border:#e4e2dc; --border-strong:#c8c5bc;
-      --text-primary:#1a1916; --text-secondary:#5c5a55; --text-muted:#9c9990;
-      --accent-bg:#eef3fb; --accent-text:#1a4f9c; --radius:10px;
-      --font:'Noto Sans KR',sans-serif;
-    }
-    body { font-family:var(--font); background:var(--bg); color:var(--text-primary); min-height:100vh; -webkit-font-smoothing:antialiased; }
-    .header { background:var(--surface); border-bottom:1px solid var(--border); padding:20px 18px 16px; text-align:center; position:sticky; top:0; z-index:10; }
-    .header-title { font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:10px; }
-    .header-meta { font-size:12.5px; color:var(--text-secondary); line-height:2; }
-    .header-meta span { display:block; }
-    .header-meta .addr { color:var(--text-muted); font-size:11.5px; }
-    .total-badge { display:inline-block; margin-top:10px; background:var(--accent-bg); color:var(--accent-text); border-radius:20px; padding:4px 16px; font-size:13px; font-weight:500; }
-    .legend { display:flex; gap:12px; flex-wrap:wrap; padding:9px 16px; background:var(--surface); border-bottom:1px solid var(--border); justify-content:center; }
-    .legend-item { display:flex; align-items:center; gap:5px; font-size:11.5px; color:var(--text-secondary); }
-    .legend-dot { width:12px; height:12px; border-radius:50%; }
-    .ld-sonata { background:#deeaf9; border:1px solid #7aaee0; }
-    .ld-k3     { background:#ddf0e2; border:1px solid #72c08a; }
-    .ld-staria { background:#fdebd8; border:1px solid #f0a86a; }
-    .ld-celtos { background:#ece9fe; border:1px solid #9d8ff0; }
-    .search-wrap { padding:10px 16px; background:var(--surface); border-bottom:1px solid var(--border); }
-    .search-wrap input { width:100%; font-family:var(--font); font-size:14px; color:var(--text-primary); background:var(--surface-sub); border:1px solid var(--border); border-radius:var(--radius); padding:9px 14px; outline:none; }
-    .search-wrap input::placeholder { color:var(--text-muted); }
-    .car-list { padding:14px 14px 32px; display:flex; flex-direction:column; gap:10px; }
-    .car-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
-    .car-card-header { display:flex; align-items:center; gap:11px; padding:12px 14px; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; transition:background 0.12s; }
-    .car-card-header:active { background:var(--surface-sub); }
-    .car-badge { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; flex-shrink:0; letter-spacing:-0.3px; }
-    .badge-sonata  { background:#deeaf9; color:#0e3d82; }
-    .badge-k3      { background:#ddf0e2; color:#1a5c2e; }
-    .badge-staria  { background:#fdebd8; color:#7a3a10; }
-    .badge-celtos  { background:#ece9fe; color:#3d2a9e; }
-    .badge-reserve { background:#f0efec; color:#9c9990; border:1.5px dashed #c8c5bc; }
-    .car-info { flex:1; min-width:0; }
-    .car-name-row { display:flex; align-items:center; gap:8px; }
-    .car-name { font-size:14px; font-weight:500; }
-    .car-plate { font-size:12.5px; font-weight:700; font-family:'Courier New',monospace; background:var(--bg); border:1px solid var(--border-strong); border-radius:5px; padding:1px 7px; letter-spacing:0.8px; }
-    .car-dept { font-size:12px; color:var(--text-secondary); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .car-meta { display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; }
-    .person-count { font-size:13px; font-weight:500; }
-    .driver-name { font-size:11.5px; color:var(--text-muted); }
-    .chevron { color:var(--text-muted); font-size:18px; line-height:1; transition:transform 0.2s; flex-shrink:0; margin-left:2px; }
-    .chevron.open { transform:rotate(180deg); }
-    .car-card-body { display:none; padding:12px 14px 14px; gap:9px; flex-direction:column; border-top:1px solid var(--border); background:var(--surface-sub); }
-    .car-card-body.open { display:flex; }
-    .detail-row { display:flex; gap:10px; align-items:flex-start; }
-    .detail-label { font-size:11.5px; color:var(--text-muted); min-width:44px; flex-shrink:0; padding-top:3px; font-weight:500; }
-    .detail-val { font-size:13.5px; line-height:1.6; }
-    .passenger-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
-    .pchip { background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 10px; font-size:12.5px; }
-    .no-result { text-align:center; padding:48px 0; font-size:13px; color:var(--text-muted); display:none; }
-    .footer { text-align:center; padding:16px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:4px; line-height:1.8; }
-  </style>
-</head>
-<body>
-<div class="header">
-  <div class="header-title">조문 차량 탑승 배차표</div>
-  <div class="header-meta">
-    <span>장례 : ${funeral}</span>
-    <span>${date}</span>
-    <span>${place}</span>
-    <span class="addr">${addr}</span>
-  </div>
-  <div class="total-badge">${total}</div>
-</div>
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot ld-sonata"></div>소나타</div>
-  <div class="legend-item"><div class="legend-dot ld-k3"></div>K3</div>
-  <div class="legend-item"><div class="legend-dot ld-staria"></div>스타리아</div>
-  <div class="legend-item"><div class="legend-dot ld-celtos"></div>셀토스</div>
-</div>
-<div class="search-wrap">
-  <input type="text" id="search" placeholder="이름, 부서, 차량 검색" oninput="filterCards(this.value)" />
-</div>
-<div class="car-list" id="carList"></div>
-<div class="no-result" id="noResult">검색 결과가 없습니다</div>
-<div class="footer">CGN · 2026년 7월 13일<br>제작 GUARDIAN</div>
-<script>
-const cars = ${carsJSON};
-function renderCards(data) {
-  const list = document.getElementById('carList');
-  const noResult = document.getElementById('noResult');
-  list.innerHTML = '';
-  if (!data.length) { noResult.style.display='block'; return; }
-  noResult.style.display = 'none';
-  data.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'car-card';
-    card.innerHTML = \`
-      <div class="car-card-header" onclick="toggleCard(this)">
-        <div class="car-badge \${c.badge}">\${c.no}</div>
-        <div class="car-info">
-          <div class="car-name-row">
-            <span class="car-name">\${c.type}</span>
-            <span class="car-plate">\${c.plate}</span>
-          </div>
-          <div class="car-dept">\${c.dept}</div>
-        </div>
-        <div class="car-meta">
-          <span class="person-count">\${c.count ? c.count+'명' : '예비'}</span>
-          \${c.driver ? \`<span class="driver-name">\${c.driver}</span>\` : ''}
-        </div>
-        <div class="chevron">&#8964;</div>
-      </div>
-      <div class="car-card-body">
-        <div class="detail-row"><span class="detail-label">운전자</span><span class="detail-val">\${c.driver || '미정'}</span></div>
-        <div class="detail-row"><span class="detail-label">부서</span><span class="detail-val">\${c.dept}</span></div>
-        <div class="detail-row">
-          <span class="detail-label">탑승인원</span>
-          <div class="passenger-chips">
-            \${c.passengers.length ? c.passengers.map(p=>\`<span class="pchip">\${p}</span>\`).join('') : '<span style="font-size:12.5px;color:#9c9990">미정</span>'}
-          </div>
-        </div>
-      </div>\`;
-    list.appendChild(card);
-  });
-}
-function toggleCard(h) { const b=h.nextElementSibling,cv=h.querySelector('.chevron'); b.classList.toggle('open'); cv.classList.toggle('open'); }
-function filterCards(q) { const ql=q.trim().toLowerCase(); if(!ql){renderCards(cars);return;} renderCards(cars.filter(c=>c.no.includes(q)||c.type.includes(ql)||c.plate.includes(q)||c.dept.includes(ql)||(c.driver&&c.driver.includes(ql))||c.passengers.some(p=>p.includes(ql)))); }
-renderCards(cars);
-<\/script>
-</body>
-</html>`;
+  const css = [
+    '*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }',
+    ':root { --bg:#f5f4f1; --surface:#ffffff; --surface-sub:#f9f8f6; --border:#e4e2dc; --border-strong:#c8c5bc; --text-primary:#1a1916; --text-secondary:#5c5a55; --text-muted:#9c9990; --accent-bg:#eef3fb; --accent-text:#1a4f9c; --radius:10px; --font:"Noto Sans KR",sans-serif; }',
+    'body { font-family:var(--font); background:var(--bg); color:var(--text-primary); min-height:100vh; -webkit-font-smoothing:antialiased; }',
+    '.header { background:var(--surface); border-bottom:1px solid var(--border); padding:20px 18px 16px; text-align:center; position:sticky; top:0; z-index:10; }',
+    '.header-title { font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:10px; }',
+    '.header-meta { font-size:12.5px; color:var(--text-secondary); line-height:2; }',
+    '.header-meta span { display:block; }',
+    '.header-meta .addr { color:var(--text-muted); font-size:11.5px; }',
+    '.total-badge { display:inline-block; margin-top:10px; background:var(--accent-bg); color:var(--accent-text); border-radius:20px; padding:4px 16px; font-size:13px; font-weight:500; }',
+    '.legend { display:flex; gap:12px; flex-wrap:wrap; padding:9px 16px; background:var(--surface); border-bottom:1px solid var(--border); justify-content:center; }',
+    '.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-secondary); }',
+    '.legend-dot { width:13px; height:13px; border-radius:50%; }',
+    '.ld-sonata { background:#1a6fd4; }',
+    '.ld-k3     { background:#1e9e50; }',
+    '.ld-staria { background:#e8620a; }',
+    '.ld-celtos { background:#6c3dd4; }',
+    '.search-wrap { padding:10px 16px; background:var(--surface); border-bottom:1px solid var(--border); }',
+    '.search-wrap input { width:100%; font-family:var(--font); font-size:14px; color:var(--text-primary); background:var(--surface-sub); border:1px solid var(--border); border-radius:var(--radius); padding:9px 14px; outline:none; }',
+    '.search-wrap input::placeholder { color:var(--text-muted); }',
+    '.car-list { padding:14px 14px 32px; display:flex; flex-direction:column; gap:10px; }',
+    '.car-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }',
+    '.car-card-header { display:flex; align-items:center; gap:11px; padding:12px 14px; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; transition:background 0.12s; }',
+    '.car-card-header:active { background:var(--surface-sub); }',
+    '.car-badge { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; flex-shrink:0; letter-spacing:-0.3px; }',
+    '.badge-sonata  { background:#1a6fd4; color:#ffffff; }',
+    '.badge-k3      { background:#1e9e50; color:#ffffff; }',
+    '.badge-staria  { background:#e8620a; color:#ffffff; }',
+    '.badge-celtos  { background:#6c3dd4; color:#ffffff; }',
+    '.badge-reserve { background:#b0aca4; color:#ffffff; }',
+    '.car-info { flex:1; min-width:0; }',
+    '.car-name-row { display:flex; align-items:center; gap:8px; }',
+    '.car-name { font-size:14px; font-weight:500; }',
+    '.car-plate { font-size:12.5px; font-weight:700; font-family:"Courier New",monospace; background:var(--bg); border:1px solid var(--border-strong); border-radius:5px; padding:1px 7px; letter-spacing:0.8px; }',
+    '.car-dept { font-size:12px; color:var(--text-secondary); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }',
+    '.car-meta { display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; }',
+    '.person-count { font-size:13px; font-weight:500; }',
+    '.driver-name { font-size:11.5px; color:var(--text-muted); }',
+    '.chevron { color:var(--text-muted); font-size:18px; line-height:1; transition:transform 0.2s; flex-shrink:0; margin-left:2px; }',
+    '.chevron.open { transform:rotate(180deg); }',
+    '.car-card-body { display:none; padding:12px 14px 14px; gap:9px; flex-direction:column; border-top:1px solid var(--border); background:var(--surface-sub); }',
+    '.car-card-body.open { display:flex; }',
+    '.detail-row { display:flex; gap:10px; align-items:flex-start; }',
+    '.detail-label { font-size:11.5px; color:var(--text-muted); min-width:44px; flex-shrink:0; padding-top:3px; font-weight:500; }',
+    '.detail-val { font-size:13.5px; line-height:1.6; }',
+    '.passenger-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }',
+    '.pchip { background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 10px; font-size:12.5px; }',
+    '.no-result { text-align:center; padding:48px 0; font-size:13px; color:var(--text-muted); display:none; }',
+    '.footer { text-align:center; padding:16px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:4px; line-height:1.8; }',
+  ].join('\n    ');
+
+  const js = [
+    'const cars = ' + carsJSON + ';',
+    'function renderCards(data) {',
+    '  const list = document.getElementById("carList");',
+    '  const noResult = document.getElementById("noResult");',
+    '  list.innerHTML = "";',
+    '  if (!data.length) { noResult.style.display="block"; return; }',
+    '  noResult.style.display = "none";',
+    '  data.forEach(function(c) {',
+    '    const card = document.createElement("div");',
+    '    card.className = "car-card";',
+    '    const chips = c.passengers.length',
+    '      ? c.passengers.map(function(p){ return \'<span class="pchip">\' + p + "</span>"; }).join("")',
+    '      : \'<span style="font-size:12.5px;color:#9c9990">미정</span>\';',
+    '    const driverSpan = c.driver ? \'<span class="driver-name">\' + c.driver + "</span>" : "";',
+    '    card.innerHTML =',
+    '      \'<div class="car-card-header" onclick="toggleCard(this)">\' +',
+    '        \'<div class="car-badge \' + c.badge + \'">\' + c.no + "</div>" +',
+    '        \'<div class="car-info">\' +',
+    '          \'<div class="car-name-row">\' +',
+    '            \'<span class="car-name">\' + c.type + "</span>" +',
+    '            \'<span class="car-plate">\' + c.plate + "</span>" +',
+    '          "</div>" +',
+    '          \'<div class="car-dept">\' + c.dept + "</div>" +',
+    '        "</div>" +',
+    '        \'<div class="car-meta">\' +',
+    '          \'<span class="person-count">\' + (c.count ? c.count + "명" : "예비") + "</span>" +',
+    '          driverSpan +',
+    '        "</div>" +',
+    '        \'<div class="chevron">&#8964;</div>\' +',
+    '      "</div>" +',
+    '      \'<div class="car-card-body">\' +',
+    '        \'<div class="detail-row"><span class="detail-label">운전자</span><span class="detail-val">\' + (c.driver || "미정") + "</span></div>" +',
+    '        \'<div class="detail-row"><span class="detail-label">부서</span><span class="detail-val">\' + c.dept + "</span></div>" +',
+    '        \'<div class="detail-row"><span class="detail-label">탑승인원</span><div class="passenger-chips">\' + chips + "</div></div>" +',
+    '      "</div>";',
+    '    list.appendChild(card);',
+    '  });',
+    '}',
+    'function toggleCard(h) { var b=h.nextElementSibling,cv=h.querySelector(".chevron"); b.classList.toggle("open"); cv.classList.toggle("open"); }',
+    'function filterCards(q) { var ql=q.trim().toLowerCase(); if(!ql){renderCards(cars);return;} renderCards(cars.filter(function(c){ return c.no.includes(q)||c.type.includes(ql)||c.plate.includes(q)||c.dept.includes(ql)||(c.driver&&c.driver.includes(ql))||c.passengers.some(function(p){return p.includes(ql);}); })); }',
+    'renderCards(cars);',
+  ].join('\n');
+
+  return '<!DOCTYPE html>\n'
+    + '<html lang="ko">\n'
+    + '<head>\n'
+    + '  <meta charset="UTF-8" />\n'
+    + '  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />\n'
+    + '  <title>조문 차량 탑승 배차표</title>\n'
+    + '  <link rel="preconnect" href="https://fonts.googleapis.com" />\n'
+    + '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n'
+    + '  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />\n'
+    + '  <style>\n    ' + css + '\n  </style>\n'
+    + '</head>\n'
+    + '<body>\n'
+    + '<div class="header">\n'
+    + '  <div class="header-title">조문 차량 탑승 배차표</div>\n'
+    + '  <div class="header-meta">\n'
+    + '    <span>장례 : ' + funeral + '</span>\n'
+    + '    <span>' + date + '</span>\n'
+    + '    <span>' + place + '</span>\n'
+    + '    <span class="addr">' + addr + '</span>\n'
+    + '  </div>\n'
+    + '  <div class="total-badge">' + total + '</div>\n'
+    + '</div>\n'
+    + '<div class="legend">\n'
+    + '  <div class="legend-item"><div class="legend-dot ld-sonata"></div>소나타</div>\n'
+    + '  <div class="legend-item"><div class="legend-dot ld-k3"></div>K3</div>\n'
+    + '  <div class="legend-item"><div class="legend-dot ld-staria"></div>스타리아</div>\n'
+    + '  <div class="legend-item"><div class="legend-dot ld-celtos"></div>셀토스</div>\n'
+    + '</div>\n'
+    + '<div class="search-wrap">\n'
+    + '  <input type="text" id="search" placeholder="이름, 부서, 차량 검색" oninput="filterCards(this.value)" />\n'
+    + '</div>\n'
+    + '<div class="car-list" id="carList"></div>\n'
+    + '<div class="no-result" id="noResult">검색 결과가 없습니다</div>\n'
+    + '<div class="footer">CGN · 2026년 7월 13일<br>제작 GUARDIAN</div>\n'
+    + '<script>\n' + js + '\n' + '<' + '/script>\n'
+    + '</body>\n'
+    + '</html>';
 }
 </script>
 </body>
