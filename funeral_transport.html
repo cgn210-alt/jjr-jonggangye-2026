@@ -98,11 +98,12 @@
   <div class="guardian-tooltip" id="guardianTooltip">경영관리실 실장 주웅현</div>
 </div>
 
-<!-- Firebase Compat SDK (CDN — GitHub Pages 호환) -->
+<!-- Firebase Compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+window.addEventListener('load', function() {
   var firebaseConfig = {
     apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
     authDomain:        "cgn-love.firebaseapp.com",
@@ -132,7 +133,17 @@
       document.getElementById('metaAddr').textContent    = data.info.addr  || '';
       document.getElementById('totalBadge').textContent  = data.info.total || '';
     }
-    _cars = data.cars || [];
+    _cars = (data.cars || []).map(function(c) {
+      // Firebase 배열→객체 변환 복원
+      if (c.passengers && !Array.isArray(c.passengers)) {
+        c.passengers = Object.values(c.passengers).filter(function(p){ return p && p.trim(); });
+      } else if (c.passengers_empty || !c.passengers) {
+        c.passengers = [];
+      } else {
+        c.passengers = c.passengers.filter(function(p){ return p && p.trim(); });
+      }
+      return c;
+    });
     renderCards(_cars);
   }, function(error) {
     document.getElementById('carList').innerHTML =
@@ -199,6 +210,7 @@
       setTimeout(function() { t.classList.remove('show'); }, 3000);
     }
   }
+}); // window.onload 끝
 </script>
 </body>
 </html>
