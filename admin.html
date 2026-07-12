@@ -121,10 +121,11 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Firebase Compat SDK (CDN — GitHub Pages 호환) -->
+<!-- Firebase Compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
+window.addEventListener('load', function() {
   var firebaseConfig = {
     apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
     authDomain:        "cgn-love.firebaseapp.com",
@@ -155,7 +156,11 @@
         document.getElementById('info-total').value   = data.info.total   || '';
       }
       if (data.cars) {
-        window._cars = data.cars;
+        window._cars = data.cars.map(function(c) {
+          c.passengers = (c.passengers && c.passengers.filter(function(p){return p;})) || [];
+          c.driver = c.driver || '';
+          return c;
+        });
         renderCarEditors();
       }
     } else {
@@ -188,7 +193,9 @@
     }).catch(function(err) {
       showToast('저장 실패: ' + err.message);
     });
-  };
+  }; // saveToFirebase 끝
+
+}); // window.onload 끝
 </script>
 
 <script>
@@ -354,15 +361,16 @@
 
   function collectData() {
     return window._cars.map(function(c, idx) {
+      var p = window._cars[idx].passengers;
       return {
         no:         c.no,
         type:       document.getElementById('car-type-'   + idx).value,
         plate:      document.getElementById('car-plate-'  + idx).value,
         dept:       document.getElementById('car-dept-'   + idx).value,
-        driver:     document.getElementById('car-driver-' + idx).value,
+        driver:     document.getElementById('car-driver-' + idx).value || '',
         count:      parseInt(document.getElementById('car-count-' + idx).value) || 0,
         badge:      typeToBadge(document.getElementById('car-type-' + idx).value),
-        passengers: window._cars[idx].passengers,
+        passengers: (p && p.length) ? p : [''],
       };
     });
   }
