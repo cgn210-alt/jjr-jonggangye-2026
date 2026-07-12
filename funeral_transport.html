@@ -10,239 +10,74 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f5f4f1;
-      --surface: #ffffff;
-      --surface-sub: #f9f8f6;
-      --border: #e4e2dc;
-      --border-strong: #c8c5bc;
-      --text-primary: #1a1916;
-      --text-secondary: #5c5a55;
-      --text-muted: #9c9990;
-      --accent-bg: #eef3fb;
-      --accent-text: #1a4f9c;
-      --radius: 10px;
-      --font: 'Noto Sans KR', sans-serif;
+      --bg:#f5f4f1; --surface:#ffffff; --surface-sub:#f9f8f6;
+      --border:#e4e2dc; --border-strong:#c8c5bc;
+      --text-primary:#1a1916; --text-secondary:#5c5a55; --text-muted:#9c9990;
+      --accent-bg:#eef3fb; --accent-text:#1a4f9c; --radius:10px;
+      --font:'Noto Sans KR',sans-serif;
     }
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 20px 18px 16px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .header-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
-    }
-    .header-meta {
-      font-size: 12.5px;
-      color: var(--text-secondary);
-      line-height: 2;
-    }
-    .header-meta span { display: block; }
-    .header-meta .addr { color: var(--text-muted); font-size: 11.5px; }
-    .total-badge {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--accent-bg);
-      color: var(--accent-text);
-      border-radius: 20px;
-      padding: 4px 16px;
-      font-size: 13px;
-      font-weight: 500;
-    }
-    /* 차종 범례 */
-    .legend {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding: 9px 16px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      justify-content: center;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11.5px;
-      color: var(--text-secondary);
-    }
-    .legend-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .ld-sonata { background:#1a6fd4; border:none; }
-    .ld-k3     { background:#1e9e50; border:none; }
-    .ld-staria { background:#e8620a; border:none; }
-    .ld-celtos { background:#6c3dd4; border:none; }
-    /* 검색 */
-    .search-wrap {
-      padding: 10px 16px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-    .search-wrap input {
-      width: 100%;
-      font-family: var(--font);
-      font-size: 14px;
-      color: var(--text-primary);
-      background: var(--surface-sub);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 9px 14px;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    .search-wrap input:focus { border-color: var(--border-strong); }
-    .search-wrap input::placeholder { color: var(--text-muted); }
-    /* 카드 목록 */
-    .car-list {
-      padding: 14px 14px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .car-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    .car-card.reserve-card { opacity: 0.5; }
-    .car-card-header {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 12px 14px;
-      cursor: pointer;
-      background: var(--surface);
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.12s;
-    }
-    .car-card-header:active { background: var(--surface-sub); }
-    .car-card.reserve-card .car-card-header { background: var(--surface-sub); }
-    /* 차종별 배지 색상 */
-    .car-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11.5px;
-      font-weight: 700;
-      flex-shrink: 0;
-      letter-spacing: -0.3px;
-    }
-    /* 소나타: 파랑 */
-    .badge-sonata { background:#1a6fd4; color:#ffffff; }
-    /* K3: 초록 */
-    .badge-k3     { background:#1e9e50; color:#ffffff; }
-    /* 스타리아: 주황 — 3·4·5호 동일 */
-    .badge-staria { background:#e8620a; color:#ffffff; }
-    /* 셀토스: 보라 — 6·7·8호 동일 */
-    .badge-celtos { background:#6c3dd4; color:#ffffff; }
-    /* 예비: 회색 */
-    .badge-reserve { background:#b0aca4; color:#ffffff; border:none; }
-
-    .car-info { flex: 1; min-width: 0; }
-    .car-name-row { display: flex; align-items: center; gap: 8px; }
-    .car-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-    .car-plate {
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--text-primary);
-      font-family: 'Courier New', monospace;
-      background: var(--bg);
-      border: 1px solid var(--border-strong);
-      border-radius: 5px;
-      padding: 1px 7px;
-      letter-spacing: 0.8px;
-    }
-    .car-dept {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .car-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
-    .person-count { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-    .driver-name { font-size: 11.5px; color: var(--text-muted); }
-    .chevron {
-      color: var(--text-muted);
-      font-size: 18px;
-      line-height: 1;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-      margin-left: 2px;
-    }
-    .chevron.open { transform: rotate(180deg); }
-    .car-card-body {
-      display: none;
-      padding: 12px 14px 14px;
-      gap: 9px;
-      flex-direction: column;
-      border-top: 1px solid var(--border);
-      background: var(--surface-sub);
-    }
-    .car-card-body.open { display: flex; }
-    .detail-row { display: flex; gap: 10px; align-items: flex-start; }
-    .detail-label {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      min-width: 44px;
-      flex-shrink: 0;
-      padding-top: 3px;
-      font-weight: 500;
-    }
-    .detail-val { font-size: 13.5px; color: var(--text-primary); line-height: 1.6; }
-    .passenger-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-    .pchip {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 4px 10px;
-      font-size: 12.5px;
-      color: var(--text-primary);
-    }
-    .reserve-note { font-size: 12.5px; color: var(--text-muted); text-align: center; padding: 6px 0; }
-    .no-result { text-align: center; padding: 48px 0; font-size: 13px; color: var(--text-muted); display: none; }
-    .footer { text-align: center; padding: 16px; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4px; line-height: 1.8; }
-    .guardian-name { display: inline; cursor: pointer; text-decoration: underline dotted; -webkit-tap-highlight-color: transparent; }
-    .guardian-tooltip { display: none; margin-top: 6px; font-size: 11.5px; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; animation: fadeIn 0.2s ease; }
-    .guardian-tooltip.show { display: block; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+    body { font-family:var(--font); background:var(--bg); color:var(--text-primary); min-height:100vh; -webkit-font-smoothing:antialiased; }
+    .header { background:var(--surface); border-bottom:1px solid var(--border); padding:20px 18px 16px; text-align:center; position:sticky; top:0; z-index:10; }
+    .header-title { font-size:20px; font-weight:700; letter-spacing:-0.5px; margin-bottom:10px; }
+    .header-meta { font-size:12.5px; color:var(--text-secondary); line-height:2; }
+    .header-meta span { display:block; }
+    .header-meta .addr { color:var(--text-muted); font-size:11.5px; }
+    .total-badge { display:inline-block; margin-top:10px; background:var(--accent-bg); color:var(--accent-text); border-radius:20px; padding:4px 16px; font-size:13px; font-weight:500; }
+    .legend { display:flex; gap:12px; flex-wrap:wrap; padding:9px 16px; background:var(--surface); border-bottom:1px solid var(--border); justify-content:center; }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-secondary); }
+    .legend-dot { width:13px; height:13px; border-radius:50%; }
+    .ld-sonata { background:#1a6fd4; } .ld-k3 { background:#1e9e50; }
+    .ld-staria { background:#e8620a; } .ld-celtos { background:#6c3dd4; }
+    .search-wrap { padding:10px 16px; background:var(--surface); border-bottom:1px solid var(--border); }
+    .search-wrap input { width:100%; font-family:var(--font); font-size:14px; color:var(--text-primary); background:var(--surface-sub); border:1px solid var(--border); border-radius:var(--radius); padding:9px 14px; outline:none; }
+    .search-wrap input::placeholder { color:var(--text-muted); }
+    .car-list { padding:14px 14px 32px; display:flex; flex-direction:column; gap:10px; }
+    .car-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .car-card-header { display:flex; align-items:center; gap:11px; padding:12px 14px; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; transition:background 0.12s; }
+    .car-card-header:active { background:var(--surface-sub); }
+    .car-badge { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; flex-shrink:0; letter-spacing:-0.3px; }
+    .badge-sonata  { background:#1a6fd4; color:#fff; }
+    .badge-k3      { background:#1e9e50; color:#fff; }
+    .badge-staria  { background:#e8620a; color:#fff; }
+    .badge-celtos  { background:#6c3dd4; color:#fff; }
+    .badge-reserve { background:#b0aca4; color:#fff; }
+    .car-info { flex:1; min-width:0; }
+    .car-name-row { display:flex; align-items:center; gap:8px; }
+    .car-name { font-size:14px; font-weight:500; }
+    .car-plate { font-size:12.5px; font-weight:700; font-family:'Courier New',monospace; background:var(--bg); border:1px solid var(--border-strong); border-radius:5px; padding:1px 7px; letter-spacing:0.8px; }
+    .car-dept { font-size:12px; color:var(--text-secondary); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .car-meta { display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; }
+    .person-count { font-size:13px; font-weight:500; }
+    .driver-name { font-size:11.5px; color:var(--text-muted); }
+    .chevron { color:var(--text-muted); font-size:18px; line-height:1; transition:transform 0.2s; flex-shrink:0; margin-left:2px; }
+    .chevron.open { transform:rotate(180deg); }
+    .car-card-body { display:none; padding:12px 14px 14px; gap:9px; flex-direction:column; border-top:1px solid var(--border); background:var(--surface-sub); }
+    .car-card-body.open { display:flex; }
+    .detail-row { display:flex; gap:10px; align-items:flex-start; }
+    .detail-label { font-size:11.5px; color:var(--text-muted); min-width:44px; flex-shrink:0; padding-top:3px; font-weight:500; }
+    .detail-val { font-size:13.5px; line-height:1.6; }
+    .passenger-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
+    .pchip { background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 10px; font-size:12.5px; }
+    .no-result { text-align:center; padding:48px 0; font-size:13px; color:var(--text-muted); display:none; }
+    .loading { text-align:center; padding:60px 0; font-size:13px; color:var(--text-muted); }
+    .footer { text-align:center; padding:16px; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border); margin-top:4px; line-height:1.8; }
+    .guardian-name { display:inline; cursor:pointer; text-decoration:underline dotted; -webkit-tap-highlight-color:transparent; }
+    .guardian-tooltip { display:none; margin-top:6px; font-size:11.5px; color:var(--text-secondary); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:6px 14px; animation:fadeIn 0.2s ease; }
+    .guardian-tooltip.show { display:block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);} }
   </style>
 </head>
 <body>
 
-<div class="header">
+<div class="header" id="appHeader">
   <div class="header-title">조문 차량 탑승 배차표</div>
-  <div class="header-meta">
-    <span>장례 : 정지훈 팀장 부친상 (故 정제민(남))</span>
-    <span>2026년 7월 13일(월) &nbsp;오전 11:30 출발</span>
-    <span>원자력병원장례식장 2호실</span>
-    <span class="addr">서울시 노원구 노원로 75</span>
+  <div class="header-meta" id="headerMeta">
+    <span id="metaFuneral"></span>
+    <span id="metaDate"></span>
+    <span id="metaPlace"></span>
+    <span class="addr" id="metaAddr"></span>
   </div>
-  <div class="total-badge">총 43명</div>
+  <div class="total-badge" id="totalBadge">불러오는 중...</div>
 </div>
 
 <div class="legend">
@@ -256,116 +91,123 @@
   <input type="text" id="search" placeholder="이름, 부서, 차량 검색" oninput="filterCards(this.value)" />
 </div>
 
-<div class="car-list" id="carList"></div>
+<div class="car-list" id="carList">
+  <div class="loading">데이터를 불러오는 중입니다...</div>
+</div>
 <div class="no-result" id="noResult">검색 결과가 없습니다</div>
+
 <div class="footer">
   CGN · 2026년 7월 13일<br>
   제작 <span class="guardian-name" onclick="toggleGuardian()">GUARDIAN</span>
   <div class="guardian-tooltip" id="guardianTooltip">경영관리실 실장 주웅현</div>
 </div>
-<script>
-function toggleGuardian() {
-  var t = document.getElementById('guardianTooltip');
-  t.classList.toggle('show');
-  if (t.classList.contains('show')) {
-    setTimeout(function() { t.classList.remove('show'); }, 3000);
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+  // ★ Firebase 설정값 입력 (Firebase 콘솔 → 프로젝트 설정 → 내 앱)
+  const firebaseConfig = {
+    apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
+    authDomain:        "cgn-love.firebaseapp.com",
+    databaseURL:       "https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId:         "cgn-love",
+    storageBucket:     "cgn-love.firebasestorage.app",
+    messagingSenderId: "164467571776",
+    appId:             "1:164467571776:web:6c3df66c56f907e808b3a5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getDatabase(app);
+
+  // 실시간으로 데이터 수신
+  onValue(ref(db, 'baecharyo'), function(snapshot) {
+    const data = snapshot.val();
+    if (!data) { showFallback(); return; }
+
+    // 헤더 정보 반영
+    document.getElementById('metaFuneral').textContent = '장례 : ' + (data.info.funeral || '');
+    document.getElementById('metaDate').textContent    = data.info.date  || '';
+    document.getElementById('metaPlace').textContent   = data.info.place || '';
+    document.getElementById('metaAddr').textContent    = data.info.addr  || '';
+    document.getElementById('totalBadge').textContent  = data.info.total || '';
+
+    window._cars = data.cars || [];
+    renderCards(window._cars);
+  }, function(error) {
+    showFallback();
+  });
+
+  function showFallback() {
+    document.getElementById('carList').innerHTML =
+      '<div class="loading" style="color:#c0392b">데이터를 불러올 수 없습니다.<br>잠시 후 다시 시도해 주세요.</div>';
   }
-}
 </script>
 
 <script>
-const cars = [
-  { no:'1호', type:'소나타', plate:'5311', badge:'badge-sonata',
-    dept:'경영본부', count:4, driver:'서정민',
-    passengers:['대표','경영본부장','퐁당제작본부장'] },
-  { no:'2호', type:'K3', plate:'1440', badge:'badge-k3',
-    dept:'AI혁신팀, 사목, 콘텐츠제작1실', count:4, driver:'김보름',
-    passengers:['김창호','이예랑','백주희'] },
-  { no:'3호', type:'스타리아', plate:'2526', badge:'badge-staria',
-    dept:'퐁당네트워크사역팀, 콘텐츠제작1실', count:8, driver:'안기성',
-    passengers:['강아름','양진아','송유진','박지오','황사라','김희경','유진주'] },
-  { no:'4호', type:'스타리아', plate:'2527', badge:'badge-staria',
-    dept:'콘텐츠제작2실', count:8, driver:'편효원',
-    passengers:['김경숙','심성순','심수정','이성우','김성현','최규섭','민채원'] },
-  { no:'5호', type:'스타리아', plate:'8423', badge:'badge-staria',
-    dept:'콘텐츠플랫폼기획실, 전략기획실', count:8, driver:'유정호',
-    passengers:['성정현','박은초롱','하성은','백린','현아영','지효선','양은주'] },
-  { no:'6호', type:'셀토스', plate:'2459', badge:'badge-celtos',
-    dept:'경영관리실', count:4, driver:'강태욱',
-    passengers:['주웅현','김병준','엄기원'] },
-  { no:'7호', type:'셀토스', plate:'2460', badge:'badge-celtos',
-    dept:'제작기술실', count:3, driver:'이명준',
-    passengers:['박민수','안정기'] },
-  { no:'8호', type:'셀토스', plate:'2461', badge:'badge-celtos',
-    dept:'디자인실, 해외사업팀', count:4, driver:'김영균',
-    passengers:['정민정','배정은','최효선'] },
-  { no:'9호', type:'K3', plate:'2457', badge:'badge-k3',
-    dept:'예비차량', count:0, driver:'', passengers:[] },
-];
+  window._cars = [];
 
-function renderCards(data) {
-  const list = document.getElementById('carList');
-  const noResult = document.getElementById('noResult');
-  list.innerHTML = '';
-  if (!data.length) { noResult.style.display = 'block'; return; }
-  noResult.style.display = 'none';
-  data.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'car-card' + (c.reserve ? ' reserve-card' : '');
-    card.innerHTML = `
-      <div class="car-card-header" onclick="toggleCard(this)">
-        <div class="car-badge ${c.badge}">${c.no}</div>
-        <div class="car-info">
-          <div class="car-name-row">
-            <span class="car-name">${c.type}</span>
-            <span class="car-plate">${c.plate}</span>
-          </div>
-          <div class="car-dept">${c.dept}</div>
-        </div>
-        <div class="car-meta">
-          <span class="person-count">${c.count ? c.count + '명' : '예비'}</span>
-          ${c.driver ? `<span class="driver-name">${c.driver}</span>` : ''}
-        </div>
-        <div class="chevron">&#8964;</div>
-      </div>
-      <div class="car-card-body">
-        <div class="detail-row">
-          <span class="detail-label">운전자</span>
-          <span class="detail-val">${c.driver || '미정'}</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">부서</span>
-          <span class="detail-val">${c.dept}</span>
-        </div>
-        <div class="detail-row">
-          <span class="detail-label">탑승인원</span>
-          <div class="passenger-chips">
-            ${c.passengers.length ? c.passengers.map(p => `<span class="pchip">${p}</span>`).join('') : '<span style="font-size:12.5px;color:var(--text-muted)">미정</span>'}
-          </div>
-        </div>
-      </div>`;
-    list.appendChild(card);
-  });
-}
+  function renderCards(data) {
+    const list = document.getElementById('carList');
+    const noResult = document.getElementById('noResult');
+    list.innerHTML = '';
+    if (!data.length) { noResult.style.display = 'block'; return; }
+    noResult.style.display = 'none';
+    data.forEach(function(c) {
+      const card = document.createElement('div');
+      card.className = 'car-card';
+      const chips = c.passengers && c.passengers.length
+        ? c.passengers.map(function(p) { return '<span class="pchip">' + p + '</span>'; }).join('')
+        : '<span style="font-size:12.5px;color:#9c9990">미정</span>';
+      const driverSpan = c.driver ? '<span class="driver-name">' + c.driver + '</span>' : '';
+      card.innerHTML =
+        '<div class="car-card-header" onclick="toggleCard(this)">' +
+          '<div class="car-badge ' + c.badge + '">' + c.no + '</div>' +
+          '<div class="car-info">' +
+            '<div class="car-name-row">' +
+              '<span class="car-name">' + c.type + '</span>' +
+              '<span class="car-plate">' + c.plate + '</span>' +
+            '</div>' +
+            '<div class="car-dept">' + c.dept + '</div>' +
+          '</div>' +
+          '<div class="car-meta">' +
+            '<span class="person-count">' + (c.count ? c.count + '명' : '예비') + '</span>' +
+            driverSpan +
+          '</div>' +
+          '<div class="chevron">&#8964;</div>' +
+        '</div>' +
+        '<div class="car-card-body">' +
+          '<div class="detail-row"><span class="detail-label">운전자</span><span class="detail-val">' + (c.driver || '미정') + '</span></div>' +
+          '<div class="detail-row"><span class="detail-label">부서</span><span class="detail-val">' + c.dept + '</span></div>' +
+          '<div class="detail-row"><span class="detail-label">탑승인원</span><div class="passenger-chips">' + chips + '</div></div>' +
+        '</div>';
+      list.appendChild(card);
+    });
+  }
 
-function toggleCard(header) {
-  const body = header.nextElementSibling;
-  const chevron = header.querySelector('.chevron');
-  body.classList.toggle('open');
-  chevron.classList.toggle('open');
-}
+  function toggleCard(h) {
+    var b = h.nextElementSibling, cv = h.querySelector('.chevron');
+    b.classList.toggle('open'); cv.classList.toggle('open');
+  }
 
-function filterCards(q) {
-  const ql = q.trim().toLowerCase();
-  if (!ql) { renderCards(cars); return; }
-  renderCards(cars.filter(c =>
-    c.no.includes(q) || c.type.includes(ql) || c.plate.includes(q) ||
-    c.dept.includes(ql) || c.driver.includes(ql) ||
-    c.passengers.some(p => p.includes(ql))
-  ));
-}
+  function filterCards(q) {
+    var ql = q.trim().toLowerCase();
+    if (!ql) { renderCards(window._cars); return; }
+    renderCards(window._cars.filter(function(c) {
+      return c.no.includes(q) || c.type.includes(ql) || c.plate.includes(q) ||
+        c.dept.includes(ql) || (c.driver && c.driver.includes(ql)) ||
+        (c.passengers && c.passengers.some(function(p) { return p.includes(ql); }));
+    }));
+  }
 
-renderCards(cars);
+  function toggleGuardian() {
+    var t = document.getElementById('guardianTooltip');
+    t.classList.toggle('show');
+    if (t.classList.contains('show')) {
+      setTimeout(function() { t.classList.remove('show'); }, 3000);
+    }
+  }
 </script>
 </body>
 </html>
