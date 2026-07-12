@@ -130,8 +130,12 @@
 <div class="toast" id="toast"></div>
 
 <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"
+  onerror="document.getElementById('statusText').textContent='Firebase 로드 실패 — 네트워크 확인 필요';document.getElementById('statusDot').style.background='#c0392b';">
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"
+  onerror="document.getElementById('statusText').textContent='Firebase DB 로드 실패';">
+</script>
 
 <script>
 // ── 전역 상태 ──────────────────────────────────
@@ -141,6 +145,7 @@ var _dbRef = null;
 
 // ── Firebase 초기화 ────────────────────────────
 window.addEventListener('load', function() {
+  try {
   firebase.initializeApp({
     apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
     authDomain:        "cgn-love.firebaseapp.com",
@@ -283,7 +288,7 @@ function renderOneEditor(idx) {
         '<div class="tag-editor" id="tags-' + idx + '" style="margin-bottom:6px;"></div>' +
         '<div class="tag-add-row">' +
           '<input class="tag-add-input" id="tag-inp-' + idx + '" placeholder="이름 입력" ' +
-            'onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addTagByBtn(' + idx + ');}" />' +
+            'onkeydown="if(event.key===\'Enter\'||event.key===\',\'){event.preventDefault();addTagByBtn(' + idx + ');}" />' +
           '<button class="tag-add-btn" onclick="addTagByBtn(' + idx + ')">+ 추가</button>' +
         '</div>' +
         '<div class="tag-hint">이름 입력 후 + 추가 버튼 또는 Enter · × 버튼으로 삭제</div>' +
