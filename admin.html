@@ -283,7 +283,7 @@ function renderOneEditor(idx) {
       '<div class="field-row"><div class="field-label">부서명</div>' +
         '<input class="field-input" id="dept-' + idx + '" value="' + esc(c.dept) + '" oninput="onDeptChange(' + idx + ')" /></div>' +
       '<div class="field-row"><div class="field-label">운전자</div>' +
-        '<input class="field-input" id="driver-' + idx + '" value="' + esc(c.driver) + '" /></div>' +
+        '<input class="field-input" id="driver-' + idx + '" value="' + esc(c.driver) + '" oninput="onDriverChange(' + idx + ')" /></div>' +
       '<div class="field-row">' +
         '<div class="field-label">탑승인원 <span class="count-display" id="pcnt-' + idx + '">' + c.passengers.length + '명</span></div>' +
         '<div class="tag-editor" id="tags-' + idx + '" style="margin-bottom:6px;"></div>' +
@@ -371,6 +371,10 @@ function onPlateChange(idx) {
 }
 function onDeptChange(idx) {
   document.getElementById('hdr-dept-' + idx).textContent = document.getElementById('dept-' + idx).value;
+}
+function onDriverChange(idx) {
+  _cars[idx].driver = document.getElementById('driver-' + idx).value;
+  syncCount(idx);
 }
 
 function toggleEditor(idx) {
