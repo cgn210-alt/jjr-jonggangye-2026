@@ -86,10 +86,10 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .ld-sonata { background:#deeaf9; border:1px solid #7aaee0; }
-    .ld-k3     { background:#ddf0e2; border:1px solid #72c08a; }
-    .ld-staria { background:#fdebd8; border:1px solid #f0a86a; }
-    .ld-celtos { background:#ece9fe; border:1px solid #9d8ff0; }
+    .ld-sonata { background:#1a6fd4; border:none; }
+    .ld-k3     { background:#1e9e50; border:none; }
+    .ld-staria { background:#e8620a; border:none; }
+    .ld-celtos { background:#6c3dd4; border:none; }
     /* 검색 */
     .search-wrap {
       padding: 10px 16px;
@@ -151,15 +151,15 @@
       letter-spacing: -0.3px;
     }
     /* 소나타: 파랑 */
-    .badge-sonata { background:#deeaf9; color:#0e3d82; }
+    .badge-sonata { background:#1a6fd4; color:#ffffff; }
     /* K3: 초록 */
-    .badge-k3     { background:#ddf0e2; color:#1a5c2e; }
+    .badge-k3     { background:#1e9e50; color:#ffffff; }
     /* 스타리아: 주황 — 3·4·5호 동일 */
-    .badge-staria { background:#fdebd8; color:#7a3a10; }
+    .badge-staria { background:#e8620a; color:#ffffff; }
     /* 셀토스: 보라 — 6·7·8호 동일 */
-    .badge-celtos { background:#ece9fe; color:#3d2a9e; }
+    .badge-celtos { background:#6c3dd4; color:#ffffff; }
     /* 예비: 회색 */
-    .badge-reserve { background:#f0efec; color:#9c9990; border:1.5px dashed #c8c5bc; }
+    .badge-reserve { background:#b0aca4; color:#ffffff; border:none; }
 
     .car-info { flex: 1; min-width: 0; }
     .car-name-row { display: flex; align-items: center; gap: 8px; }
@@ -282,7 +282,7 @@ const cars = [
   { no:'8호', type:'셀토스', plate:'2461', badge:'badge-celtos',
     dept:'디자인실, 해외사업팀', count:4, driver:'김영균',
     passengers:['정민정','배정은','최효선'] },
-  { no:'9호', type:'K3', plate:'2457', badge:'badge-reserve',
+  { no:'9호', type:'K3', plate:'2457', badge:'badge-k3',
     dept:'예비차량', count:0, driver:'', passengers:[] },
 ];
 
