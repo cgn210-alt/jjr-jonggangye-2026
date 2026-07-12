@@ -525,7 +525,7 @@ const initialCars = [
     dept:'디자인실, 해외사업팀', count:4, driver:'김영균',
     passengers:['정민정','배정은','최효선'] },
   { no:'9호', type:'K3', plate:'2457', badge:'badge-reserve',
-    dept:'예비차량', count:0, driver:'', passengers:[], reserve:true },
+    dept:'예비차량', count:0, driver:'', passengers:[] },
 ];
 
 let cars = JSON.parse(JSON.stringify(initialCars));
@@ -576,7 +576,6 @@ function renderCarEditors() {
           <div class="field-label">부서명</div>
           <input class="field-input" id="car-dept-${idx}" value="${c.dept}" oninput="syncHeader(${idx})" />
         </div>
-        ${!c.reserve ? `
         <div class="field-row">
           <div class="field-label">운전자</div>
           <input class="field-input" id="car-driver-${idx}" value="${c.driver}" />
@@ -597,7 +596,7 @@ function renderCarEditors() {
         <div class="field-row">
           <div class="field-label">인원수</div>
           <input class="field-input" id="car-count-${idx}" type="number" value="${c.count}" min="0" />
-        </div>` : '<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:4px 0">예비 차량 — 탑승 정보 없음</div>'}
+        </div>
       </div>`;
     list.appendChild(card);
   });
@@ -663,10 +662,8 @@ function collectData() {
     c.type = document.getElementById('car-type-' + idx)?.value ?? c.type;
     c.plate = document.getElementById('car-plate-' + idx)?.value ?? c.plate;
     c.dept = document.getElementById('car-dept-' + idx)?.value ?? c.dept;
-    if (!c.reserve) {
-      c.driver = document.getElementById('car-driver-' + idx)?.value ?? c.driver;
-      c.count = parseInt(document.getElementById('car-count-' + idx)?.value ?? c.count);
-    }
+    c.driver = document.getElementById('car-driver-' + idx)?.value ?? c.driver;
+    c.count = parseInt(document.getElementById('car-count-' + idx)?.value ?? c.count);
   });
   return updated;
 }
