@@ -94,7 +94,21 @@ var allCars = [];
 var DB_URL = 'https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app/baecharyo.json';
 var POLL_INTERVAL = 10000; // 10초마다 갱신
 
-// ── 데이터 로드 (Firebase REST API — CDN 불필요) ──
+// ── 검색 필터 적용 ───────────────────────────────
+function applyFilter() {
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) { renderCards(allCars); return; }
+  renderCards(allCars.filter(function(c) {
+    return c.no.toLowerCase().includes(q) ||
+      c.type.toLowerCase().includes(q) ||
+      c.plate.toLowerCase().includes(q) ||
+      c.dept.toLowerCase().includes(q) ||
+      c.driver.toLowerCase().includes(q) ||
+      c.passengers.some(function(p) { return String(p).toLowerCase().includes(q); });
+  }));
+}
+
+// ── 데이터 로드 (Firebase REST API) ───────────────
 function loadData() {
   fetch(DB_URL)
     .then(function(res) {
@@ -103,10 +117,13 @@ function loadData() {
     })
     .then(function(data) {
       if (!data) {
-        document.getElementById('carList').innerHTML =
-          '<div class="loading" style="color:#c0392b">데이터 없음 — 관리자 페이지에서 저장해 주세요.</div>';
+        if (!allCars.length) {
+          document.getElementById('carList').innerHTML =
+            '<div class="loading" style="color:#c0392b">데이터 없음 — 관리자 페이지에서 저장해 주세요.</div>';
+        }
         return;
       }
+      // 헤더 정보 업데이트
       if (data.info) {
         document.getElementById('metaFuneral').textContent = '장례 : ' + (data.info.funeral || '');
         document.getElementById('metaDate').textContent    = data.info.date  || '';
@@ -114,29 +131,26 @@ function loadData() {
         document.getElementById('metaAddr').textContent    = data.info.addr  || '';
         document.getElementById('totalBadge').textContent  = data.info.total || '';
       }
-      allCars = toCarsArray(data.cars);
-      // 검색어가 있으면 필터 유지, 없으면 전체 표시
-      var q = document.getElementById('searchInput').value.trim().toLowerCase();
-      if (q) {
-        renderCards(allCars.filter(function(c) {
-          return c.no.toLowerCase().includes(q) ||
-            c.type.toLowerCase().includes(q) ||
-            c.plate.toLowerCase().includes(q) ||
-            c.dept.toLowerCase().includes(q) ||
-            c.driver.toLowerCase().includes(q) ||
-            c.passengers.some(function(p) { return String(p).toLowerCase().includes(q); });
-        }));
-      } else {
-        renderCards(allCars);
+      // 데이터만 업데이트 — 화면은 applyFilter가 관리
+      var newCars = toCarsArray(data.cars);
+      var firstLoad = (allCars.length === 0);
+      allCars = newCars;
+      // 최초 로드이거나 검색어 없을 때만 전체 렌더링
+      // 검색 중이면 검색 결과 유지
+      var q = document.getElementById('searchInput').value.trim();
+      if (firstLoad || !q) {
+        applyFilter();
       }
     })
     .catch(function(err) {
-      document.getElementById('carList').innerHTML =
-        '<div class="loading" style="color:#c0392b">연결 오류: ' + err.message + '</div>';
+      if (!allCars.length) {
+        document.getElementById('carList').innerHTML =
+          '<div class="loading" style="color:#c0392b">연결 오류: ' + err.message + '</div>';
+      }
     });
 }
 
-// 최초 로드 + 주기적 갱신
+// 최초 로드 + 주기적 갱신 (데이터만 백그라운드 업데이트)
 loadData();
 setInterval(loadData, POLL_INTERVAL);
 
@@ -210,18 +224,7 @@ function toggle(h) {
 }
 
 // ── 검색 ──────────────────────────────────────────
-document.getElementById('searchInput').addEventListener('input', function() {
-  var q = this.value.trim().toLowerCase();
-  if (!q) { renderCards(allCars); return; }
-  renderCards(allCars.filter(function(c) {
-    return c.no.toLowerCase().includes(q) ||
-      c.type.toLowerCase().includes(q) ||
-      c.plate.toLowerCase().includes(q) ||
-      c.dept.toLowerCase().includes(q) ||
-      c.driver.toLowerCase().includes(q) ||
-      c.passengers.some(function(p) { return String(p).toLowerCase().includes(q); });
-  }));
-});
+document.getElementById('searchInput').addEventListener('input', applyFilter);
 
 // ── GUARDIAN ──────────────────────────────────────
 document.getElementById('guardianBtn').addEventListener('click', function() {
