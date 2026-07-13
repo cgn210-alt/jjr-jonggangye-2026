@@ -136,20 +136,22 @@ firebase.database().ref('baecharyo').on('value', function(snap) {
 
 // ── 배열 정규화 ──────────────────
 function normalizeCars(raw) {
+  if (!raw) return [];
   var arr = Array.isArray(raw) ? raw : Object.values(raw);
+  arr = arr.filter(function(c) { return c && typeof c === 'object'; });
   return arr.map(function(c) {
     var p = c.passengers;
     if (!p) p = [];
     else if (!Array.isArray(p)) p = Object.values(p);
     p = p.filter(function(v) { return v && String(v).trim(); });
     return {
-      no:         c.no     || '',
-      type:       c.type   || '',
-      plate:      c.plate  || '',
-      dept:       c.dept   || '',
-      driver:     c.driver || '',
-      count:      c.count  || 0,
-      badge:      c.badge  || 'badge-reserve',
+      no:         String(c.no     || ''),
+      type:       String(c.type   || ''),
+      plate:      String(c.plate  || ''),
+      dept:       String(c.dept   || ''),
+      driver:     String(c.driver || ''),
+      count:      Number(c.count) || 0,
+      badge:      String(c.badge  || 'badge-reserve'),
       passengers: p
     };
   });
@@ -209,14 +211,16 @@ function toggleCard(h) {
 document.getElementById('searchInput').addEventListener('input', function() {
   var q  = this.value.trim();
   var ql = q.toLowerCase();
-  if (!ql) { renderCards(allCars); return; }
+  if (!ql || !allCars.length) { renderCards(allCars); return; }
   var filtered = allCars.filter(function(c) {
-    return c.no.includes(q) ||
-      c.type.toLowerCase().includes(ql) ||
-      c.plate.includes(q) ||
-      c.dept.toLowerCase().includes(ql) ||
-      c.driver.toLowerCase().includes(ql) ||
-      c.passengers.some(function(p) { return p.toLowerCase().includes(ql); });
+    try {
+      return c.no.includes(q) ||
+        c.type.toLowerCase().includes(ql) ||
+        c.plate.includes(q) ||
+        c.dept.toLowerCase().includes(ql) ||
+        c.driver.toLowerCase().includes(ql) ||
+        c.passengers.some(function(p) { return String(p).toLowerCase().includes(ql); });
+    } catch(e) { return false; }
   });
   renderCards(filtered);
 });
