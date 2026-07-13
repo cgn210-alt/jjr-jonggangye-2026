@@ -153,45 +153,47 @@ window.addEventListener('load', function() {
       '<div class="loading" style="color:#c0392b">연결 오류: ' + error.message + '</div>';
   });
 
-  function renderCards(data) {
-    var list = document.getElementById('carList');
-    var noResult = document.getElementById('noResult');
-    list.innerHTML = '';
-    if (!data.length) { noResult.style.display = 'block'; return; }
-    noResult.style.display = 'none';
-    data.forEach(function(c) {
-      var card = document.createElement('div');
-      card.className = 'car-card';
-      var chips = c.passengers && c.passengers.length
-        ? c.passengers.map(function(p) { return '<span class="pchip">' + p + '</span>'; }).join('')
-        : '<span style="font-size:12.5px;color:#9c9990">미정</span>';
-      var driverSpan = c.driver ? '<span class="driver-name">' + c.driver + '</span>' : '';
-      card.innerHTML =
-        '<div class="car-card-header" onclick="toggleCard(this)">' +
-          '<div class="car-badge ' + c.badge + '">' + c.no + '</div>' +
-          '<div class="car-info">' +
-            '<div class="car-name-row">' +
-              '<span class="car-name">' + c.type + '</span>' +
-              '<span class="car-plate">' + c.plate + '</span>' +
-            '</div>' +
-            '<div class="car-dept">' + c.dept + '</div>' +
-          '</div>' +
-          '<div class="car-meta">' +
-            '<span class="person-count">' + (c.count ? c.count + '명' : '예비') + '</span>' +
-            driverSpan +
-          '</div>' +
-          '<div class="chevron">&#8964;</div>' +
-        '</div>' +
-        '<div class="car-card-body">' +
-          '<div class="detail-row"><span class="detail-label">운전자</span><span class="detail-val">' + (c.driver || '미정') + '</span></div>' +
-          '<div class="detail-row"><span class="detail-label">부서</span><span class="detail-val">' + c.dept + '</span></div>' +
-          '<div class="detail-row"><span class="detail-label">탑승인원</span><div class="passenger-chips">' + chips + '</div></div>' +
-        '</div>';
-      list.appendChild(card);
-    });
-  }
+// renderCards는 아래 전역 함수로 이동
 
 }); // window.onload 끝
+
+function renderCards(data) {
+  var list = document.getElementById('carList');
+  var noResult = document.getElementById('noResult');
+  list.innerHTML = '';
+  if (!data.length) { noResult.style.display = 'block'; return; }
+  noResult.style.display = 'none';
+  data.forEach(function(c) {
+    var card = document.createElement('div');
+    card.className = 'car-card';
+    var chips = c.passengers && c.passengers.length
+      ? c.passengers.map(function(p) { return '<span class="pchip">' + p + '</span>'; }).join('')
+      : '<span style="font-size:12.5px;color:#9c9990">미정</span>';
+    var driverSpan = c.driver ? '<span class="driver-name">' + c.driver + '</span>' : '';
+    card.innerHTML =
+      '<div class="car-card-header" onclick="toggleCard(this)">' +
+        '<div class="car-badge ' + c.badge + '">' + c.no + '</div>' +
+        '<div class="car-info">' +
+          '<div class="car-name-row">' +
+            '<span class="car-name">' + c.type + '</span>' +
+            '<span class="car-plate">' + c.plate + '</span>' +
+          '</div>' +
+          '<div class="car-dept">' + c.dept + '</div>' +
+        '</div>' +
+        '<div class="car-meta">' +
+          '<span class="person-count">' + (c.count ? c.count + '명' : '예비') + '</span>' +
+          driverSpan +
+        '</div>' +
+        '<div class="chevron">&#8964;</div>' +
+      '</div>' +
+      '<div class="car-card-body">' +
+        '<div class="detail-row"><span class="detail-label">운전자</span><span class="detail-val">' + (c.driver || '미정') + '</span></div>' +
+        '<div class="detail-row"><span class="detail-label">부서</span><span class="detail-val">' + c.dept + '</span></div>' +
+        '<div class="detail-row"><span class="detail-label">탑승인원</span><div class="passenger-chips">' + chips + '</div></div>' +
+      '</div>';
+    list.appendChild(card);
+  });
+}
 
 function toggleCard(h) {
   var b = h.nextElementSibling, cv = h.querySelector('.chevron');
