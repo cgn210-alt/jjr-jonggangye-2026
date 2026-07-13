@@ -115,7 +115,20 @@ function loadData() {
         document.getElementById('totalBadge').textContent  = data.info.total || '';
       }
       allCars = toCarsArray(data.cars);
-      renderCards(allCars);
+      // 검색어가 있으면 필터 유지, 없으면 전체 표시
+      var q = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (q) {
+        renderCards(allCars.filter(function(c) {
+          return c.no.toLowerCase().includes(q) ||
+            c.type.toLowerCase().includes(q) ||
+            c.plate.toLowerCase().includes(q) ||
+            c.dept.toLowerCase().includes(q) ||
+            c.driver.toLowerCase().includes(q) ||
+            c.passengers.some(function(p) { return String(p).toLowerCase().includes(q); });
+        }));
+      } else {
+        renderCards(allCars);
+      }
     })
     .catch(function(err) {
       document.getElementById('carList').innerHTML =
