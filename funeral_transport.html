@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>조문 차량 탑승 배차표</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     :root{--bg:#f5f4f1;--surface:#fff;--surface-sub:#f9f8f6;--border:#e4e2dc;--border-strong:#c8c5bc;--text-primary:#1a1916;--text-secondary:#5c5a55;--text-muted:#9c9990;--accent-bg:#eef3fb;--accent-text:#1a4f9c;--radius:10px;--font:'Noto Sans KR',sans-serif}
@@ -15,7 +13,7 @@
     .header-title{font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:10px}
     .header-meta{font-size:12.5px;color:var(--text-secondary);line-height:2}
     .header-meta span{display:block}
-    .header-meta .addr{color:var(--text-muted);font-size:11.5px}
+    .addr{color:var(--text-muted);font-size:11.5px}
     .total-badge{display:inline-block;margin-top:10px;background:var(--accent-bg);color:var(--accent-text);border-radius:20px;padding:4px 16px;font-size:13px;font-weight:500}
     .legend{display:flex;gap:12px;flex-wrap:wrap;padding:9px 16px;background:var(--surface);border-bottom:1px solid var(--border);justify-content:center}
     .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
@@ -91,78 +89,76 @@
 </div>
 
 <script>
-
-// 전역 데이터
+// ── 전역 ──────────────────────────────────────────
 var allCars = [];
+var DB_URL = 'https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app/baecharyo.json';
+var POLL_INTERVAL = 10000; // 10초마다 갱신
 
-// Firebase 초기화
-firebase.initializeApp({
-  apiKey:            "AIzaSyCoStBz_34c5ZvplNSm8rarnd7zVLUiexk",
-  authDomain:        "cgn-love.firebaseapp.com",
-  databaseURL:       "https://cgn-love-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId:         "cgn-love",
-  storageBucket:     "cgn-love.firebasestorage.app",
-  messagingSenderId: "164467571776",
-  appId:             "1:164467571776:web:6c3df66c56f907e808b3a5"
-});
-
-firebase.database().ref('baecharyo').on('value', function(snap) {
-  var data = snap.val();
-  if (!data) {
-    document.getElementById('carList').innerHTML =
-      '<div class="loading" style="color:#c0392b">데이터 없음 — 관리자 페이지에서 저장해 주세요.</div>';
-    return;
-  }
-  // 기본 정보
-  if (data.info) {
-    document.getElementById('metaFuneral').textContent = '장례 : ' + (data.info.funeral || '');
-    document.getElementById('metaDate').textContent    = data.info.date  || '';
-    document.getElementById('metaPlace').textContent   = data.info.place || '';
-    document.getElementById('metaAddr').textContent    = data.info.addr  || '';
-    document.getElementById('totalBadge').textContent  = data.info.total || '';
-  }
-  // cars 정규화
-  allCars = toCarsArray(data.cars);
-  renderCards(allCars);
-});
-
-// cars 정규화 — 배열/객체 모두 처리
-function toCarsArray(raw) {
-  if (!raw) return [];
-  // Firebase가 배열을 객체로 저장한 경우 → 배열로 변환
-  var arr = Array.isArray(raw) ? raw : Object.values(raw);
-  // null 항목 제거
-  arr = arr.filter(function(c) { return c != null && typeof c === 'object'; });
-  return arr.map(function(c) {
-    return {
-      no:         String(c.no     || ''),
-      type:       String(c.type   || ''),
-      plate:      String(c.plate  || ''),
-      dept:       String(c.dept   || ''),
-      driver:     String(c.driver || ''),
-      count:      parseInt(c.count) || 0,
-      badge:      String(c.badge  || 'badge-reserve'),
-      passengers: toPassengersArray(c.passengers)
-    };
-  });
+// ── 데이터 로드 (Firebase REST API — CDN 불필요) ──
+function loadData() {
+  fetch(DB_URL)
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(data) {
+      if (!data) {
+        document.getElementById('carList').innerHTML =
+          '<div class="loading" style="color:#c0392b">데이터 없음 — 관리자 페이지에서 저장해 주세요.</div>';
+        return;
+      }
+      if (data.info) {
+        document.getElementById('metaFuneral').textContent = '장례 : ' + (data.info.funeral || '');
+        document.getElementById('metaDate').textContent    = data.info.date  || '';
+        document.getElementById('metaPlace').textContent   = data.info.place || '';
+        document.getElementById('metaAddr').textContent    = data.info.addr  || '';
+        document.getElementById('totalBadge').textContent  = data.info.total || '';
+      }
+      allCars = toCarsArray(data.cars);
+      renderCards(allCars);
+    })
+    .catch(function(err) {
+      document.getElementById('carList').innerHTML =
+        '<div class="loading" style="color:#c0392b">연결 오류: ' + err.message + '</div>';
+    });
 }
 
-// passengers 정규화 — 배열/객체 모두 처리, 빈 문자열 제거
-function toPassengersArray(raw) {
+// 최초 로드 + 주기적 갱신
+loadData();
+setInterval(loadData, POLL_INTERVAL);
+
+// ── 정규화 ────────────────────────────────────────
+function toCarsArray(raw) {
+  if (!raw) return [];
+  var arr = Array.isArray(raw) ? raw : Object.values(raw);
+  return arr
+    .filter(function(c) { return c && typeof c === 'object'; })
+    .map(function(c) {
+      return {
+        no:         String(c.no     || ''),
+        type:       String(c.type   || ''),
+        plate:      String(c.plate  || ''),
+        dept:       String(c.dept   || ''),
+        driver:     String(c.driver || ''),
+        count:      parseInt(c.count) || 0,
+        badge:      String(c.badge  || 'badge-reserve'),
+        passengers: toArr(c.passengers)
+      };
+    });
+}
+
+function toArr(raw) {
   if (!raw) return [];
   var arr = Array.isArray(raw) ? raw : Object.values(raw);
   return arr.filter(function(v) { return v && String(v).trim() !== ''; });
 }
 
-// 카드 렌더링
+// ── 렌더링 ────────────────────────────────────────
 function renderCards(list) {
   var el = document.getElementById('carList');
   var nr = document.getElementById('noResult');
   el.innerHTML = '';
-  if (!list || list.length === 0) {
-    nr.style.display = 'block';
-    return;
-  }
+  if (!list || !list.length) { nr.style.display = 'block'; return; }
   nr.style.display = 'none';
   list.forEach(function(c) {
     var card = document.createElement('div');
@@ -171,7 +167,7 @@ function renderCards(list) {
       ? c.passengers.map(function(p) { return '<span class="pchip">' + p + '</span>'; }).join('')
       : '<span style="font-size:12.5px;color:#9c9990">미정</span>';
     card.innerHTML =
-      '<div class="car-card-header" onclick="toggleCard(this)">' +
+      '<div class="car-card-header" onclick="toggle(this)">' +
         '<div class="car-badge ' + c.badge + '">' + c.no + '</div>' +
         '<div class="car-info">' +
           '<div class="car-name-row">' +
@@ -195,28 +191,26 @@ function renderCards(list) {
   });
 }
 
-// 카드 펼치기
-function toggleCard(h) {
+function toggle(h) {
   h.nextElementSibling.classList.toggle('open');
   h.querySelector('.chevron').classList.toggle('open');
 }
 
-// 검색
+// ── 검색 ──────────────────────────────────────────
 document.getElementById('searchInput').addEventListener('input', function() {
   var q = this.value.trim().toLowerCase();
   if (!q) { renderCards(allCars); return; }
-  var result = allCars.filter(function(c) {
+  renderCards(allCars.filter(function(c) {
     return c.no.toLowerCase().includes(q) ||
       c.type.toLowerCase().includes(q) ||
       c.plate.toLowerCase().includes(q) ||
       c.dept.toLowerCase().includes(q) ||
       c.driver.toLowerCase().includes(q) ||
       c.passengers.some(function(p) { return String(p).toLowerCase().includes(q); });
-  });
-  renderCards(result);
+  }));
 });
 
-// GUARDIAN
+// ── GUARDIAN ──────────────────────────────────────
 document.getElementById('guardianBtn').addEventListener('click', function() {
   var t = document.getElementById('guardianTooltip');
   t.classList.toggle('show');
@@ -224,7 +218,6 @@ document.getElementById('guardianBtn').addEventListener('click', function() {
     setTimeout(function() { t.classList.remove('show'); }, 3000);
   }
 });
-
 </script>
 </body>
 </html>
