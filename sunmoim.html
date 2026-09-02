@@ -534,6 +534,7 @@ function addPerson(){
 /* ===== 공유: 링크 / 코드 ===== */
 function encodeState(){ return LZString.compressToEncodedURIComponent(JSON.stringify(getState())); }
 function buildLink(){ return location.href.split('#')[0] + '#s=' + encodeState(); }
+function shortUrl(){ return location.origin + location.pathname; }
 
 async function copyText(text){
   try{ await navigator.clipboard.writeText(text); return true; }
@@ -546,14 +547,26 @@ async function copyText(text){
 }
 async function shareLink(){
   saveLocal();
-  const link=buildLink();
   const isFile = location.protocol==='file:';
+  let link=buildLink();          // 긴 링크(기본/백업)
+  let shortMode=false;
+  if(!isFile){
+    const btn=document.getElementById('shareBtn');
+    const orig=btn?btn.innerHTML:''; if(btn){ btn.innerHTML='준비 중…'; }
+    try{
+      const res=await jsonp({action:'saveBulletin', data:encodeState(), pw:EDIT_PW});
+      if(res&&res.success){ link=shortUrl(); shortMode=true; }
+    }catch(e){ /* 서버 미갱신/오프라인 → 긴 링크로 자동 폴백 */ }
+    if(btn){ btn.innerHTML=orig; }
+  }
   if(navigator.share && !isFile){
     try{ await navigator.share({title:'순모임 주보', text:'이번 주 순모임 주보입니다', url:link}); return; }catch(e){ if(e.name==='AbortError') return; }
   }
   const ok=await copyText(link);
   if(isFile){
-    toast('링크를 복사했지만, 파일(file) 상태에서는 다른 기기에서 안 열립니다. ⋯ → 공유 코드 사용을 권장합니다.');
+    toast('링크를 복사했지만, 파일(file) 상태에서는 다른 기기에서 안 열립니다.');
+  }else if(shortMode){
+    toast('짧은 공유 링크가 복사되었습니다. 카톡에 붙여넣으세요.');
   }else{
     toast(ok?'공유 링크가 복사되었습니다. 카톡에 붙여넣으세요.':'복사 실패 — 길게 눌러 복사해 주세요.');
   }
@@ -609,7 +622,17 @@ let tt;
 function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2600); }
 
 /* ===== 시작 ===== */
-(function init(){
+async function loadServerBulletin(){
+  try{
+    const res=await jsonp({action:'getBulletin'});
+    if(res&&res.success&&res.data){
+      const st=JSON.parse(LZString.decompressFromEncodedURIComponent(res.data));
+      if(st&&st.f){ applyState(st); return true; }
+    }
+  }catch(e){}
+  return false;
+}
+(async function init(){
   const m=location.hash.match(/[#&]s=([^&]+)/);
   if(m){
     try{
@@ -617,7 +640,11 @@ function toast(m){ const el=document.getElementById('toast'); el.textContent=m; 
       if(st&&st.f){ applyState(st); sharedOpen=true; document.body.classList.add('shared'); }
     }catch(e){}
   }
-  if(!sharedOpen) loadLocal();
+  if(!sharedOpen){
+    // 서버에 저장된 현재 주보 우선, 없으면 이 기기의 저장본
+    const loaded = await loadServerBulletin();
+    if(!loaded) loadLocal();
+  }
   try{ const nm=localStorage.getItem(NAME_KEY); if(nm){ const el=document.getElementById('pfName'); if(el) el.value=nm; } }catch(_){}
   loadPrayers();
 })();
