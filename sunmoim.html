@@ -71,6 +71,27 @@
   .additem{display:none;margin-top:10px;width:100%;padding:10px;border:1.5px dashed var(--brand);background:var(--brand-soft);color:var(--brand-deep);border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;}
   body.editing .additem{display:block;}
 
+  /* 한주간의 기도제목 */
+  .guide{font-size:13.5px;color:#8a5a3a;background:var(--brand-soft);border-radius:12px;padding:11px 13px;margin:0 0 12px;line-height:1.55;outline:none;}
+  .plist{list-style:none;margin:0;padding:0;}
+  .pli{display:flex;gap:9px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:14px;margin-bottom:8px;background:#fafafb;}
+  .pli:last-of-type{margin-bottom:0;}
+  .pli .pname{flex:none;min-width:44px;max-width:120px;font-weight:800;font-size:13.5px;color:var(--brand-deep);background:var(--brand-soft);border-radius:8px;padding:4px 9px;outline:none;word-break:break-all;text-align:center;}
+  .pli .ptext{flex:1;font-size:15px;outline:none;min-height:24px;padding-top:3px;word-break:break-word;}
+  .pli .del{flex:none;align-self:center;}
+  .pli .ptime{display:block;font-size:11px;color:#a3a3ad;margin-top:3px;font-weight:500;}
+
+  /* 기도제목 실시간 제출 폼 */
+  .pray-form{display:flex;flex-direction:column;gap:8px;background:#f7f9fc;border:1px solid #e6ebf2;border-radius:14px;padding:12px;margin-bottom:6px;}
+  .pray-form input,.pray-form textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:15px;font-family:inherit;outline:none;width:100%;background:#fff;}
+  .pray-form input:focus,.pray-form textarea:focus{border-color:var(--brand);}
+  .pray-form .nm{max-width:170px;}
+  .pray-form textarea{min-height:60px;resize:vertical;line-height:1.55;}
+  .pray-form .sbtn{background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:800;cursor:pointer;}
+  .pray-form .sbtn:disabled{opacity:.6;}
+  .pray-status{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--ink-soft);margin:12px 2px 8px;}
+  .pray-status button{background:none;border:none;color:var(--brand-deep);font-weight:700;font-size:13px;cursor:pointer;padding:4px 6px;}
+
   .account{background:linear-gradient(135deg,#fff7f2,#ffefe6);border:1px solid #ffe0cf;border-radius:16px;padding:14px 16px;margin-top:6px;}
   .account .bank{font-size:13px;color:var(--ink-soft);font-weight:700;outline:none;}
   .account .no{font-size:20px;font-weight:800;letter-spacing:.5px;color:var(--ink);outline:none;margin:3px 0;}
@@ -90,7 +111,10 @@
   .btn.small{flex:0 0 54px;}
 
   body.editing [data-f],
-  body.editing .qlist .qtext{background:#fffdf7;border-radius:6px;box-shadow:inset 0 0 0 1.5px #ffd9c2;padding:2px 6px;margin:-2px -6px;}
+  body.editing .qlist .qtext,
+  body.editing .pli .pname,
+  body.editing .pli .ptext{background:#fffdf7;border-radius:6px;box-shadow:inset 0 0 0 1.5px #ffd9c2;padding:2px 6px;margin:-2px -6px;}
+  body.editing .pli .pname{margin:0;}
 
   .editbadge{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;background:#2b2b30;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;display:none;align-items:center;gap:6px;box-shadow:var(--shadow);}
   body.editing .editbadge{display:flex;}
@@ -169,6 +193,18 @@
   </div>
 
   <div class="card">
+    <div class="card-head"><span class="dot"></span><h2>한주간의 기도제목</h2></div>
+    <p class="guide" data-f="wp_guide">각자 기도제목을 남겨 주세요. 함께 마음에 품고, 다음 순모임 예배 때까지 서로를 위해 매일 기도합니다. 🙏</p>
+    <div class="pray-form">
+      <input class="nm" id="pfName" type="text" maxlength="20" placeholder="이름" autocomplete="name">
+      <textarea id="pfText" maxlength="500" placeholder="나의 기도제목을 남겨 주세요"></textarea>
+      <button class="sbtn" onclick="submitPrayer()">기도제목 올리기</button>
+    </div>
+    <div class="pray-status"><span id="pfCount">불러오는 중…</span><button onclick="loadPrayers()">↻ 새로고침</button></div>
+    <ul class="plist" id="prayerList"></ul>
+  </div>
+
+  <div class="card">
     <div class="card-head"><span class="dot"></span><h2>순헌금 입금 계좌</h2></div>
     <div class="account">
       <div class="bank" data-f="a_bank">카카오뱅크</div>
@@ -197,7 +233,8 @@
   <button class="item" onclick="closeSheet();copyCode()"><span class="em">🧩</span><span>공유 코드 복사<small>링크가 안 열릴 때 코드로 전달</small></span></button>
   <button class="item" onclick="closeSheet();loadCode()"><span class="em">📥</span><span>공유 코드 불러오기<small>받은 코드를 붙여넣어 내용 반영</small></span></button>
   <div class="sep"></div>
-  <button class="item danger" onclick="closeSheet();resetAll()"><span class="em">↺</span><span>기본값으로 초기화</span></button>
+  <button class="item" onclick="closeSheet();clearWeekPrayers()"><span class="em">🧹</span><span>이 주 기도제목 비우기 (순장용)<small>서버에 모인 이번 주 기도제목 초기화</small></span></button>
+  <button class="item danger" onclick="closeSheet();resetAll()"><span class="em">↺</span><span>앱 화면 기본값으로 초기화</span></button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -208,6 +245,82 @@ var LZString=function(){var r=String.fromCharCode,n="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 function e_get(r,n){return r.charCodeAt(n)}
 /* 위 decompress의 매핑 보정 */
 LZString.decompressFromEncodedURIComponent=function(input){if(input==null)return"";if(input=="")return null;input=input.replace(/ /g,"+");var key="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";var baseReverse={},i;for(i=0;i<key.length;i++)baseReverse[key.charAt(i)]=i;return LZString._decompress(input.length,32,function(index){return baseReverse[input.charAt(index)]});};
+
+/* ===== 서버(구글 시트) 연동 — 기도제목 실시간 취합 ===== */
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyA1mk_jXXp9di6dew3D6Up3u1FjS39P7mWPntnorDl0Mgr_1psxfZ0ZdPx-pn2iOO25g/exec';
+const NAME_KEY='sunmoim_name';
+function weekKey(){ const el=document.querySelector('[data-f="title"]'); const t=el?el.textContent.trim():''; return t||'default'; }
+let _jsonpId=0;
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    const cb='_scb'+(++_jsonpId);
+    const s=document.createElement('script');
+    let done=false;
+    function cleanup(){ try{ delete window[cb]; }catch(_){ window[cb]=undefined; } if(s.parentNode) s.parentNode.removeChild(s); }
+    window[cb]=function(data){ done=true; resolve(data); cleanup(); };
+    const qs=Object.keys(params).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(params[k])).join('&');
+    s.src=APPS_SCRIPT_URL+'?'+qs+'&callback='+cb;
+    s.onerror=function(){ if(!done){ cleanup(); reject(new Error('network')); } };
+    document.body.appendChild(s);
+    setTimeout(()=>{ if(!done){ cleanup(); reject(new Error('timeout')); } },12000);
+  });
+}
+async function loadPrayers(){
+  const cnt=document.getElementById('pfCount');
+  if(!APPS_SCRIPT_URL){ if(cnt) cnt.textContent=''; return; }
+  if(cnt) cnt.textContent='불러오는 중…';
+  try{
+    const res=await jsonp({action:'getSunPrayers', week:weekKey()});
+    const list=(res&&res.prayers)||[];
+    renderPrayers(list);
+    if(cnt) cnt.textContent = list.length ? ('이번 주 기도제목 '+list.length+'개') : '아직 등록된 기도제목이 없습니다. 첫 번째로 남겨 보세요.';
+  }catch(e){
+    if(cnt) cnt.textContent='목록을 불러오지 못했습니다. ↻ 새로고침을 눌러 주세요.';
+  }
+}
+function renderPrayers(list){
+  const ul=document.getElementById('prayerList');
+  if(!ul) return;
+  ul.innerHTML='';
+  list.forEach(p=>{
+    const li=document.createElement('li'); li.className='pli';
+    const nm=document.createElement('div'); nm.className='pname'; nm.textContent=p.name||'익명';
+    const tx=document.createElement('div'); tx.className='ptext'; tx.textContent=p.text||'';
+    if(p.time){ const t=document.createElement('span'); t.className='ptime'; t.textContent=p.time; tx.appendChild(t); }
+    li.append(nm,tx);
+    ul.appendChild(li);
+  });
+}
+async function submitPrayer(){
+  const nameEl=document.getElementById('pfName'), textEl=document.getElementById('pfText');
+  const name=(nameEl.value||'').trim(), text=(textEl.value||'').trim();
+  if(!name){ toast('이름을 입력해 주세요.'); nameEl.focus(); return; }
+  if(!text){ toast('기도제목을 입력해 주세요.'); textEl.focus(); return; }
+  const btn=document.querySelector('.pray-form .sbtn');
+  btn.disabled=true; const orig=btn.textContent; btn.textContent='올리는 중…';
+  try{
+    const res=await jsonp({action:'addSunPrayer', week:weekKey(), name:name, text:text});
+    if(!res||!res.success) throw new Error((res&&res.error)||'server');
+    textEl.value='';
+    try{ localStorage.setItem(NAME_KEY, name); }catch(_){}
+    toast('기도제목이 등록되었습니다. 🙏');
+    await loadPrayers();
+  }catch(e){
+    toast('등록에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.');
+  }finally{
+    btn.disabled=false; btn.textContent=orig;
+  }
+}
+async function clearWeekPrayers(){
+  const pw=prompt('순장 확인용 관리자 비밀번호를 입력하세요:');
+  if(!pw) return;
+  if(!confirm('이번 주("'+weekKey()+'") 서버에 모인 기도제목을 모두 지울까요? 되돌릴 수 없습니다.')) return;
+  try{
+    const res=await jsonp({action:'clearSunPrayers', week:weekKey(), pw:pw});
+    if(res&&res.success){ toast('이번 주 기도제목을 비웠습니다.'); loadPrayers(); }
+    else toast((res&&res.error)||'실패했습니다. 비밀번호를 확인해 주세요.');
+  }catch(e){ toast('실패했습니다. 잠시 후 다시 시도해 주세요.'); }
+}
 
 /* ===== 상태 저장/복원 ===== */
 const STORE_KEY='sunmoim_bulletin_v2';
@@ -220,7 +333,14 @@ function getState(){
   document.querySelectorAll('[data-list]').forEach(ul=>{
     lists[ul.dataset.list]=[...ul.querySelectorAll('.qtext')].map(q=>q.innerHTML.trim());
   });
-  return {v:2,f,lists};
+  const plists={};
+  document.querySelectorAll('[data-plist]').forEach(ul=>{
+    plists[ul.dataset.plist]=[...ul.querySelectorAll('.pli')].map(li=>({
+      name: li.querySelector('.pname').innerHTML.trim(),
+      text: li.querySelector('.ptext').innerHTML.trim()
+    }));
+  });
+  return {v:2,f,lists,plists};
 }
 function applyState(st){
   if(!st||!st.f) return;
@@ -231,6 +351,14 @@ function applyState(st){
       ul.innerHTML='';
       st.lists[name].forEach(html=> ul.appendChild(makeLi(html)));
       renumber(ul);
+    }
+  }
+  if(st.plists){
+    for(const name in st.plists){
+      const ul=document.querySelector('[data-plist="'+name+'"]');
+      if(!ul) continue;
+      ul.innerHTML='';
+      st.plists[name].forEach(p=> ul.appendChild(makePli(p.name, p.text)));
     }
   }
   for(const k in st.f){
@@ -247,7 +375,7 @@ function loadLocal(){
 
 /* ===== 편집 모드 ===== */
 function setEditable(on){
-  document.querySelectorAll('[data-f], .qtext').forEach(el=> el.setAttribute('contenteditable', on));
+  document.querySelectorAll('[data-f], .qtext, .pname, .ptext').forEach(el=> el.setAttribute('contenteditable', on));
 }
 function toggleEdit(){
   editing=!editing;
@@ -284,8 +412,31 @@ function addItem(name){
   saveLocal();
 }
 function delItem(btn){
-  const ul=btn.closest('[data-list]');
-  btn.closest('li').remove(); renumber(ul); saveLocal();
+  const ul=btn.closest('[data-list],[data-plist]');
+  btn.closest('li').remove();
+  if(ul && ul.hasAttribute('data-list')) renumber(ul);
+  saveLocal();
+}
+
+/* 기도제목(이름+내용) 항목 */
+function makePli(name, text){
+  const li=document.createElement('li'); li.className='pli';
+  const nm=document.createElement('div'); nm.className='pname'; nm.innerHTML=name||'이름';
+  const tx=document.createElement('div'); tx.className='ptext'; tx.innerHTML=text||'기도제목을 입력하세요';
+  if(editing){ nm.setAttribute('contenteditable','true'); tx.setAttribute('contenteditable','true'); }
+  const del=document.createElement('button'); del.className='del'; del.textContent='✕';
+  del.onclick=function(){ delItem(del); };
+  li.append(nm,tx,del);
+  return li;
+}
+function addPerson(){
+  const ul=document.querySelector('[data-plist="week"]');
+  const li=makePli('이름','');
+  ul.appendChild(li);
+  const nm=li.querySelector('.pname'); nm.focus();
+  const r=document.createRange(); r.selectNodeContents(nm);
+  const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+  saveLocal();
 }
 
 /* ===== 공유: 링크 / 코드 ===== */
@@ -353,6 +504,8 @@ function copyAll(){
     const big=card.querySelector('.highlight .big');
     if(big){ L.push('  "'+txt(big)+'"'); const sub=card.querySelector('.highlight .sub'); if(sub) L.push('  '+txt(sub)); }
     card.querySelectorAll('.qlist li').forEach((li,i)=> L.push('  ('+(i+1)+') '+txt(li.querySelector('.qtext'))));
+    const guide=card.querySelector('.guide'); if(guide) L.push('  '+txt(guide));
+    card.querySelectorAll('.plist .pli').forEach(li=> L.push('  · '+txt(li.querySelector('.pname'))+' : '+txt(li.querySelector('.ptext'))));
     const ac=card.querySelector('.account');
     if(ac){ L.push('  '+txt(ac.querySelector('[data-f=a_bank]'))+' '+txt(ac.querySelector('[data-f=a_no]'))+' / '+txt(ac.querySelector('[data-f=a_owner]'))); L.push('  '+txt(ac.querySelector('[data-f=a_note]'))); }
     L.push('');
@@ -383,6 +536,8 @@ function toast(m){ const el=document.getElementById('toast'); el.textContent=m; 
     }catch(e){}
   }
   if(!sharedOpen) loadLocal();
+  try{ const nm=localStorage.getItem(NAME_KEY); if(nm){ const el=document.getElementById('pfName'); if(el) el.value=nm; } }catch(_){}
+  loadPrayers();
 })();
 </script>
 </body>
