@@ -352,9 +352,12 @@ async function submitPrayer(){
   }
 }
 async function clearWeekPrayers(){
-  const pw=prompt('순장 확인용 관리자 비밀번호를 입력하세요:');
+  const pw=await openPwModal({
+    title:'이 주 기도제목 비우기',
+    desc:'이번 주 서버에 모인 기도제목이 모두 삭제됩니다.<br>되돌릴 수 없습니다. 순장 비밀번호를 입력하세요.',
+    okLabel:'비우기'
+  });
   if(!pw) return;
-  if(!confirm('이번 주("'+weekKey()+'") 서버에 모인 기도제목을 모두 지울까요? 되돌릴 수 없습니다.')) return;
   try{
     const res=await jsonp({action:'clearSunPrayers', week:weekKey(), pw:pw});
     if(res&&res.success){ toast('이번 주 기도제목을 비웠습니다.'); loadPrayers(); }
@@ -417,13 +420,17 @@ function loadLocal(){
 function setEditable(on){
   document.querySelectorAll('[data-f], .qtext, .pname, .ptext').forEach(el=> el.setAttribute('contenteditable', on));
 }
-function openPwModal(){
+function openPwModal(opts){
+  opts=opts||{};
   return new Promise(resolve=>{
     const bg=document.getElementById('pwModal');
     const input=document.getElementById('pwInput');
     const err=document.getElementById('pwErr');
     const ok=document.getElementById('pwOk');
     const cancel=document.getElementById('pwCancel');
+    document.querySelector('#pwModal .m-title').textContent = opts.title || '순장 편집';
+    document.querySelector('#pwModal .m-desc').innerHTML = opts.desc || '편집은 순장만 가능합니다.<br>비밀번호를 입력해 주세요.';
+    ok.textContent = opts.okLabel || '확인';
     input.value=''; err.textContent='';
     bg.classList.add('show');
     setTimeout(()=>input.focus(),60);
@@ -436,13 +443,15 @@ function openPwModal(){
       resolve(val);
     }
     function submit(){
-      if(input.value===EDIT_PW){ done(true); }
-      else { err.textContent='비밀번호가 올바르지 않습니다.'; input.value=''; input.focus(); }
+      const v=input.value;
+      if(!v){ err.textContent='비밀번호를 입력해 주세요.'; input.focus(); return; }
+      if(opts.validate && !opts.validate(v)){ err.textContent='비밀번호가 올바르지 않습니다.'; input.value=''; input.focus(); return; }
+      done(v);
     }
     function onOk(){ submit(); }
-    function onCancel(){ done(false); }
-    function onKey(e){ if(e.key==='Enter'){ e.preventDefault(); submit(); } else if(e.key==='Escape'){ done(false); } }
-    function onBg(e){ if(e.target===bg) done(false); }
+    function onCancel(){ done(null); }
+    function onKey(e){ if(e.key==='Enter'){ e.preventDefault(); submit(); } else if(e.key==='Escape'){ done(null); } }
+    function onBg(e){ if(e.target===bg) done(null); }
     ok.addEventListener('click',onOk);
     cancel.addEventListener('click',onCancel);
     input.addEventListener('keydown',onKey);
@@ -451,7 +460,7 @@ function openPwModal(){
 }
 async function toggleEdit(){
   if(!editing){
-    const ok=await openPwModal();
+    const ok=await openPwModal({validate:v=>v===EDIT_PW});
     if(!ok) return;
   }
   editing=!editing;
@@ -593,11 +602,16 @@ function copyAll(){
 /* ===== 시트 / 초기화 / 토스트 ===== */
 function openSheet(){ document.getElementById('sheet').classList.add('show'); document.getElementById('sheetBg').classList.add('show'); }
 function closeSheet(){ document.getElementById('sheet').classList.remove('show'); document.getElementById('sheetBg').classList.remove('show'); }
-function resetAll(){
-  if(confirm('편집한 내용을 모두 지우고 기본값으로 되돌릴까요?')){
-    localStorage.removeItem(STORE_KEY);
-    location.hash=''; location.reload();
-  }
+async function resetAll(){
+  const ok=await openPwModal({
+    title:'기본값으로 초기화',
+    desc:'이 기기의 편집 내용을 지우고 기본값으로 되돌립니다.<br>순장만 가능합니다. 비밀번호를 입력하세요.',
+    okLabel:'초기화',
+    validate:v=>v===EDIT_PW
+  });
+  if(!ok) return;
+  localStorage.removeItem(STORE_KEY);
+  location.hash=''; location.reload();
 }
 let tt;
 function toast(m){ const el=document.getElementById('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2600); }
