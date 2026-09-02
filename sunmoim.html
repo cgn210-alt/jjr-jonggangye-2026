@@ -247,7 +247,7 @@ function e_get(r,n){return r.charCodeAt(n)}
 LZString.decompressFromEncodedURIComponent=function(input){if(input==null)return"";if(input=="")return null;input=input.replace(/ /g,"+");var key="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";var baseReverse={},i;for(i=0;i<key.length;i++)baseReverse[key.charAt(i)]=i;return LZString._decompress(input.length,32,function(index){return baseReverse[input.charAt(index)]});};
 
 /* ===== 서버(구글 시트) 연동 — 기도제목 실시간 취합 ===== */
-const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyA1mk_jXXp9di6dew3D6Up3u1FjS39P7mWPntnorDl0Mgr_1psxfZ0ZdPx-pn2iOO25g/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzLJP9Eb0RHfuDRscpDifjOdjKgf1GU2QKMGjx8rB_-EN_6nVVYCncgigrncmbPe6pN_w/exec';
 const NAME_KEY='sunmoim_name';
 function weekKey(){ const el=document.querySelector('[data-f="title"]'); const t=el?el.textContent.trim():''; return t||'default'; }
 let _jsonpId=0;
@@ -271,6 +271,11 @@ async function loadPrayers(){
   if(cnt) cnt.textContent='불러오는 중…';
   try{
     const res=await jsonp({action:'getSunPrayers', week:weekKey()});
+    if(res && res.success===false){
+      renderPrayers([]);
+      if(cnt) cnt.textContent='서버 준비 중입니다(백엔드 배포 필요). 순장에게 문의해 주세요.';
+      return;
+    }
     const list=(res&&res.prayers)||[];
     renderPrayers(list);
     if(cnt) cnt.textContent = list.length ? ('이번 주 기도제목 '+list.length+'개') : '아직 등록된 기도제목이 없습니다. 첫 번째로 남겨 보세요.';
@@ -300,13 +305,16 @@ async function submitPrayer(){
   btn.disabled=true; const orig=btn.textContent; btn.textContent='올리는 중…';
   try{
     const res=await jsonp({action:'addSunPrayer', week:weekKey(), name:name, text:text});
-    if(!res||!res.success) throw new Error((res&&res.error)||'server');
+    if(!res||!res.success){
+      toast('등록 실패: 서버가 아직 준비되지 않았습니다(백엔드 배포 필요). 순장에게 문의해 주세요.');
+      return;
+    }
     textEl.value='';
     try{ localStorage.setItem(NAME_KEY, name); }catch(_){}
     toast('기도제목이 등록되었습니다. 🙏');
     await loadPrayers();
   }catch(e){
-    toast('등록에 실패했습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.');
+    toast('네트워크 오류로 등록하지 못했습니다. 인터넷 연결을 확인해 주세요.');
   }finally{
     btn.disabled=false; btn.textContent=orig;
   }
