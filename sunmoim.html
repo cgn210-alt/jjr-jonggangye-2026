@@ -249,6 +249,9 @@ LZString.decompressFromEncodedURIComponent=function(input){if(input==null)return
 /* ===== 서버(구글 시트) 연동 — 기도제목 실시간 취합 ===== */
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzLJP9Eb0RHfuDRscpDifjOdjKgf1GU2QKMGjx8rB_-EN_6nVVYCncgigrncmbPe6pN_w/exec';
 const NAME_KEY='sunmoim_name';
+const EDIT_PW='admin1234';            // 순장 편집 비밀번호 (원하면 바꾸세요)
+const EDITOR_KEY='sunmoim_editor';    // 순장 기기 기억용
+let isEditor=false;
 function weekKey(){ const el=document.querySelector('[data-f="title"]'); const t=el?el.textContent.trim():''; return t||'default'; }
 let _jsonpId=0;
 function jsonp(params){
@@ -386,6 +389,16 @@ function setEditable(on){
   document.querySelectorAll('[data-f], .qtext, .pname, .ptext').forEach(el=> el.setAttribute('contenteditable', on));
 }
 function toggleEdit(){
+  if(!editing && !isEditor){
+    if(localStorage.getItem(EDITOR_KEY)==='1'){ isEditor=true; }
+    else {
+      const pw=prompt('순장 편집 비밀번호를 입력하세요:');
+      if(pw===null) return;
+      if(pw!==EDIT_PW){ toast('비밀번호가 올바르지 않습니다. 편집은 순장만 가능합니다.'); return; }
+      isEditor=true;
+      try{ localStorage.setItem(EDITOR_KEY,'1'); }catch(_){}
+    }
+  }
   editing=!editing;
   document.body.classList.toggle('editing', editing);
   setEditable(editing);
