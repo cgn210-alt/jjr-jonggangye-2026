@@ -134,6 +134,22 @@
 
   .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#2b2b30;color:#fff;padding:11px 18px;border-radius:24px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;z-index:100;box-shadow:var(--shadow);max-width:88%;text-align:center;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* 비밀번호 모달 */
+  .modal-bg{position:fixed;inset:0;z-index:90;background:rgba(20,15,10,.45);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:.18s;}
+  .modal-bg.show{opacity:1;pointer-events:auto;}
+  .modal{width:100%;max-width:340px;background:#fff;border-radius:20px;padding:22px 20px 18px;box-shadow:0 20px 60px rgba(0,0,0,.25);transform:translateY(12px) scale(.98);transition:.2s cubic-bezier(.2,.8,.2,1);}
+  .modal-bg.show .modal{transform:translateY(0) scale(1);}
+  .modal .ic{width:46px;height:46px;border-radius:14px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px;}
+  .modal .m-title{font-size:17px;font-weight:800;text-align:center;letter-spacing:-.3px;}
+  .modal .m-desc{font-size:13px;color:var(--ink-soft);text-align:center;margin:5px 0 16px;line-height:1.5;}
+  .modal .m-input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px;font-family:inherit;outline:none;text-align:center;letter-spacing:2px;}
+  .modal .m-input:focus{border-color:var(--brand);}
+  .modal .m-err{min-height:18px;font-size:12.5px;color:#c94b3b;text-align:center;margin:7px 0 2px;font-weight:600;}
+  .modal .m-btns{display:flex;gap:10px;margin-top:6px;}
+  .modal .m-btn{flex:1;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:800;cursor:pointer;}
+  .modal .m-btn.cancel{background:#f0f0f4;color:var(--ink);}
+  .modal .m-btn.ok{background:var(--brand);color:#fff;}
 </style>
 </head>
 <body>
@@ -193,6 +209,17 @@
   </div>
 
   <div class="card">
+    <div class="card-head"><span class="dot"></span><h2>순헌금 입금 계좌</h2></div>
+    <div class="account">
+      <div class="bank" data-f="a_bank">카카오뱅크</div>
+      <div class="no" data-f="a_no">3333-15-6006510</div>
+      <div class="owner" data-f="a_owner">예금주 : 주웅현</div>
+      <button class="copybtn" onclick="copyAccount()">📋 계좌번호 복사</button>
+      <div class="note" data-f="a_note">순헌금은 위 통장으로 입금하시면 정리해서 공동체 순헌금 통장으로 입금됩니다.</div>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="card-head"><span class="dot"></span><h2>한주간의 기도제목</h2></div>
     <p class="guide" data-f="wp_guide">각자 기도제목을 남겨 주세요. 함께 마음에 품고, 다음 순모임 예배 때까지 서로를 위해 매일 기도합니다. 🙏</p>
     <div class="pray-form">
@@ -202,17 +229,6 @@
     </div>
     <div class="pray-status"><span id="pfCount">불러오는 중…</span><button onclick="loadPrayers()">↻ 새로고침</button></div>
     <ul class="plist" id="prayerList"></ul>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>순헌금 입금 계좌</h2></div>
-    <div class="account">
-      <div class="bank" data-f="a_bank">카카오뱅크</div>
-      <div class="no" data-f="a_no">3333-15-6006510</div>
-      <div class="owner" data-f="a_owner">예금주 : 주웅현</div>
-      <button class="copybtn" onclick="copyAccount()">📋 계좌번호 복사</button>
-      <div class="note" data-f="a_note">순헌금은 위 통장으로 입금하시면 정리해서 공동체 순헌금 통장으로 입금됩니다.</div>
-    </div>
   </div>
 
   <div class="footer-slogan" data-f="slogan">★ 복음1번가의 소문을 회복합시다! ★</div>
@@ -239,6 +255,21 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- 순장 편집 비밀번호 모달 -->
+<div class="modal-bg" id="pwModal">
+  <div class="modal">
+    <div class="ic">🔒</div>
+    <div class="m-title">순장 편집</div>
+    <div class="m-desc">편집은 순장만 가능합니다.<br>비밀번호를 입력해 주세요.</div>
+    <input class="m-input" id="pwInput" type="password" inputmode="text" placeholder="비밀번호" autocomplete="off">
+    <div class="m-err" id="pwErr"></div>
+    <div class="m-btns">
+      <button class="m-btn cancel" id="pwCancel">취소</button>
+      <button class="m-btn ok" id="pwOk">확인</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ===== LZString (URL 압축, 공개 라이브러리) ===== */
 var LZString=function(){var r=String.fromCharCode,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",e={};function t(r,o){if(!e[r]){e[r]={};for(var n=0;n<r.length;n++)e[r][r.charAt(n)]=n}return e[r][o]}var o={compressToEncodedURIComponent:function(r){return null==r?"":o._compress(r,6,function(r){return n.charAt(r)})},decompressFromEncodedURIComponent:function(r){return null==r?"":""==r?null:(r=r.replace(/ /g,"+"),o._decompress(r.length,32,function(n){return t(n=="undefined"?"":n,0),e_get(r,n)}))},_compress:function(r,o,n){if(null==r)return"";var e,t,i,s={},u={},a="",p="",c="",l=2,f=3,h=2,d=[],m=0,v=0;for(i=0;i<r.length;i+=1)if(a=r.charAt(i),Object.prototype.hasOwnProperty.call(s,a)||(s[a]=f++,u[a]=!0),p=c+a,Object.prototype.hasOwnProperty.call(s,p))c=p;else{if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++),s[p]=f++,c=String(a)}if(""!==c){if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++)}for(t=2,e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;for(;;){if(m<<=1,v==o-1){d.push(n(m));break}v++}return d.join("")},_decompress:function(o,n,e){var t,i,s,u,a,p,c,l=[],f=4,h=4,d=3,m="",v=[],g={val:e(0),position:n,index:1};for(t=0;t<3;t+=1)l[t]=t;for(s=0,a=Math.pow(2,2),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 2:return""}for(l[3]=c,i=c,v.push(c);;){if(g.index>o)return"";for(s=0,a=Math.pow(2,d),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(c=s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 2:return v.join("")}if(0==f&&(f=Math.pow(2,d),d++),l[c])m=l[c];else{if(c!==h)return null;m=i+i.charAt(0)}v.push(m),l[h++]=i+m.charAt(0),i=m,0==--f&&(f=Math.pow(2,d),d++)}}};return o}();
@@ -250,8 +281,6 @@ LZString.decompressFromEncodedURIComponent=function(input){if(input==null)return
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzLJP9Eb0RHfuDRscpDifjOdjKgf1GU2QKMGjx8rB_-EN_6nVVYCncgigrncmbPe6pN_w/exec';
 const NAME_KEY='sunmoim_name';
 const EDIT_PW='admin1234';            // 순장 편집 비밀번호 (원하면 바꾸세요)
-const EDITOR_KEY='sunmoim_editor';    // 순장 기기 기억용
-let isEditor=false;
 function weekKey(){ const el=document.querySelector('[data-f="title"]'); const t=el?el.textContent.trim():''; return t||'default'; }
 let _jsonpId=0;
 function jsonp(params){
@@ -388,16 +417,42 @@ function loadLocal(){
 function setEditable(on){
   document.querySelectorAll('[data-f], .qtext, .pname, .ptext').forEach(el=> el.setAttribute('contenteditable', on));
 }
-function toggleEdit(){
-  if(!editing && !isEditor){
-    if(localStorage.getItem(EDITOR_KEY)==='1'){ isEditor=true; }
-    else {
-      const pw=prompt('순장 편집 비밀번호를 입력하세요:');
-      if(pw===null) return;
-      if(pw!==EDIT_PW){ toast('비밀번호가 올바르지 않습니다. 편집은 순장만 가능합니다.'); return; }
-      isEditor=true;
-      try{ localStorage.setItem(EDITOR_KEY,'1'); }catch(_){}
+function openPwModal(){
+  return new Promise(resolve=>{
+    const bg=document.getElementById('pwModal');
+    const input=document.getElementById('pwInput');
+    const err=document.getElementById('pwErr');
+    const ok=document.getElementById('pwOk');
+    const cancel=document.getElementById('pwCancel');
+    input.value=''; err.textContent='';
+    bg.classList.add('show');
+    setTimeout(()=>input.focus(),60);
+    function done(val){
+      bg.classList.remove('show');
+      ok.removeEventListener('click',onOk);
+      cancel.removeEventListener('click',onCancel);
+      input.removeEventListener('keydown',onKey);
+      bg.removeEventListener('click',onBg);
+      resolve(val);
     }
+    function submit(){
+      if(input.value===EDIT_PW){ done(true); }
+      else { err.textContent='비밀번호가 올바르지 않습니다.'; input.value=''; input.focus(); }
+    }
+    function onOk(){ submit(); }
+    function onCancel(){ done(false); }
+    function onKey(e){ if(e.key==='Enter'){ e.preventDefault(); submit(); } else if(e.key==='Escape'){ done(false); } }
+    function onBg(e){ if(e.target===bg) done(false); }
+    ok.addEventListener('click',onOk);
+    cancel.addEventListener('click',onCancel);
+    input.addEventListener('keydown',onKey);
+    bg.addEventListener('click',onBg);
+  });
+}
+async function toggleEdit(){
+  if(!editing){
+    const ok=await openPwModal();
+    if(!ok) return;
   }
   editing=!editing;
   document.body.classList.toggle('editing', editing);
