@@ -491,7 +491,17 @@ async function toggleEdit(){
   if(editing && sharedOpen){
     sharedOpen=false; document.body.classList.remove('shared');
   }
-  if(!editing){ saveLocal(); toast('저장되었습니다'); }
+  if(!editing){ saveLocal(); publishBulletin(); }
+}
+async function publishBulletin(){
+  if(location.protocol==='file:'){ toast('저장되었습니다(내 기기).'); return; }
+  toast('저장 중…');
+  try{
+    const _d=encodeState();
+    const res=await jsonp({action:'saveBulletin', data:_d, pw:EDIT_PW});
+    if(res&&res.success){ try{ localStorage.setItem(SRV_BULLETIN_KEY,_d); }catch(e){} toast('저장되었습니다. 순원들에게 반영됩니다.'); }
+    else toast('내 기기에는 저장됐지만 서버 저장에 실패했습니다. 인터넷 확인 후 다시 시도해 주세요.');
+  }catch(e){ toast('내 기기에는 저장됐지만 서버 저장에 실패했습니다. 다시 시도해 주세요.'); }
 }
 let it;
 document.addEventListener('input', ()=>{ clearTimeout(it); it=setTimeout(saveLocal,400); });
