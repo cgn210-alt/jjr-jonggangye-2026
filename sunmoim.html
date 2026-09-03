@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="순모임 주보">
 <meta property="og:description" content="예배 순서와 한주간의 기도제목을 확인하고 함께 기도해요.">
-<meta property="og:image" content="https://cgn210-alt.github.io/jjr-jonggangye-2026/og-image.jpg">
+<meta property="og:image" content="https://cgn210-alt.github.io/jjr-jonggangye-2026/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://cgn210-alt.github.io/jjr-jonggangye-2026/sunmoim.html">
@@ -387,7 +387,7 @@ async function clearWeekPrayers(){
 
 /* ===== 상태 저장/복원 ===== */
 const STORE_KEY='sunmoim_bulletin_v2';
-let editing=false, sharedOpen=false;
+let editing=false, sharedOpen=false, userTouched=false;
 
 function getState(){
   const f={};
@@ -484,6 +484,7 @@ async function toggleEdit(){
     if(!ok) return;
   }
   editing=!editing;
+  if(editing) userTouched=true;   // 편집 시작 → 서버 응답이 덮어쓰지 않도록 표시
   document.body.classList.toggle('editing', editing);
   setEditable(editing);
   document.getElementById('editBtn').innerHTML = editing ? '✅ 완료' : '✏️ 편집';
@@ -651,6 +652,7 @@ async function loadServerBulletin(){
     const res=await jsonp({action:'getBulletin'});
     if(res&&res.success&&res.data){
       try{ localStorage.setItem(SRV_BULLETIN_KEY, res.data); }catch(e){}
+      if(editing || userTouched) return false;   // 사용자가 편집을 시작했으면 덮어쓰지 않음
       const st=JSON.parse(LZString.decompressFromEncodedURIComponent(res.data));
       if(st&&st.f){ applyState(st); return true; }
     }
