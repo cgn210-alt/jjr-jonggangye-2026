@@ -673,25 +673,22 @@ async function loadServerBulletin(){
   return false;
 }
 (function init(){
+  // 즉시 표시용: 링크(#s=)에 담긴 내용이 있으면 먼저 적용, 없으면 캐시/로컬
+  let applied=false;
   const m=location.hash.match(/[#&]s=([^&]+)/);
   if(m){
     try{
       const st=JSON.parse(LZString.decompressFromEncodedURIComponent(m[1]));
-      if(st&&st.f){ applyState(st); sharedOpen=true; document.body.classList.add('shared'); }
+      if(st&&st.f){ applyState(st); applied=true; }
     }catch(e){}
   }
-  if(!sharedOpen){
-    // 캐시된 주보를 즉시 적용 → 화면·주차 즉시 확보(빠른 표시)
-    if(!applyCachedBulletin()) loadLocal();
-  }
+  if(!applied){ if(!applyCachedBulletin()) loadLocal(); }
   try{ const nm=localStorage.getItem(NAME_KEY); if(nm){ const el=document.getElementById('pfName'); if(el) el.value=nm; } }catch(_){}
   // 기도제목 즉시 로드(현재 주차 기준, 캐시 즉시표시 + 서버 갱신)
   const prevWeek=weekKey();
   loadPrayers();
-  // 서버 최신 주보를 병렬로 갱신 → 주차가 달라지면 기도제목 다시 로드
-  if(!sharedOpen){
-    loadServerBulletin().then(function(loaded){ if(loaded && weekKey()!==prevWeek) loadPrayers(); });
-  }
+  // 어떤 링크로 열든 항상 서버의 최신 주보를 우선 적용(오래된 링크/캐시도 최신으로 갱신)
+  loadServerBulletin().then(function(loaded){ if(loaded && weekKey()!==prevWeek) loadPrayers(); });
 })();
 </script>
 </body>
