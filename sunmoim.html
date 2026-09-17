@@ -583,7 +583,7 @@ async function shareLink(){
     try{
       const _d=encodeState();
       const res=await jsonp({action:'saveBulletin', data:_d, pw:EDIT_PW});
-      if(res&&res.success){ link=shortUrl(); shortMode=true; try{ localStorage.setItem(SRV_BULLETIN_KEY,_d); }catch(e){} }
+      if(res&&res.success){ link=shortUrl()+'?v='+Date.now().toString(36); shortMode=true; try{ localStorage.setItem(SRV_BULLETIN_KEY,_d); }catch(e){} }
     }catch(e){ /* 서버 미갱신/오프라인 → 긴 링크로 자동 폴백 */ }
     if(btn){ btn.innerHTML=orig; }
   }
