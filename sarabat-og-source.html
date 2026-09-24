@@ -11,87 +11,59 @@
     font-family:'Noto Sans KR', sans-serif;
     position:relative;
     background:
-      radial-gradient(circle 260px at 86% 82%, rgba(217,113,31,0.32), transparent 70%),
-      radial-gradient(circle 200px at 95% 46%, rgba(255,217,138,0.26), transparent 70%),
-      radial-gradient(circle 320px at 68% 100%, rgba(139,58,18,0.38), transparent 70%),
-      radial-gradient(ellipse 900px 500px at 78% 15%, rgba(255,199,120,0.32) 0%, rgba(255,199,120,0) 60%),
-      linear-gradient(155deg, #2a1509 0%, #5a2f12 35%, #8a4a17 68%, #b5701f 100%);
+      radial-gradient(1000px 640px at 10% -10%, rgba(255,255,255,0.20), transparent 55%),
+      linear-gradient(135deg, #C2410C 0%, #E8871A 55%, #F4B942 100%);
   }
   .frame {
     position:absolute; inset:22px;
-    border:2px solid rgba(255,217,138,0.45);
+    border:2px solid rgba(255,255,255,0.35);
     border-radius:18px;
   }
   .pill {
-    position:absolute; top:56px; left:64px;
+    position:absolute; top:60px; left:64px;
     font-size:17px; font-weight:700; letter-spacing:0.22em;
-    color:#3d2211; background:#ffd98a;
+    color:#7c2d0e; background:#ffffff;
     padding:8px 20px; border-radius:30px;
   }
-  .title {
-    position:absolute; top:126px; left:64px;
-    font-size:66px; font-weight:900; color:#fff8ec;
-    line-height:1.3; text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  .rule {
+    position:absolute; top:112px; left:66px;
+    width:64px; height:5px; border-radius:3px;
+    background:#7c2d0e;
   }
-  .title b { color:#ffcf5c; }
+  .title {
+    position:absolute; top:140px; left:64px;
+    font-size:68px; font-weight:900;
+    line-height:1.32;
+  }
+  .title .l1 { color:#fff8ec; text-shadow: 0 3px 14px rgba(0,0,0,0.2); }
+  .title .l2 { color:#5c2408; }
   .subtitle {
-    position:absolute; top:352px; left:64px;
-    font-size:24px; font-weight:500; color:#f3d9b6;
+    position:absolute; top:368px; left:64px;
+    font-size:24px; font-weight:700; color:#fff8ec;
   }
   .footer-tag {
     position:absolute; bottom:52px; left:64px;
-    font-size:18px; font-weight:700; color:#f3caa0;
-    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+    font-size:18px; font-weight:700; color:#7c2d0e;
+    background:rgba(255,255,255,0.85);
     padding:7px 18px; border-radius:24px;
   }
   .verse {
     position:absolute; bottom:56px; right:64px;
-    font-size:15px; color:#e8c9a0; font-style:italic; text-align:right;
-    max-width:320px; line-height:1.6;
+    font-size:15px; color:#fff2df; font-style:italic; text-align:right;
+    max-width:320px; line-height:1.6; opacity:0.9;
   }
-  svg { position:absolute; }
 </style>
 </head>
 <body>
 
 <div class="frame"></div>
 
-<!-- 벼 이삭 라인아트 (우상단 배경) -->
-<svg width="380" height="380" viewBox="0 0 360 360" style="top:-50px; right:-40px; opacity:0.24;">
-  <g stroke="#ffd98a" stroke-width="4" stroke-linecap="round" fill="none">
-    <path d="M80 340 C 100 240, 120 180, 110 80" />
-    <path d="M180 340 C 190 220, 200 140, 190 40" />
-    <path d="M280 340 C 290 250, 300 190, 290 90" />
-  </g>
-  <g fill="#ffd98a">
-    <ellipse cx="104" cy="100" rx="12" ry="20" transform="rotate(-20 104 100)"/>
-    <ellipse cx="120" cy="130" rx="12" ry="20" transform="rotate(15 120 130)"/>
-    <ellipse cx="96" cy="160" rx="12" ry="20" transform="rotate(-10 96 160)"/>
-    <ellipse cx="184" cy="60" rx="12" ry="20" transform="rotate(-20 184 60)"/>
-    <ellipse cx="200" cy="90" rx="12" ry="20" transform="rotate(15 200 90)"/>
-    <ellipse cx="176" cy="120" rx="12" ry="20" transform="rotate(-10 176 120)"/>
-    <ellipse cx="284" cy="110" rx="12" ry="20" transform="rotate(-20 284 110)"/>
-    <ellipse cx="300" cy="140" rx="12" ry="20" transform="rotate(15 300 140)"/>
-    <ellipse cx="276" cy="170" rx="12" ry="20" transform="rotate(-10 276 170)"/>
-  </g>
-</svg>
-
-<!-- 낙엽 라인아트 (얇은 윤곽선만, 은은하게) -->
-<svg width="70" height="70" viewBox="0 0 46 46" style="top:230px; right:180px; opacity:0.30; transform:rotate(15deg);">
-  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="none" stroke="#ffd98a" stroke-width="1.6"/>
-  <path d="M23 8 L23 38" stroke="#ffd98a" stroke-width="1.2"/>
-</svg>
-<svg width="48" height="48" viewBox="0 0 46 46" style="top:400px; right:300px; opacity:0.22; transform:rotate(-20deg);">
-  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="none" stroke="#ffd98a" stroke-width="1.6"/>
-  <path d="M23 8 L23 38" stroke="#ffd98a" stroke-width="1.2"/>
-</svg>
-<svg width="40" height="40" viewBox="0 0 46 46" style="top:120px; right:460px; opacity:0.18; transform:rotate(6deg);">
-  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="none" stroke="#ffd98a" stroke-width="1.6"/>
-  <path d="M23 8 L23 38" stroke="#ffd98a" stroke-width="1.2"/>
-</svg>
-
 <div class="pill">2026 사르밧 프로젝트</div>
-<div class="title">추수감사절<br><b>감사의 쌀 나눔</b></div>
+<div class="rule"></div>
+<div class="title">
+  <div class="l1">추수감사절</div>
+  <div class="l2">감사의 쌀 나눔</div>
+</div>
 <div class="subtitle">중종로공동체 · 순별 입금 현황</div>
 <div class="footer-tag">jjr-jonggangye-2026.github.io</div>
 <div class="verse">"지극히 작은 것 하나에 한 것도<br>내게 한 것이니라" (마 25:40)</div>
