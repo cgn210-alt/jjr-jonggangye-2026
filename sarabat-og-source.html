@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:630px; overflow:hidden; }
+  body {
+    font-family:'Noto Sans KR', sans-serif;
+    position:relative;
+    background:
+      radial-gradient(ellipse 900px 500px at 78% 15%, rgba(255,199,120,0.35) 0%, rgba(255,199,120,0) 60%),
+      linear-gradient(155deg, #2a1509 0%, #5a2f12 35%, #8a4a17 68%, #b5701f 100%);
+  }
+  .frame {
+    position:absolute; inset:22px;
+    border:2px solid rgba(255,217,138,0.45);
+    border-radius:18px;
+  }
+  .pill {
+    position:absolute; top:56px; left:64px;
+    font-size:17px; font-weight:700; letter-spacing:0.22em;
+    color:#3d2211; background:#ffd98a;
+    padding:8px 20px; border-radius:30px;
+  }
+  .title {
+    position:absolute; top:118px; left:64px;
+    font-size:64px; font-weight:900; color:#fff8ec;
+    line-height:1.28; text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  }
+  .title b { color:#ffcf5c; }
+  .subtitle {
+    position:absolute; top:340px; left:64px;
+    font-size:24px; font-weight:500; color:#f3d9b6;
+  }
+  .footer-tag {
+    position:absolute; bottom:52px; left:64px;
+    font-size:18px; font-weight:700; color:#f3caa0;
+    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+    padding:7px 18px; border-radius:24px;
+  }
+  .verse {
+    position:absolute; top:60px; right:64px;
+    font-size:15px; color:#e8c9a0; font-style:italic; text-align:right;
+    max-width:320px; line-height:1.6;
+  }
+  svg { position:absolute; }
+</style>
+</head>
+<body>
+
+<div class="frame"></div>
+
+<!-- 벼 이삭 (배경 우상단) -->
+<svg width="360" height="360" viewBox="0 0 360 360" style="top:-40px; right:-30px; opacity:0.28;">
+  <g stroke="#ffd98a" stroke-width="4" stroke-linecap="round" fill="none">
+    <path d="M80 340 C 100 240, 120 180, 110 80" />
+    <path d="M180 340 C 190 220, 200 140, 190 40" />
+    <path d="M280 340 C 290 250, 300 190, 290 90" />
+  </g>
+  <g fill="#ffd98a">
+    <ellipse cx="104" cy="100" rx="12" ry="20" transform="rotate(-20 104 100)"/>
+    <ellipse cx="120" cy="130" rx="12" ry="20" transform="rotate(15 120 130)"/>
+    <ellipse cx="96" cy="160" rx="12" ry="20" transform="rotate(-10 96 160)"/>
+    <ellipse cx="184" cy="60" rx="12" ry="20" transform="rotate(-20 184 60)"/>
+    <ellipse cx="200" cy="90" rx="12" ry="20" transform="rotate(15 200 90)"/>
+    <ellipse cx="176" cy="120" rx="12" ry="20" transform="rotate(-10 176 120)"/>
+    <ellipse cx="284" cy="110" rx="12" ry="20" transform="rotate(-20 284 110)"/>
+    <ellipse cx="300" cy="140" rx="12" ry="20" transform="rotate(15 300 140)"/>
+    <ellipse cx="276" cy="170" rx="12" ry="20" transform="rotate(-10 276 170)"/>
+  </g>
+</svg>
+
+<!-- 호박 -->
+<svg width="200" height="172" viewBox="0 0 150 130" style="bottom:22px; left:640px;">
+  <ellipse cx="75" cy="80" rx="68" ry="46" fill="#d9711f"/>
+  <path d="M20 80 Q75 40 130 80" stroke="#b5560f" stroke-width="4" fill="none"/>
+  <path d="M20 82 Q75 122 130 82" stroke="#b5560f" stroke-width="4" fill="none"/>
+  <path d="M75 34 Q75 80 75 126" stroke="#b5560f" stroke-width="4" fill="none"/>
+  <rect x="66" y="10" width="18" height="28" rx="6" fill="#6b4a1f"/>
+  <path d="M84 20 Q104 8 100 26" stroke="#4d7a2c" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
+
+<!-- 감 -->
+<svg width="150" height="164" viewBox="0 0 110 120" style="bottom:20px; left:862px;">
+  <ellipse cx="55" cy="66" rx="46" ry="42" fill="#e8722c"/>
+  <g fill="#7a4a1c">
+    <path d="M55 24 L63 40 L47 40 Z"/>
+    <path d="M55 24 L70 32 L58 44 Z"/>
+    <path d="M55 24 L40 32 L52 44 Z"/>
+    <path d="M55 24 L68 20 L62 38 Z"/>
+    <path d="M55 24 L42 20 L48 38 Z"/>
+  </g>
+  <rect x="52" y="14" width="6" height="14" rx="2" fill="#4d7a2c"/>
+</svg>
+
+<!-- 포도 -->
+<svg width="170" height="198" viewBox="0 0 120 140" style="bottom:14px; left:1000px;">
+  <g fill="#6b3fa0">
+    <circle cx="60" cy="40" r="14"/>
+    <circle cx="45" cy="58" r="14"/>
+    <circle cx="75" cy="58" r="14"/>
+    <circle cx="35" cy="80" r="14"/>
+    <circle cx="60" cy="80" r="14"/>
+    <circle cx="85" cy="80" r="14"/>
+    <circle cx="48" cy="100" r="14"/>
+    <circle cx="72" cy="100" r="14"/>
+    <circle cx="60" cy="118" r="14"/>
+  </g>
+  <path d="M60 26 Q80 10 96 22" stroke="#4d7a2c" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M96 22 Q108 16 110 30 Q104 34 96 22" fill="#4d7a2c"/>
+</svg>
+
+<!-- 낙엽 장식 -->
+<svg width="40" height="40" viewBox="0 0 46 46" style="top:250px; left:560px; opacity:0.6; transform:rotate(18deg);">
+  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="#d9711f"/>
+  <path d="M23 6 L23 40" stroke="#8a4a17" stroke-width="2"/>
+</svg>
+<svg width="30" height="30" viewBox="0 0 46 46" style="top:180px; right:420px; opacity:0.55; transform:rotate(-24deg);">
+  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="#e8a23a"/>
+  <path d="M23 6 L23 40" stroke="#8a4a17" stroke-width="2"/>
+</svg>
+<svg width="26" height="26" viewBox="0 0 46 46" style="top:410px; left:620px; opacity:0.5; transform:rotate(8deg);">
+  <path d="M23 4 C34 10 40 22 23 42 C6 22 12 10 23 4Z" fill="#c0431f"/>
+  <path d="M23 6 L23 40" stroke="#8a4a17" stroke-width="2"/>
+</svg>
+
+<div class="pill">2026 사르밧 프로젝트</div>
+<div class="title">추수감사절<br><b>감사의 쌀 나눔</b></div>
+<div class="subtitle">중종로공동체 · 순별 입금 현황</div>
+<div class="footer-tag">jjr-jonggangye-2026.github.io</div>
+<div class="verse">"지극히 작은 것 하나에 한 것도<br>내게 한 것이니라" (마 25:40)</div>
+
+</body>
+</html>
