@@ -17,16 +17,25 @@
       line-height: 1.5;
     }
 
-    header {
-      background: linear-gradient(135deg, #6b3a1e 0%, #a5651f 100%);
-      color: white;
-      padding: 18px 24px 16px;
+    /* ── 히어로 배너 (썸네일) ── */
+    .hero { max-width: 1100px; margin: 0 auto; padding: 16px 16px 0; }
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #3d2211 0%, #6b3a1e 45%, #a5651f 100%);
+      border-radius: 16px;
+      padding: 22px 22px 24px;
+      color: #fff8ec;
     }
-    .header-inner { max-width: 1100px; margin: 0 auto; }
-    header a { color: #fde3b8; text-decoration: none; font-size: 12px; }
-    header a:hover { text-decoration: underline; }
-    header h1 { font-size: 20px; font-weight: 900; margin-top: 4px; }
-    header .subtitle { font-size: 12px; color: #fbe3c2; margin-top: 2px; }
+    .hero-deco { position: absolute; right: -10px; bottom: -14px; opacity: 0.4; pointer-events: none; }
+    .hero-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; position: relative; z-index: 1; }
+    .hero-back { color: #f3caa0; text-decoration: none; font-size: 12px; }
+    .hero-back:hover { text-decoration: underline; }
+    .hero-pill { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 4px 12px; border-radius: 20px; }
+    .hero-label { font-size: 11px; letter-spacing: 0.2em; color: #f3caa0; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; position: relative; z-index: 1; }
+    .hero-title { font-size: 24px; font-weight: 900; line-height: 1.35; margin-bottom: 8px; position: relative; z-index: 1; }
+    .hero-title b { color: #ffd98a; }
+    .hero-sub { font-size: 12.5px; color: #f0dcc0; position: relative; z-index: 1; max-width: 70%; }
 
     /* ── 안내 카드 ── */
     .notice {
@@ -215,13 +224,35 @@
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="./index.html">← 홈으로 돌아가기</a>
-    <h1>2026 사르밧 프로젝트 · 추수감사절 감사의 쌀 나눔</h1>
-    <div class="subtitle">중종로공동체 순별 입금 현황 (실시간)</div>
+<div class="hero">
+  <div class="hero-card">
+    <svg class="hero-deco" width="170" height="170" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#ffd98a" stroke-width="2" stroke-linecap="round">
+        <path d="M40 170 C 50 120, 60 90, 55 40" />
+        <path d="M90 170 C 95 110, 100 70, 95 20" />
+        <path d="M140 170 C 145 125, 150 95, 145 45" />
+      </g>
+      <g fill="#ffd98a">
+        <ellipse cx="52" cy="50" rx="6" ry="10" transform="rotate(-20 52 50)"/>
+        <ellipse cx="60" cy="65" rx="6" ry="10" transform="rotate(15 60 65)"/>
+        <ellipse cx="48" cy="80" rx="6" ry="10" transform="rotate(-10 48 80)"/>
+        <ellipse cx="92" cy="30" rx="6" ry="10" transform="rotate(-20 92 30)"/>
+        <ellipse cx="100" cy="45" rx="6" ry="10" transform="rotate(15 100 45)"/>
+        <ellipse cx="88" cy="60" rx="6" ry="10" transform="rotate(-10 88 60)"/>
+        <ellipse cx="142" cy="55" rx="6" ry="10" transform="rotate(-20 142 55)"/>
+        <ellipse cx="150" cy="70" rx="6" ry="10" transform="rotate(15 150 70)"/>
+        <ellipse cx="138" cy="85" rx="6" ry="10" transform="rotate(-10 138 85)"/>
+      </g>
+    </svg>
+    <div class="hero-top">
+      <a href="./index.html" class="hero-back">← 홈으로 돌아가기</a>
+      <span class="hero-pill">중종로공동체</span>
+    </div>
+    <div class="hero-label">2026 사르밧 프로젝트</div>
+    <div class="hero-title">추수감사절 <b>감사의 쌀 나눔</b></div>
+    <div class="hero-sub">순별 입금 현황 (실시간) · 하나님의 풍성한 은혜를 이웃과 함께 나눕니다</div>
   </div>
-</header>
+</div>
 
 <div class="notice">
   <div class="notice-card">
@@ -237,8 +268,8 @@
 
 <div class="summary-bar">
   <div class="summary-card total">
-    <div class="num" id="totalPaid">0 / 34개 순</div>
-    <div class="label">전체 입금 현황</div>
+    <div class="num" id="totalPercent">0%</div>
+    <div class="label">목표 달성률 · <span id="totalPaid">0/34개 순 입금완료</span></div>
     <div class="progress-track"><div class="progress-fill" id="totalProgress" style="width:0%;"></div></div>
   </div>
   <div class="summary-row3">
@@ -322,6 +353,7 @@ var DARAKBANG = [
 
 function sunKey(subKey, no) { return subKey + '-' + no; }
 function depositTag(groupKey, no) { return '중종로' + groupKey + no; }
+function firstName(leader) { return leader.split(',')[0].trim(); }
 
 // ── 렌더링 ──────────────────────────────────────
 function render(paidMap) {
@@ -369,7 +401,7 @@ function render(paidMap) {
           var paid = !!paidMap[sunKey(sub.key, sun.no)];
           return '<tr>' +
             '<td>' + sun.no + '</td>' +
-            '<td class="leader">' + sun.leader + '</td>' +
+            '<td class="leader">' + firstName(sun.leader) + '</td>' +
             '<td class="tag">' + depositTag(group.key, sun.no) + '</td>' +
             '<td><span class="status-badge ' + (paid ? 'paid' : 'unpaid') + '">' + (paid ? '입금완료' : '입금대기') + '</span></td>' +
           '</tr>';
@@ -382,8 +414,10 @@ function render(paidMap) {
     container.appendChild(block);
   });
 
-  document.getElementById('totalPaid').textContent = grandPaid + ' / ' + grandTotal + '개 순';
-  document.getElementById('totalProgress').style.width = (grandTotal ? (grandPaid / grandTotal * 100) : 0) + '%';
+  var totalPct = grandTotal ? Math.round(grandPaid / grandTotal * 100) : 0;
+  document.getElementById('totalPercent').textContent = totalPct + '%';
+  document.getElementById('totalPaid').textContent = grandPaid + '/' + grandTotal + '개 순 입금완료';
+  document.getElementById('totalProgress').style.width = totalPct + '%';
   document.getElementById('faithPaid').textContent = groupStat['믿음'].paid + '/' + groupStat['믿음'].total;
   document.getElementById('hopePaid').textContent  = groupStat['소망'].paid + '/' + groupStat['소망'].total;
   document.getElementById('lovePaid').textContent  = groupStat['사랑'].paid + '/' + groupStat['사랑'].total;

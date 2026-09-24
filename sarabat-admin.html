@@ -78,7 +78,7 @@
   <div class="admin-header">
     <div>
       <div class="admin-header-title">사르밧 쌀 나눔 관리자</div>
-      <div class="admin-header-sub">클릭하면 현황판에 즉시 반영됩니다</div>
+      <div class="admin-header-sub">입금이 확인되면 아래 순을 눌러 체크하세요 — 현황판에 즉시 반영됩니다</div>
     </div>
     <button class="btn-logout" onclick="doLogout()">로그아웃</button>
   </div>
@@ -89,7 +89,7 @@
   </div>
 
   <div class="summary-bar">
-    <div class="summary-chip"><div class="n" id="sumTotal">0/34</div><div class="l">전체</div></div>
+    <div class="summary-chip"><div class="n" id="sumTotal">0/34</div><div class="l" id="sumTotalPct">목표 달성률 0%</div></div>
     <div class="summary-chip"><div class="n" id="sumFaith">0/12</div><div class="l">믿음</div></div>
     <div class="summary-chip"><div class="n" id="sumHope">0/7</div><div class="l">소망</div></div>
     <div class="summary-chip"><div class="n" id="sumLove">0/15</div><div class="l">사랑</div></div>
@@ -168,6 +168,7 @@ var DARAKBANG = [
 
 function sunKey(subKey, no) { return subKey + '-' + no; }
 function depositTag(groupKey, no) { return '중종로' + groupKey + no; }
+function firstName(leader) { return leader.split(',')[0].trim(); }
 
 var _dbRef = null;
 var _paidMap = {};
@@ -266,7 +267,7 @@ function renderAdmin() {
         row.innerHTML =
           '<div class="sun-no">' + sun.no + '</div>' +
           '<div class="sun-info">' +
-            '<div class="sun-leader">' + sun.leader + '</div>' +
+            '<div class="sun-leader">' + firstName(sun.leader) + '</div>' +
             '<div class="sun-tag">' + depositTag(group.key, sun.no) + '</div>' +
           '</div>' +
           '<button class="toggle-btn ' + (paid ? 'paid' : 'unpaid') + '" data-key="' + key + '">' +
@@ -284,6 +285,7 @@ function renderAdmin() {
   });
 
   document.getElementById('sumTotal').textContent = grandPaid + '/' + grandTotal;
+  document.getElementById('sumTotalPct').textContent = '목표 달성률 ' + (grandTotal ? Math.round(grandPaid / grandTotal * 100) : 0) + '%';
   document.getElementById('sumFaith').textContent = groupStat['믿음'].paid + '/' + groupStat['믿음'].total;
   document.getElementById('sumHope').textContent  = groupStat['소망'].paid + '/' + groupStat['소망'].total;
   document.getElementById('sumLove').textContent  = groupStat['사랑'].paid + '/' + groupStat['사랑'].total;
