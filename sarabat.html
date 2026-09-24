@@ -201,15 +201,8 @@
     td.leader { font-weight: 700; color: #1e40af; }
     td.tag { color: #6b3a1e; font-family: 'Courier New', monospace; font-weight: 700; }
 
-    .status-badge {
-      display: inline-block;
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-    .status-badge.paid { background: #dcfce7; color: #15803d; }
-    .status-badge.unpaid { background: #f3f4f6; color: #9ca3af; }
+    td.status-cell { text-align: center; }
+    .rice-icon { display: inline-block; vertical-align: middle; }
 
     footer {
       text-align: center;
@@ -360,6 +353,21 @@ function sunKey(subKey, no) { return subKey + '-' + no; }
 function depositTag(groupKey, no) { return '중종로' + groupKey + no; }
 function firstName(leader) { return leader.split(',')[0].trim(); }
 
+// 입금완료 시 표시하는 벼(익어서 고개 숙인 벼이삭) 아이콘. 미입금은 빈 칸.
+var RICE_ICON =
+  '<svg class="rice-icon" width="26" height="26" viewBox="0 0 40 40" role="img" aria-label="입금완료">' +
+    '<path d="M18 38 C18 24 18 16 24 11" stroke="#5a8f3c" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
+    '<path d="M18 36 L11 31" stroke="#5a8f3c" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+    '<g fill="#d9a628">' +
+      '<ellipse cx="25" cy="9"  rx="2.6" ry="4.2" transform="rotate(-55 25 9)"/>' +
+      '<ellipse cx="28" cy="13" rx="2.6" ry="4.2" transform="rotate(-35 28 13)"/>' +
+      '<ellipse cx="29" cy="18" rx="2.6" ry="4.2" transform="rotate(-15 29 18)"/>' +
+      '<ellipse cx="29" cy="23" rx="2.6" ry="4.2" transform="rotate(5 29 23)"/>' +
+      '<ellipse cx="27" cy="27" rx="2.6" ry="4.2" transform="rotate(25 27 27)"/>' +
+      '<ellipse cx="24" cy="30" rx="2.6" ry="4.2" transform="rotate(45 24 30)"/>' +
+    '</g>' +
+  '</svg>';
+
 // ── 렌더링 ──────────────────────────────────────
 function render(paidMap) {
   paidMap = paidMap || {};
@@ -400,7 +408,7 @@ function render(paidMap) {
 
       var table = document.createElement('table');
       table.innerHTML =
-        '<thead><tr><th>순</th><th>순장</th><th>입금자명 표시</th><th>상태</th></tr></thead>' +
+        '<thead><tr><th>순</th><th>순장</th><th>입금자명 표시</th><th>입금</th></tr></thead>' +
         '<tbody>' +
         sub.suns.map(function(sun) {
           var paid = !!paidMap[sunKey(sub.key, sun.no)];
@@ -408,7 +416,7 @@ function render(paidMap) {
             '<td>' + sun.no + '</td>' +
             '<td class="leader">' + firstName(sun.leader) + '</td>' +
             '<td class="tag">' + depositTag(group.key, sun.no) + '</td>' +
-            '<td><span class="status-badge ' + (paid ? 'paid' : 'unpaid') + '">' + (paid ? '입금완료' : '입금대기') + '</span></td>' +
+            '<td class="status-cell">' + (paid ? RICE_ICON : '') + '</td>' +
           '</tr>';
         }).join('') +
         '</tbody>';
