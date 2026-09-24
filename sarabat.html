@@ -177,10 +177,10 @@
     .sub-header.love-sub  { background: #fce7f3; color: #9d174d; border-left: 4px solid #be185d; }
     .sub-header .leader-tag { font-size: 11px; font-weight: 500; color: #666; }
 
-    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     thead tr { background: #f9fafb; }
     th {
-      padding: 7px 10px;
+      padding: 7px 6px;
       font-size: 11px;
       font-weight: 700;
       color: #888;
@@ -188,21 +188,36 @@
       border-bottom: 1px solid #e5e7eb;
       white-space: nowrap;
     }
-    th:nth-child(1) { width: 40px; text-align: center; }
+    th:nth-child(1) { width: 26px; text-align: center; }
+    th:nth-child(4) { width: 40px; text-align: center; }
     td {
-      padding: 7px 10px;
+      padding: 7px 6px;
       font-size: 12px;
       border-bottom: 1px solid #f3f4f6;
       vertical-align: middle;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     tr:last-child td { border-bottom: none; }
     td:nth-child(1) { text-align: center; font-weight: 700; color: #aaa; }
     td.leader { font-weight: 700; color: #1e40af; }
-    td.tag { color: #6b3a1e; font-family: 'Courier New', monospace; font-weight: 700; }
+    td.tag { color: #6b3a1e; font-family: 'Courier New', monospace; font-weight: 700; font-size: 11px; }
 
     td.status-cell { text-align: center; }
-    .rice-icon { display: inline-block; vertical-align: middle; }
+    .paid-mark {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #16a34a; color: #fff; font-size: 12px; font-weight: 900; line-height: 1;
+    }
+
+    @media (max-width: 600px) {
+      th, td { padding: 6px 4px; font-size: 11px; }
+      td.tag { font-size: 9.5px; }
+      th:nth-child(1) { width: 22px; }
+      th:nth-child(4) { width: 32px; }
+      .paid-mark { width: 16px; height: 16px; font-size: 10px; }
+    }
 
     footer {
       text-align: center;
@@ -353,20 +368,8 @@ function sunKey(subKey, no) { return subKey + '-' + no; }
 function depositTag(groupKey, no) { return '중종로' + groupKey + no; }
 function firstName(leader) { return leader.split(',')[0].trim(); }
 
-// 입금완료 시 표시하는 벼(익어서 고개 숙인 벼이삭) 아이콘. 미입금은 빈 칸.
-var RICE_ICON =
-  '<svg class="rice-icon" width="26" height="26" viewBox="0 0 40 40" role="img" aria-label="입금완료">' +
-    '<path d="M18 38 C18 24 18 16 24 11" stroke="#5a8f3c" stroke-width="2.6" fill="none" stroke-linecap="round"/>' +
-    '<path d="M18 36 L11 31" stroke="#5a8f3c" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-    '<g fill="#d9a628">' +
-      '<ellipse cx="25" cy="9"  rx="2.6" ry="4.2" transform="rotate(-55 25 9)"/>' +
-      '<ellipse cx="28" cy="13" rx="2.6" ry="4.2" transform="rotate(-35 28 13)"/>' +
-      '<ellipse cx="29" cy="18" rx="2.6" ry="4.2" transform="rotate(-15 29 18)"/>' +
-      '<ellipse cx="29" cy="23" rx="2.6" ry="4.2" transform="rotate(5 29 23)"/>' +
-      '<ellipse cx="27" cy="27" rx="2.6" ry="4.2" transform="rotate(25 27 27)"/>' +
-      '<ellipse cx="24" cy="30" rx="2.6" ry="4.2" transform="rotate(45 24 30)"/>' +
-    '</g>' +
-  '</svg>';
+// 입금완료 시 표시하는 체크 표식. 미입금은 빈 칸.
+var PAID_MARK = '<span class="paid-mark" role="img" aria-label="입금완료">&#10003;</span>';
 
 // ── 렌더링 ──────────────────────────────────────
 function render(paidMap) {
@@ -416,7 +419,7 @@ function render(paidMap) {
             '<td>' + sun.no + '</td>' +
             '<td class="leader">' + firstName(sun.leader) + '</td>' +
             '<td class="tag">' + depositTag(group.key, sun.no) + '</td>' +
-            '<td class="status-cell">' + (paid ? RICE_ICON : '') + '</td>' +
+            '<td class="status-cell">' + (paid ? PAID_MARK : '') + '</td>' +
           '</tr>';
         }).join('') +
         '</tbody>';
