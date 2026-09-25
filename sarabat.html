@@ -278,7 +278,7 @@
 <div class="summary-bar">
   <div class="summary-card total">
     <div class="num" id="totalPercent">0%</div>
-    <div class="label">목표 달성률 · <span id="totalPaid">0/34개 순 입금완료</span></div>
+    <div class="label">목표 달성률 · <span id="totalPaid">34개 순 / 0개 순 입금완료</span></div>
     <div class="progress-track"><div class="progress-fill" id="totalProgress" style="width:0%;"></div></div>
   </div>
   <div class="summary-row3">
@@ -428,7 +428,7 @@ function render(paidMap) {
 
   var totalPct = grandTotal ? Math.round(grandPaid / grandTotal * 100) : 0;
   document.getElementById('totalPercent').textContent = totalPct + '%';
-  document.getElementById('totalPaid').textContent = grandPaid + '/' + grandTotal + '개 순 입금완료';
+  document.getElementById('totalPaid').textContent = grandTotal + '개 순 / ' + grandPaid + '개 순 입금완료';
   document.getElementById('totalProgress').style.width = totalPct + '%';
   document.getElementById('faithPaid').textContent = groupStat['믿음'].paid + '/' + groupStat['믿음'].total;
   document.getElementById('hopePaid').textContent  = groupStat['소망'].paid + '/' + groupStat['소망'].total;
