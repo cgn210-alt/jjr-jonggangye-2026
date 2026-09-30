@@ -320,7 +320,7 @@ async function loadPrayers(){
   let hadCache=false;
   try{
     const cached=localStorage.getItem('sunmoim_prayers_'+wk);
-    if(cached){ const list=JSON.parse(cached); renderPrayers(list); hadCache=true; if(cnt) cnt.textContent=prayerCountText(list); }
+    if(cached){ const list=dedupePrayers(JSON.parse(cached)); renderPrayers(list); hadCache=true; if(cnt) cnt.textContent=prayerCountText(list); }
   }catch(e){}
   if(cnt && !hadCache) cnt.textContent='불러오는 중…';
   // 2) 서버에서 최신으로 갱신
@@ -331,7 +331,7 @@ async function loadPrayers(){
       if(!hadCache){ renderPrayers([]); if(cnt) cnt.textContent='서버 준비 중입니다(백엔드 배포 필요). 순장에게 문의해 주세요.'; }
       return;
     }
-    const list=(res&&res.prayers)||[];
+    const list=dedupePrayers((res&&res.prayers)||[]);
     renderPrayers(list);
     try{ localStorage.setItem('sunmoim_prayers_'+wk, JSON.stringify(list)); }catch(e){}
     if(cnt) cnt.textContent=prayerCountText(list);
@@ -339,9 +339,15 @@ async function loadPrayers(){
     if(myId===_prayerLoadId && !hadCache && cnt) cnt.textContent='목록을 불러오지 못했습니다. ↻ 새로고침을 눌러 주세요.';
   }
 }
+function dedupePrayers(list){
+  const seen={}, uniq=[];
+  (list||[]).forEach(p=>{ const k=(p.name||'').trim()+'|'+(p.text||'').replace(/\s+/g,' ').trim(); if(seen[k]) return; seen[k]=1; uniq.push(p); });
+  return uniq;
+}
 function renderPrayers(list){
   const ul=document.getElementById('prayerList');
   if(!ul) return;
+  list=dedupePrayers(list);
   ul.innerHTML='';
   list.forEach(p=>{
     const li=document.createElement('li'); li.className='pli';
