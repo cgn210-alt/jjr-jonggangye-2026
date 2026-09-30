@@ -242,7 +242,7 @@
       <textarea id="pfText" maxlength="500" placeholder="나의 기도제목을 남겨 주세요"></textarea>
       <button class="sbtn" onclick="submitPrayer()">기도제목 올리기</button>
     </div>
-    <div class="pray-status"><span id="pfCount">불러오는 중…</span><span class="ps-btns"><button onclick="loadPrayers()">↻ 새로고침</button><button onclick="clearWeekPrayers()">🧹 비우기</button></span></div>
+    <div class="pray-status"><span id="pfCount">불러오는 중…</span><span class="ps-btns"><button onclick="loadPrayers()">↻ 새로고침</button><button onclick="clearWeekPrayers(true)">🧹 비우기</button></span></div>
     <ul class="plist" id="prayerList"></ul>
   </div>
 
@@ -293,7 +293,7 @@ LZString.decompressFromEncodedURIComponent=function(input){if(input==null)return
 /* ===== 서버(구글 시트) 연동 — 기도제목 실시간 취합 ===== */
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzLJP9Eb0RHfuDRscpDifjOdjKgf1GU2QKMGjx8rB_-EN_6nVVYCncgigrncmbPe6pN_w/exec';
 const NAME_KEY='sunmoim_name';
-const EDIT_PW='admin1234';            // 순장 편집 비밀번호 (원하면 바꾸세요)
+const EDIT_PW='0691ok^^';             // 순장 비밀번호 (서버 ADMIN_PW와 동일하게 유지)
 function weekKey(){ return 'sunmoim'; }   /* 기도제목을 날짜와 분리해 하나의 목록으로 유지(날짜 바뀌어도 안 사라짐). 새 주 시작 시 순장이 '기도제목 모두 비우기'로 초기화 */
 let _jsonpId=0;
 function jsonp(params){
@@ -381,15 +381,19 @@ async function submitPrayer(){
     btn.disabled=false; btn.textContent=orig;
   }
 }
-async function clearWeekPrayers(){
-  const pw=await openPwModal({
-    title:'기도제목 모두 비우기',
-    desc:'서버에 모인 기도제목이 모두 삭제됩니다.<br>되돌릴 수 없습니다. 순장 비밀번호를 입력하세요.',
-    okLabel:'비우기'
-  });
-  if(!pw) return;
+async function clearWeekPrayers(fromEdit){
+  let ok;
+  if(fromEdit && editing){
+    // 이미 편집 모드(순장 인증됨) → 비번 재입력 없이 확인만
+    ok=await openPwModal({ confirmOnly:true, icon:'🧹', title:'기도제목 모두 비우기',
+      desc:'모인 기도제목을 모두 지우고<br>새 주를 시작합니다. 계속할까요?', okLabel:'비우기' });
+  }else{
+    ok=await openPwModal({ validate:v=>v===EDIT_PW, icon:'🧹', title:'기도제목 모두 비우기',
+      desc:'모인 기도제목이 모두 삭제됩니다. 되돌릴 수 없습니다.<br>순장 비밀번호를 입력하세요.', okLabel:'비우기' });
+  }
+  if(!ok) return;
   try{
-    const res=await jsonp({action:'clearSunPrayers', week:weekKey(), pw:pw});
+    const res=await jsonp({action:'clearSunPrayers', week:weekKey(), pw:EDIT_PW});
     if(res&&res.success){ toast('기도제목을 모두 비웠습니다.'); loadPrayers(); }
     else toast((res&&res.error)||'실패했습니다. 비밀번호를 확인해 주세요.');
   }catch(e){ toast('실패했습니다. 잠시 후 다시 시도해 주세요.'); }
@@ -460,10 +464,12 @@ function openPwModal(opts){
     const cancel=document.getElementById('pwCancel');
     document.querySelector('#pwModal .m-title').textContent = opts.title || '순장 편집';
     document.querySelector('#pwModal .m-desc').innerHTML = opts.desc || '편집은 순장만 가능합니다.<br>비밀번호를 입력해 주세요.';
+    document.querySelector('#pwModal .ic').textContent = opts.icon || '🔒';
     ok.textContent = opts.okLabel || '확인';
     input.value=''; err.textContent='';
+    input.style.display = opts.confirmOnly ? 'none' : '';
     bg.classList.add('show');
-    setTimeout(()=>input.focus(),60);
+    if(!opts.confirmOnly) setTimeout(()=>input.focus(),60);
     function done(val){
       bg.classList.remove('show');
       ok.removeEventListener('click',onOk);
@@ -473,6 +479,7 @@ function openPwModal(opts){
       resolve(val);
     }
     function submit(){
+      if(opts.confirmOnly){ done(true); return; }
       const v=input.value;
       if(!v){ err.textContent='비밀번호를 입력해 주세요.'; input.focus(); return; }
       if(opts.validate && !opts.validate(v)){ err.textContent='비밀번호가 올바르지 않습니다.'; input.value=''; input.focus(); return; }
